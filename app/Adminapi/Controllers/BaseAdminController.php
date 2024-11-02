@@ -6,6 +6,14 @@ use App\Common\Controllers\BaseLikeAdminController;
 
 class BaseAdminController extends BaseLikeAdminController
 {
-    protected int $adminId = 0; // todo 暂时先从请求上下文获取
-    protected array $adminInfo = [];
+    protected function getAdminId()
+    {
+        return $this->request->attributes->get('adminId');
+    }
+
+    protected function getAdminInfo()
+    {
+        return $this->request->attributes->get('adminInfo');
+    }
+
 }

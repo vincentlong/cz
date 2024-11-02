@@ -3,9 +3,16 @@
 namespace App\Common\Controllers;
 
 use App\Common\Services\JsonService;
+use Illuminate\Http\Request;
 
 class BaseLikeAdminController
 {
+    protected Request $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
 
     public array $notNeedLogin = [];
 
