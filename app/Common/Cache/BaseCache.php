@@ -35,6 +35,11 @@ abstract class BaseCache extends Cache
         return self::store()->tags($this->tagName)->delete($key);
     }
 
+    public function inc($key, $value = 1): int
+    {
+        return self::store()->tags($this->tagName)->increment($key, $value);
+    }
+
     public function deleteTag(): bool
     {
         return self::store()->tags($this->tagName)->flush();

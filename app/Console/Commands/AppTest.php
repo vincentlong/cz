@@ -2,12 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Common\Cache\BarCache;
-use App\Common\Cache\FooCache;
-use App\Models\Admin;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
 
 class AppTest extends Command
 {
@@ -30,6 +26,9 @@ class AppTest extends Command
      */
     public function handle()
     {
-        dd(Config::get('project.version'));
+        dump($salt = env('project_unique_identification', 'likeadmin'));
+        $passwordSalt = Config::get('project.unique_identification');
+
+        dump($passwordSalt);
     }
 }

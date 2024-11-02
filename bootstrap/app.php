@@ -8,6 +8,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
+use App\Common\Services\JsonService;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -33,9 +34,6 @@ return Application::configure(basePath: dirname(__DIR__))
             return response()->json($e->getResData(), $e->getCode());
         });
         $exceptions->render(function (ValidationException $e) {
-            return response()->json([
-                'msg' => $e->validator->errors()->first(),
-                'success' => false
-            ]);
+            return JsonService::throw($e->validator->errors()->first());
         });
     })->create();

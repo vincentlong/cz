@@ -3,6 +3,7 @@
 namespace App\Adminapi\Controllers;
 
 use App\Adminapi\Logic\LoginLogic;
+use App\Adminapi\Request\LoginRequest;
 use Illuminate\Http\Request;
 
 /**
@@ -16,7 +17,7 @@ class LoginController extends BaseAdminController
     /**
      * @notes 账号登录
      */
-    public function account(Request $request)
+    public function account(LoginRequest $request)
     {
         $params = $request->all();
         return $this->data((new LoginLogic())->login($params));
