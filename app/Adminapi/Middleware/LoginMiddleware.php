@@ -52,9 +52,6 @@ class LoginMiddleware
         //给request赋值，用于控制器
         $request->attributes->set('adminInfo', $adminInfo);
         $request->attributes->set('adminId', $adminInfo['admin_id'] ?? 0);
-        // todo 暂时先从请求上下文获取
-//        $request->attributes->get('controllerObject')->adminInfo = $adminInfo;
-//        $request->attributes->get('controllerObject')->adminId = $adminInfo['admin_id'] ?? 0;
 
         return $next($request);
     }
