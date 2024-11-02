@@ -15,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::prefix('api')
                 ->group(app_path('Api/Routes/index.php'));
             Route::prefix('admin')
+                ->middleware([
+                   \App\Adminapi\Middlewares\InitMiddleware::class,
+                   \App\Adminapi\Middlewares\LoginMiddleware::class,
+                ])
                 ->group(app_path('Adminapi/Routes/index.php'));
             Route::prefix('/')
                 ->group(base_path('routes/web.php'));

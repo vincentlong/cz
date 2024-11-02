@@ -36,19 +36,19 @@ class BaseLikeAdminController
 //        return JsonService::dataLists($lists);
 //    }
 //
-//    public function isNotNeedLogin() : bool
-//    {
-//        $notNeedLogin = $this->notNeedLogin;
-//        if (empty($notNeedLogin)) {
-//            return false;
-//        }
-//        $action = $this->request->action();
-//
-//        if (!in_array(trim($action), $notNeedLogin)) {
-//            return false;
-//        }
-//        return true;
-//    }
+
+    public function isNotNeedLogin(): bool
+    {
+        $notNeedLogin = $this->notNeedLogin;
+        if (empty($notNeedLogin)) {
+            return false;
+        }
+        $action = request()->route()->getActionMethod();
+        if (!in_array(trim($action), $notNeedLogin)) {
+            return false;
+        }
+        return true;
+    }
 
 
 }

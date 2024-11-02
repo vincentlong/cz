@@ -6,6 +6,8 @@ use Illuminate\Http\JsonResponse;
 
 class IndexController extends BaseAdminController
 {
+//    public array $notNeedLogin = ['index'];
+
     public function index(): JsonResponse
     {
         return $this->data([
