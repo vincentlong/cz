@@ -1,31 +1,19 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
-namespace app\adminapi\logic\auth;
+namespace App\Adminapi\Logic\Auth;
 
-use app\common\cache\AdminAuthCache;
-use app\common\enum\YesNoEnum;
-use app\common\logic\BaseLogic;
-use app\common\model\auth\Admin;
-use app\common\model\auth\AdminDept;
-use app\common\model\auth\AdminJobs;
-use app\common\model\auth\AdminRole;
-use app\common\model\auth\AdminSession;
-use app\common\cache\AdminTokenCache;
-use app\common\service\FileService;
-use think\facade\Config;
-use think\facade\Db;
+use App\Common\Cache\AdminAuthCache;
+use App\Common\Cache\AdminTokenCache;
+use App\Common\Enum\YesNoEnum;
+use App\Common\Logic\BaseLogic;
+use App\Common\Model\Auth\Admin;
+use App\Common\Model\Auth\AdminDept;
+use App\Common\Model\Auth\AdminJobs;
+use App\Common\Model\Auth\AdminRole;
+use App\Common\Model\Auth\AdminSession;
+use App\Common\Service\FileService;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 
 /**
  * 管理员逻辑
@@ -43,7 +31,7 @@ class AdminLogic extends BaseLogic
      */
     public static function add(array $params)
     {
-        Db::startTrans();
+        Db::beginTransaction();
         try {
             $passwordSalt = Config::get('project.unique_identification');
             $password = create_password($params['password'], $passwordSalt);
@@ -86,7 +74,7 @@ class AdminLogic extends BaseLogic
      */
     public static function edit(array $params): bool
     {
-        Db::startTrans();
+        Db::beginTransaction();
         try {
             // 基础信息
             $data = [
@@ -153,7 +141,7 @@ class AdminLogic extends BaseLogic
      */
     public static function delete(array $params): bool
     {
-        Db::startTrans();
+        Db::beginTransaction();
         try {
             $admin = Admin::findOrEmpty($params['id']);
             if ($admin->root == YesNoEnum::YES) {
@@ -221,10 +209,10 @@ class AdminLogic extends BaseLogic
      */
     public static function detail($params, $action = 'detail'): array
     {
-        $admin = Admin::field([
+        $admin = Admin::query()->select([
             'id', 'account', 'name', 'disable', 'root',
-            'multipoint_login', 'avatar', 'agent_id'
-        ])->findOrEmpty($params['id'])->toArray();
+            'multipoint_login', 'avatar'
+        ])->findOrFail($params['id'])->toArray();
 
         if ($action == 'detail') {
             return $admin;
@@ -233,7 +221,7 @@ class AdminLogic extends BaseLogic
         $result['user'] = $admin;
         // 当前管理员角色拥有的菜单
         $result['menu'] = MenuLogic::getMenuByAdminId($params['id']);
-        // 当前管理员橘色拥有的按钮权限
+        // 当前管理员角色拥有的按钮权限
         $result['permissions'] = AuthLogic::getBtnAuthByRoleId($admin);
         return $result;
     }

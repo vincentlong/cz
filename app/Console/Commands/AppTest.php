@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Common\Model\Auth\SystemMenu;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Config;
 
 class AppTest extends Command
 {
@@ -26,9 +26,14 @@ class AppTest extends Command
      */
     public function handle()
     {
-        dump($salt = env('project_unique_identification', 'likeadmin'));
-        $passwordSalt = Config::get('project.unique_identification');
-
-        dump($passwordSalt);
+        $query = SystemMenu::query()->where([
+            ['id', '>', 0],
+            ['id', '<', 10],
+//            ['type', ['in' =>  ['M', 'C']]], // 都不对
+//            ['type', 'in', ['M', 'C']], // 都不对
+        ]);
+        $query->whereIn('type', ['Cc','M']); // 正确
+        $res = $query->get(); // 正确
+        dd($res->pluck('id'));
     }
 }

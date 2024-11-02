@@ -3,6 +3,8 @@
 namespace App\Common\Model\Auth;
 
 use App\Common\Model\BaseModel;
+use App\Common\Service\FileService;
+use App\Common\Enum\YesNoEnum;
 
 class Admin extends BaseModel
 {
@@ -11,92 +13,92 @@ class Admin extends BaseModel
 //    use SoftDelete;
 //
 //    protected $deleteTime = 'delete_time';
-//
-//    protected $append = [
-//        'role_id',
-//        'dept_id',
-//        'jobs_id',
-//    ];
-//
-//
-//    /**
-//     * @notes 关联角色id
-//     * @param $value
-//     * @param $data
-//     * @return array
-//     * @author 段誉
-//     * @date 2022/11/25 15:00
-//     */
-//    public function getRoleIdAttr($value, $data)
-//    {
-//        return AdminRole::where('admin_id', $data['id'])->column('role_id');
-//    }
-//
-//
-//    /**
-//     * @notes 关联部门id
-//     * @param $value
-//     * @param $data
-//     * @return array
-//     * @author 段誉
-//     * @date 2022/11/25 15:00
-//     */
-//    public function getDeptIdAttr($value, $data)
-//    {
-//        return AdminDept::where('admin_id', $data['id'])->column('dept_id');
-//    }
-//
-//
-//    /**
-//     * @notes 关联岗位id
-//     * @param $value
-//     * @param $data
-//     * @return array
-//     * @author 段誉
-//     * @date 2022/11/25 15:01\
-//     */
-//    public function getJobsIdAttr($value, $data)
-//    {
-//        return AdminJobs::where('admin_id', $data['id'])->column('jobs_id');
-//    }
-//
-//
-//
-//    /**
-//     * @notes 获取禁用状态
-//     * @param $value
-//     * @param $data
-//     * @return string|string[]
-//     * @author 令狐冲
-//     * @date 2021/7/7 01:25
-//     */
-//    public function getDisableDescAttr($value, $data)
-//    {
-//        return YesNoEnum::getDisableDesc($data['disable']);
-//    }
-//
-//    /**
-//     * @notes 最后登录时间获取器 - 格式化：年-月-日 时:分:秒
-//     * @param $value
-//     * @return string
-//     * @author Tab
-//     * @date 2021/7/13 11:35
-//     */
-//    public function getLoginTimeAttr($value)
-//    {
-//        return empty($value) ? '' : date('Y-m-d H:i:s', $value);
-//    }
-//
-//    /**
-//     * @notes 头像获取器 - 头像路径添加域名
-//     * @param $value
-//     * @return string
-//     * @author Tab
-//     * @date 2021/7/13 11:35
-//     */
-//    public function getAvatarAttr($value)
-//    {
-//        return empty($value) ? FileService::getFileUrl(config('project.default_image.admin_avatar')) : FileService::getFileUrl(trim($value, '/'));
-//    }
-//
+
+    protected $appends = [
+        'role_id',
+        'dept_id',
+        'jobs_id',
+    ];
+
+    /**
+     * @notes 关联角色id
+     * @return array
+     */
+    public function getRoleIdAttribute()
+    {
+        return $this->roles()->pluck('role_id')->toArray();
+    }
+
+    /**
+     * @notes 关联部门id
+     * @return array
+     */
+    public function getDeptIdAttribute()
+    {
+        return $this->departments()->pluck('dept_id')->toArray();
+    }
+
+    /**
+     * @notes 关联岗位id
+     * @return array
+     */
+    public function getJobsIdAttribute()
+    {
+        return $this->jobs()->pluck('jobs_id')->toArray();
+    }
+
+    /**
+     * @notes 获取禁用状态描述
+     * @return string
+     */
+    public function getDisableDescAttribute()
+    {
+        return YesNoEnum::getDisableDesc($this->attributes['disable']);
+    }
+
+    /**
+     * @notes 最后登录时间获取器 - 格式化：年-月-日 时:分:秒
+     * @return string
+     */
+    public function getLoginTimeAttribute()
+    {
+        return empty($this->attributes['login_time']) ? '' : date('Y-m-d H:i:s', $this->attributes['login_time']);
+    }
+
+    /**
+     * @notes 头像获取器 - 头像路径添加域名
+     * @return string
+     */
+    public function getAvatarAttribute()
+    {
+        return empty($this->attributes['avatar'])
+            ? FileService::getFileUrl(config('project.default_image.admin_avatar'))
+            : FileService::getFileUrl(trim($this->attributes['avatar'], '/'));
+    }
+
+    /**
+     * 角色关系
+     */
+    public function roles()
+    {
+        return $this->hasMany(AdminRole::class, 'admin_id');
+    }
+
+    /**
+     * 部门关系
+     */
+    public function departments()
+    {
+        return $this->hasMany(AdminDept::class, 'admin_id');
+    }
+
+    /**
+     * 岗位关系
+     */
+    public function jobs()
+    {
+        return $this->hasMany(AdminJobs::class, 'admin_id');
+    }
+
+
 }
