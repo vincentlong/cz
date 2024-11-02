@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Adminapi\Controllers\LoginController;
-
+use App\Adminapi\Controller\LoginController;
 
 Route::controller(LoginController::class)->group(function () {
     Route::post('/login/account', 'account');

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Common\Services;
+namespace App\Common\Service;
 
 use App\Common\Model\Config;
 

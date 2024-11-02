@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Adminapi\Controllers\IndexController;
+use App\Api\Controller\IndexController;
 
 // 获取 router 文件夹内的所有路由文件
 $directory = __DIR__;
@@ -12,7 +12,6 @@ foreach ($iterator as $file) {
         require $file->getRealPath();
     }
 }
-
 Route::controller(IndexController::class)->group(function () {
     Route::get('/index', 'index');
 });

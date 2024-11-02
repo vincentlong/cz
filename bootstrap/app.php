@@ -8,19 +8,19 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
-use App\Common\Services\JsonService;
+use App\Common\Service\JsonService;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         using: function () {
             Route::prefix('api')
-                ->group(app_path('Api/Routes/index.php'));
+                ->group(app_path('Api/Route/index.php'));
             Route::prefix('adminapi')
                 ->middleware([
-                   \App\Adminapi\Middlewares\InitMiddleware::class,
-                   \App\Adminapi\Middlewares\LoginMiddleware::class,
+                   \App\Adminapi\Middleware\InitMiddleware::class,
+                   \App\Adminapi\Middleware\LoginMiddleware::class,
                 ])
-                ->group(app_path('Adminapi/Routes/index.php'));
+                ->group(app_path('Adminapi/Route/index.php'));
             Route::prefix('/')
                 ->group(base_path('routes/web.php'));
         },

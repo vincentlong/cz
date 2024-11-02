@@ -5,7 +5,7 @@ namespace App\Adminapi\Request;
 use App\Common\Enum\AdminTerminalEnum;
 use App\Models\Admin;
 use App\Common\Cache\AdminAccountSafeCache;
-use App\Common\Services\ConfigService;
+use App\Common\Service\ConfigService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Config;
 use Closure;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Adminapi\Middlewares;
+namespace App\Adminapi\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

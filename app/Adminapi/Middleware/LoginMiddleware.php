@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Adminapi\Middlewares;
+namespace App\Adminapi\Middleware;
 
 use App\Adminapi\Service\AdminTokenService;
 use App\Common\Cache\AdminTokenCache;
-use App\Common\Services\JsonService;
+use App\Common\Service\JsonService;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;

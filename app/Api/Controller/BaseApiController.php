@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Api\Controllers;
+namespace App\Api\Controller;
 
-use App\Common\Controllers\BaseLikeAdminController;
+use App\Common\Controller\BaseLikeAdminController;
 
 class BaseApiController extends BaseLikeAdminController
 {

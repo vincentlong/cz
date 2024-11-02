@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Adminapi\Controllers;
+namespace App\Adminapi\Controller;
 
 use Illuminate\Http\JsonResponse;
 

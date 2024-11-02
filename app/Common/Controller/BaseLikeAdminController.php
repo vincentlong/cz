@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Common\Controllers;
+namespace App\Common\Controller;
 
-use App\Common\Services\JsonService;
+use App\Common\Service\JsonService;
 use Illuminate\Http\Request;
 
 class BaseLikeAdminController
