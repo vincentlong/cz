@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Adminapi\Validator;
+namespace App\Adminapi\Validate;
 
 use App\Adminapi\Rule\VerifyAdminPassword;
 use App\Common\Enum\AdminTerminalEnum;
+use App\Common\Validate\BaseValidate;
 
-class LoginValidator extends BaseValidator
+class LoginValidate extends BaseValidate
 {
     public function rules($scene)
     {

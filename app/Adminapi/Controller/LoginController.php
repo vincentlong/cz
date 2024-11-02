@@ -3,7 +3,7 @@
 namespace App\Adminapi\Controller;
 
 use App\Adminapi\Logic\LoginLogic;
-use App\Adminapi\Validator\LoginValidator;
+use App\Adminapi\Validate\LoginValidate;
 use Illuminate\Http\Request;
 
 /**
@@ -17,7 +17,7 @@ class LoginController extends BaseAdminController
     /**
      * @notes 账号登录
      */
-    public function account(LoginValidator $validator)
+    public function account(LoginValidate $validator)
     {
         $params = $validator->goCheck('account');
         return $this->data((new LoginLogic())->login($params));

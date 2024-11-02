@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Adminapi\Validator;
+namespace App\Common\Validate;
 
 use Illuminate\Support\Facades\Validator;
 
-class BaseValidator
+class BaseValidate
 {
     protected $rules = [];
 
@@ -27,26 +27,26 @@ class BaseValidator
         return $this->attributes;
     }
 
-    public function goCheck($scene, $data = [])
+    public function goCheck($scene, $extraData = [])
     {
-        return $this->scene($scene, $data)->validate();
+        return $this->scene($scene, $extraData)->validate();
     }
 
     /**
      * create validator by $scene.
      *
      * @param   $scene
-     * @param   $data
+     * @param   $extraData
      *
      * @return \Illuminate\Validation\Validator
      */
-    public function scene($scene, $data = [])
+    public function scene($scene, $extraData = [])
     {
-        $default_data = request()->all();
-        $params = empty($data) ? $default_data : array_merge($default_data, $data);
+        $input = request()->all();
+        $data = array_merge($input, $extraData);
         $instance = new static();
         return Validator::make(
-            $params,
+            $data,
             $instance->rules($scene),
             $instance->messages(),
             $instance->attributes()
