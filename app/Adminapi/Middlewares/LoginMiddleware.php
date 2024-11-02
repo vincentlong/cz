@@ -1,9 +1,13 @@
 <?php
+
 namespace App\Adminapi\Middlewares;
 
+use App\Adminapi\Service\AdminTokenService;
+use App\Common\Cache\AdminTokenCache;
 use App\Common\Services\JsonService;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoginMiddleware
@@ -25,30 +29,32 @@ class LoginMiddleware
             return JsonService::fail('请求参数缺token', [], 0, 0);
         }
 
-//        $adminInfo = (new AdminTokenCache())->getAdminInfo($token);
-//        if (empty($adminInfo) && !$isNotNeedLogin) {
-//            //token过期无效并且该地址需要登录才能访问
-//            return JsonService::fail('登录超时，请重新登录', [], -1);
-//        }
-//
-//        //token临近过期，自动续期
-//        if ($adminInfo) {
-//            //获取临近过期自动续期时长
-//            $beExpireDuration = Config::get('project.admin_token.be_expire_duration');
-//            //token续期
-//            if (time() > ($adminInfo['expire_time'] - $beExpireDuration)) {
-//                $result = AdminTokenService::overtimeToken($token);
-//                //续期失败（数据表被删除导致）
-//                if (empty($result)) {
-//                    return JsonService::fail('登录过期', [], -1);
-//                }
-//            }
-//        }
-//
-//        //给request赋值，用于控制器
-//        $request->adminInfo = $adminInfo;
-//        $request->adminId = $adminInfo['admin_id'] ?? 0;
-//        $request->agentId = $adminInfo['agent_id'] ?? null;
+        $adminInfo = (new AdminTokenCache())->getAdminInfo($token);
+        if (empty($adminInfo) && !$isNotNeedLogin) {
+            //token过期无效并且该地址需要登录才能访问
+            return JsonService::fail('登录超时，请重新登录', [], -1);
+        }
+
+        //token临近过期，自动续期
+        if ($adminInfo) {
+            //获取临近过期自动续期时长
+            $beExpireDuration = Config::get('project.admin_token.be_expire_duration');
+            //token续期
+            if (time() > ($adminInfo['expire_time'] - $beExpireDuration)) {
+                $result = AdminTokenService::overtimeToken($token);
+                //续期失败（数据表被删除导致）
+                if (empty($result)) {
+                    return JsonService::fail('登录过期', [], -1);
+                }
+            }
+        }
+
+        //给request赋值，用于控制器
+        $request->attributes->set('adminInfo', $adminInfo);
+        $request->attributes->set('adminId', $adminInfo['admin_id'] ?? 0);
+        // todo 暂时先从请求上下文获取
+//        $request->attributes->get('controllerObject')->adminInfo = $adminInfo;
+//        $request->attributes->get('controllerObject')->adminId = $adminInfo['admin_id'] ?? 0;
 
         return $next($request);
     }
