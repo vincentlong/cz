@@ -32,7 +32,7 @@ class LoginLogic extends BaseLogic
 
         //返回登录信息
         $avatar = $admin->avatar ? $admin->avatar : Config::get('project.default_image.admin_avatar');
-//        $avatar = FileService::getFileUrl($avatar); // todo
+        $avatar = FileService::getFileUrl($avatar);
         return [
             'name' => $adminInfo['name'],
             'avatar' => $avatar,
