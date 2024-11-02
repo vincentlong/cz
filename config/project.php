@@ -5,7 +5,7 @@ return [
 
     // 官网
     'website' => [
-        'name' => env('project.web_name', 'likeadmin'), // 网站名称
+        'name' => env('project.web_name', 'Likeadmin-Laravel'), // 网站名称
         'url' => env('project.web_url', 'www.likeadmin.cn/'), // 网站地址
         'login_image' => 'resource/image/adminapi/default/login_image.png',
         'web_logo' => 'resource/image/adminapi/default/web_logo.jpg', // 网站logo
