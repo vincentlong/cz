@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Common\Cache\BarCache;
+use App\Common\Cache\FooCache;
 use App\Models\Admin;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -27,7 +29,14 @@ class AppTest extends Command
      */
     public function handle()
     {
-        Log::log('info', 'test');
-        dd(Admin::first());
+        $fooCache = new FooCache();
+        $fooCache->set('name', 'foo');
+        dump($fooCache->get('name'));
+
+        $barCache = new BarCache();
+        $barCache->set('name', 'bar');
+        dump($barCache->get('name'));
+        dump($fooCache->get('name'));
+
     }
 }
