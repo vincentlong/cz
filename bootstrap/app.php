@@ -13,9 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         using: function () {
             Route::prefix('api')
-                ->group(base_path('routes/api/index.php'));
+                ->group(app_path('Api/Routes/index.php'));
             Route::prefix('admin')
-                ->group(base_path('routes/admin/index.php'));
+                ->group(app_path('Adminapi/Routes/index.php'));
             Route::prefix('/')
                 ->group(base_path('routes/web.php'));
         },
