@@ -5,5 +5,5 @@ use App\Adminapi\Controller\LoginController;
 
 Route::controller(LoginController::class)->group(function () {
     Route::post('/login/account', 'account');
-    Route::any('/login/logout', 'logout');
+    Route::post('/login/logout', 'logout');
 });

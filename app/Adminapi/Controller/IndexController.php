@@ -10,10 +10,12 @@ class IndexController extends BaseAdminController
 
     public function index(): JsonResponse
     {
+        $domain = request()->schemeAndHttpHost();
+
         return $this->data([
             "message" => "Hello Adminapi",
             'a' => $this->request->attributes->get('adminInfo'),
-            'b' => $this->request->get('foo', 'default'),
+            'b' => $domain,
             'c' => $this->getAdminId()
         ]);
     }
