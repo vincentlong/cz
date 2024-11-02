@@ -14,13 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
         using: function () {
             Route::prefix('api')
                 ->group(base_path('routes/api/index.php'));
-
             Route::prefix('admin')
                 ->group(base_path('routes/admin/index.php'));
+            Route::prefix('/')
+                ->group(base_path('routes/web.php'));
         },
-        web: __DIR__.'/../routes/web.php',
-        commands: __DIR__.'/../routes/console.php',
-        health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
         // 全局跨域中间件
