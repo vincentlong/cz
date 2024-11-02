@@ -2,14 +2,13 @@
 
 namespace App\Api\Controllers;
 
-use App\Http\Controllers\BaseController;
 use Illuminate\Http\JsonResponse;
 
-class IndexController extends BaseController
+class IndexController extends BaseApiController
 {
     public function index(): JsonResponse
     {
-        return $this->success([
+        return $this->data([
             "message" => "Hello Api"
         ]);
     }

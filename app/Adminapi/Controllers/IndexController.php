@@ -2,14 +2,13 @@
 
 namespace App\Adminapi\Controllers;
 
-use App\Http\Controllers\BaseController;
 use Illuminate\Http\JsonResponse;
 
-class IndexController extends BaseController
+class IndexController extends BaseAdminController
 {
     public function index(): JsonResponse
     {
-        return $this->success([
+        return $this->data([
             "message" => "Hello Adminapi"
         ]);
     }
