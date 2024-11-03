@@ -86,7 +86,9 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
      */
     public function queryWhere()
     {
-
+//        return [
+//            ['id', 'in', [2,3]]
+//        ];
         $where = [];
         if (isset($this->params['role_id']) && $this->params['role_id'] != '') {
             $adminIds = AdminRole::query()->where('role_id', $this->params['role_id'])->pluck('admin_id');
@@ -109,14 +111,13 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
             'login_time', 'login_ip', 'multipoint_login', 'avatar'
         ];
 
-        $query = Admin::query()->select($field)
+        $adminLists = Admin::query()->select($field)
             ->offset($this->limitOffset)
-            ->limit($this->limitLength);
-        $this->applySortOrder($query);
-        $this->applySearchWhere($query);
-        $this->applySearchWhere($query, $this->queryWhere());
-
-        $adminLists = $query->get()->toArray();
+            ->limit($this->limitLength)
+            ->applySortOrder($this->sortOrder)
+            ->applySearchWhere($this->searchWhere)
+            ->applySearchWhere($this->queryWhere())
+            ->get()->toArray();
 
         // 角色数组（'角色id'=>'角色名称')
         $roleLists = SystemRole::query()->pluck('name', 'id');
@@ -163,10 +164,10 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
      */
     public function count(): int
     {
-        $query = Admin::query();
-        $this->applySearchWhere($query);
-        $this->applySearchWhere($query, $this->queryWhere());
-        return $query->count();
+        return Admin::query()
+            ->applySearchWhere($this->searchWhere)
+            ->applySearchWhere($this->queryWhere())
+            ->count();
     }
 
     public function extend()
