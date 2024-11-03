@@ -9,6 +9,8 @@ use App\Adminapi\Controller\BaseAdminController;
 //use app\adminapi\validate\auth\AdminValidate;
 use App\Adminapi\Lists\Auth\AdminLists;
 use App\Adminapi\Logic\Auth\AdminLogic;
+use App\Adminapi\Validate\Auth\AdminValidate;
+
 //use app\adminapi\validate\auth\editSelfValidate;
 
 /**
@@ -34,7 +36,7 @@ class AdminController extends BaseAdminController
      */
     public function add()
     {
-        $params = (new AdminValidate())->post()->goCheck('add');
+        $params = (new AdminValidate())->goCheck('add');
         $result = AdminLogic::add($params);
         if (true === $result) {
             return $this->success('操作成功', [], 1, 1);
@@ -42,12 +44,8 @@ class AdminController extends BaseAdminController
         return $this->fail(AdminLogic::getError());
     }
 
-
     /**
      * @notes 编辑管理员
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2021/12/29 11:03
      */
     public function edit()
     {
@@ -62,9 +60,6 @@ class AdminController extends BaseAdminController
 
     /**
      * @notes 删除管理员
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2021/12/29 11:03
      */
     public function delete()
     {
@@ -79,9 +74,6 @@ class AdminController extends BaseAdminController
 
     /**
      * @notes 查看管理员详情
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2021/12/29 11:07
      */
     public function detail()
     {
@@ -103,9 +95,6 @@ class AdminController extends BaseAdminController
 
     /**
      * @notes 编辑超级管理员信息
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2022/4/8 17:54
      */
     public function editSelf()
     {

@@ -27,6 +27,16 @@ class BaseValidate
         return $this->attributes;
     }
 
+    public function post()
+    {
+        return $this;
+    }
+
+    public function get()
+    {
+        return $this;
+    }
+
     public function goCheck($scene = 'default', $extraData = [])
     {
         return $this->scene($scene, $extraData)->validate();

@@ -17,21 +17,16 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * 管理员逻辑
- * Class AdminLogic
- * @package app\adminapi\logic\auth
  */
 class AdminLogic extends BaseLogic
 {
-
     /**
      * @notes 添加管理员
      * @param array $params
-     * @author 段誉
-     * @date 2021/12/29 10:23
      */
     public static function add(array $params)
     {
-        Db::beginTransaction();
+        DB::beginTransaction();
         try {
             $passwordSalt = Config::get('project.unique_identification');
             $password = create_password($params['password'], $passwordSalt);
@@ -48,41 +43,35 @@ class AdminLogic extends BaseLogic
                 'multipoint_login' => $params['multipoint_login'],
             ]);
 
-            // 角色
-            self::insertRole($admin['id'], $params['role_id'] ?? []);
-            // 部门
-            self::insertDept($admin['id'], $params['dept_id'] ?? []);
-            // 岗位
-            self::insertJobs($admin['id'], $params['jobs_id'] ?? []);
+            // 角色、部门、岗位
+            self::insertRole($admin->id, $params['role_id'] ?? []);
+            self::insertDept($admin->id, $params['dept_id'] ?? []);
+            self::insertJobs($admin->id, $params['jobs_id'] ?? []);
 
-            Db::commit();
+            DB::commit();
             return true;
         } catch (\Exception $e) {
-            Db::rollback();
+            DB::rollback();
             self::setError($e->getMessage());
             return false;
         }
     }
 
-
     /**
      * @notes 编辑管理员
      * @param array $params
      * @return bool
-     * @author 段誉
-     * @date 2021/12/29 10:43
      */
     public static function edit(array $params): bool
     {
-        Db::beginTransaction();
+        DB::beginTransaction();
         try {
             // 基础信息
             $data = [
-                'id' => $params['id'],
                 'name' => $params['name'],
                 'account' => $params['account'],
                 'disable' => $params['disable'],
-                'multipoint_login' => $params['multipoint_login']
+                'multipoint_login' => $params['multipoint_login'],
             ];
 
             // 头像
@@ -94,65 +83,59 @@ class AdminLogic extends BaseLogic
                 $data['password'] = create_password($params['password'], $passwordSalt);
             }
 
-            // 禁用或更换角色后.设置token过期
-            $roleId = AdminRole::where('admin_id', $params['id'])->column('role_id');
-            $editRole = false;
-            if (!empty(array_diff_assoc($roleId, $params['role_id']))) {
-                $editRole = true;
-            }
+            // 检查角色变化
+            $roleIds = AdminRole::where('admin_id', $params['id'])->pluck('role_id')->toArray();
+            $editRole = !empty(array_diff($roleIds, $params['role_id']));
 
+            // 禁用或更换角色后.设置token过期
             if ($params['disable'] == 1 || $editRole) {
-                $tokenArr = AdminSession::where('admin_id', $params['id'])->select()->toArray();
+                $tokenArr = AdminSession::where('admin_id', $params['id'])->get();
                 foreach ($tokenArr as $token) {
-                    self::expireToken($token['token']);
+                    self::expireToken($token->token);
                 }
             }
 
-            Admin::update($data);
+            Admin::where('id', $params['id'])->update($data);
             (new AdminAuthCache($params['id']))->clearAuthCache();
 
             // 删除旧的关联信息
             AdminRole::delByUserId($params['id']);
             AdminDept::delByUserId($params['id']);
             AdminJobs::delByUserId($params['id']);
-            // 角色
+
+            // 新增角色、部门、岗位
             self::insertRole($params['id'], $params['role_id']);
-            // 部门
             self::insertDept($params['id'], $params['dept_id'] ?? []);
-            // 岗位
             self::insertJobs($params['id'], $params['jobs_id'] ?? []);
 
-            Db::commit();
+            DB::commit();
             return true;
         } catch (\Exception $e) {
-            Db::rollback();
+            DB::rollback();
             self::setError($e->getMessage());
             return false;
         }
     }
-
 
     /**
      * @notes 删除管理员
      * @param array $params
      * @return bool
-     * @author 段誉
-     * @date 2021/12/29 10:45
      */
     public static function delete(array $params): bool
     {
-        Db::beginTransaction();
+        DB::beginTransaction();
         try {
-            $admin = Admin::findOrEmpty($params['id']);
+            $admin = Admin::findOrFail($params['id']);
             if ($admin->root == YesNoEnum::YES) {
                 throw new \Exception("超级管理员不允许被删除");
             }
             Admin::destroy($params['id']);
 
-            //设置token过期
-            $tokenArr = AdminSession::where('admin_id', $params['id'])->select()->toArray();
+            // 设置token过期
+            $tokenArr = AdminSession::where('admin_id', $params['id'])->get();
             foreach ($tokenArr as $token) {
-                self::expireToken($token['token']);
+                self::expireToken($token->token);
             }
             (new AdminAuthCache($params['id']))->clearAuthCache();
 
@@ -161,33 +144,25 @@ class AdminLogic extends BaseLogic
             AdminDept::delByUserId($params['id']);
             AdminJobs::delByUserId($params['id']);
 
-            Db::commit();
+            DB::commit();
             return true;
         } catch (\Exception $e) {
-            Db::rollback();
+            DB::rollback();
             self::setError($e->getMessage());
             return false;
         }
     }
 
-
     /**
      * @notes 过期token
      * @param $token
      * @return bool
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @author 段誉
-     * @date 2021/12/29 10:46
      */
     public static function expireToken($token): bool
     {
-        $adminSession = AdminSession::where('token', '=', $token)
-            ->with('admin')
-            ->find();
+        $adminSession = AdminSession::where('token', $token)->with('admin')->first();
 
-        if (empty($adminSession)) {
+        if (!$adminSession) {
             return false;
         }
 
@@ -199,17 +174,14 @@ class AdminLogic extends BaseLogic
         return (new AdminTokenCache())->deleteAdminInfo($token);
     }
 
-
     /**
      * @notes 查看管理员详情
      * @param $params
      * @return array
-     * @author 段誉
-     * @date 2021/12/29 11:07
      */
     public static function detail($params, $action = 'detail'): array
     {
-        $admin = Admin::query()->select([
+        $admin = Admin::select([
             'id', 'account', 'name', 'disable', 'root',
             'multipoint_login', 'avatar'
         ])->findOrFail($params['id'])->toArray();
@@ -226,13 +198,10 @@ class AdminLogic extends BaseLogic
         return $result;
     }
 
-
     /**
      * @notes 编辑超级管理员
      * @param $params
      * @return Admin
-     * @author 段誉
-     * @date 2022/4/8 17:54
      */
     public static function editSelf($params)
     {
@@ -247,22 +216,17 @@ class AdminLogic extends BaseLogic
             $data['password'] = create_password($params['password'], $passwordSalt);
         }
 
-        return Admin::update($data);
+        return Admin::where('id', $params['admin_id'])->update($data);
     }
-
 
     /**
      * @notes 新增角色
      * @param $adminId
      * @param $roleIds
-     * @throws \Exception
-     * @author 段誉
-     * @date 2022/11/25 14:23
      */
     public static function insertRole($adminId, $roleIds)
     {
         if (!empty($roleIds)) {
-            // 角色
             $roleData = [];
             foreach ($roleIds as $roleId) {
                 $roleData[] = [
@@ -270,22 +234,17 @@ class AdminLogic extends BaseLogic
                     'role_id' => $roleId,
                 ];
             }
-            (new AdminRole())->saveAll($roleData);
+            AdminRole::insert($roleData);
         }
     }
-
 
     /**
      * @notes 新增部门
      * @param $adminId
      * @param $deptIds
-     * @throws \Exception
-     * @author 段誉
-     * @date 2022/11/25 14:22
      */
     public static function insertDept($adminId, $deptIds)
     {
-        // 部门
         if (!empty($deptIds)) {
             $deptData = [];
             foreach ($deptIds as $deptId) {
@@ -294,22 +253,17 @@ class AdminLogic extends BaseLogic
                     'dept_id' => $deptId
                 ];
             }
-            (new AdminDept())->saveAll($deptData);
+            AdminDept::insert($deptData);
         }
     }
-
 
     /**
      * @notes 新增岗位
      * @param $adminId
      * @param $jobsIds
-     * @throws \Exception
-     * @author 段誉
-     * @date 2022/11/25 14:22
      */
     public static function insertJobs($adminId, $jobsIds)
     {
-        // 岗位
         if (!empty($jobsIds)) {
             $jobsData = [];
             foreach ($jobsIds as $jobsId) {
@@ -318,8 +272,7 @@ class AdminLogic extends BaseLogic
                     'jobs_id' => $jobsId
                 ];
             }
-            (new AdminJobs())->saveAll($jobsData);
+            AdminJobs::insert($jobsData);
         }
     }
-
 }

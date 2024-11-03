@@ -2,7 +2,7 @@
 
 namespace App\Common\Cache;
 
-use app\adminapi\logic\auth\AuthLogic;
+use App\Adminapi\Logic\Auth\AuthLogic;
 
 /**
  * 管理员权限缓存
@@ -99,7 +99,8 @@ class AdminAuthCache extends BaseCache
      */
     public function clearAuthCache()
     {
-        $this->clear($this->cacheUrlKey);
+        // $this->clear($this->cacheUrlKey);
+        $this->delete($this->cacheUrlKey);
         return true;
     }
 

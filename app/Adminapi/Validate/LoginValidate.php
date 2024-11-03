@@ -8,7 +8,7 @@ use App\Common\Validate\BaseValidate;
 
 class LoginValidate extends BaseValidate
 {
-    public function rules($scene)
+    public function rules($scene='')
     {
         $rules = [
             'account' => [
