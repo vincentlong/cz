@@ -39,9 +39,9 @@ class RoleController extends BaseAdminController
     /**
      * @notes 编辑角色
      */
-    public function edit()
+    public function edit(RoleValidate $validate)
     {
-        $params = (new RoleValidate())->post()->goCheck('edit');
+        $params = $validate->goCheck('edit');
         $res = RoleLogic::edit($params);
         if (true === $res) {
             return $this->success('编辑成功', [], 1, 1);
@@ -53,9 +53,9 @@ class RoleController extends BaseAdminController
     /**
      * @notes 删除角色
      */
-    public function delete()
+    public function delete(RoleValidate $validate)
     {
-        $params = (new RoleValidate())->post()->goCheck('del');
+        $params = $validate->goCheck('delete');
         RoleLogic::delete($params['id']);
         return $this->success('删除成功', [], 1, 1);
     }
@@ -64,9 +64,9 @@ class RoleController extends BaseAdminController
     /**
      * @notes 查看角色详情
      */
-    public function detail()
+    public function detail(RoleValidate $validate)
     {
-        $params = (new RoleValidate())->goCheck('detail');
+        $params = $validate->goCheck('detail');
         $detail = RoleLogic::detail($params['id']);
         return $this->data($detail);
     }
