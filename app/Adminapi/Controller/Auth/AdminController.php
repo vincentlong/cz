@@ -5,9 +5,9 @@ namespace App\Adminapi\Controller\Auth;
 
 //use app\adminapi\controller\BaseAdminController;
 use App\Adminapi\Controller\BaseAdminController;
-//use app\adminapi\lists\auth\AdminLists;
+
 //use app\adminapi\validate\auth\AdminValidate;
-//use app\adminapi\logic\auth\AdminLogic;
+use App\Adminapi\Lists\Auth\AdminLists;
 use App\Adminapi\Logic\Auth\AdminLogic;
 //use app\adminapi\validate\auth\editSelfValidate;
 

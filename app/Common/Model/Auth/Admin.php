@@ -18,6 +18,7 @@ class Admin extends BaseModel
         'role_id',
         'dept_id',
         'jobs_id',
+        'disable_desc',
     ];
 
     /**

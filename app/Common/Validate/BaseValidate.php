@@ -12,7 +12,7 @@ class BaseValidate
 
     protected $attributes = [];
 
-    public function rules($scene)
+    public function rules($scene = 'default')
     {
         return $this->rules[$scene] ?? [];
     }
@@ -27,7 +27,7 @@ class BaseValidate
         return $this->attributes;
     }
 
-    public function goCheck($scene, $extraData = [])
+    public function goCheck($scene = 'default', $extraData = [])
     {
         return $this->scene($scene, $extraData)->validate();
     }
@@ -40,7 +40,7 @@ class BaseValidate
      *
      * @return \Illuminate\Validation\Validator
      */
-    public function scene($scene, $extraData = [])
+    public function scene($scene = 'default', $extraData = [])
     {
         $input = request()->all();
         $data = array_merge($input, $extraData);

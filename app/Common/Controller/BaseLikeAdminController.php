@@ -2,6 +2,7 @@
 
 namespace App\Common\Controller;
 
+use App\Common\Lists\BaseDataLists;
 use App\Common\Service\JsonService;
 use Illuminate\Http\Request;
 
@@ -31,18 +32,27 @@ class BaseLikeAdminController
         return JsonService::fail($msg, $data, $code, $show);
     }
 
-//    protected function dataLists(BaseDataLists $lists = null)
-//    {
-//        //列表类和控制器一一对应，"app/应用/controller/控制器的方法" =》"app\应用\lists\"目录下
-//        //（例如："app/adminapi/controller/auth/AdminController.php的lists()方法" =》 "app/adminapi/lists/auth/AminLists.php")
-//        //当对象为空时，自动创建列表对象
-//        if (is_null($lists)) {
-//            $listName = str_replace('.', '\\', App::getNamespace() . '\\lists\\' . $this->request->controller() . ucwords($this->request->action()));
-//            $lists = invoke($listName);
-//        }
-//        return JsonService::dataLists($lists);
-//    }
-//
+    protected function dataLists(BaseDataLists $lists = null)
+    {
+        //当对象为空时，自动创建列表对象
+        if (is_null($lists)) {
+            $lists = app()->make($this->getListClassName());
+        }
+        return JsonService::dataLists($lists);
+    }
+
+    protected function getListClassName()
+    {
+        // 自动获取列表类名
+        $controllerName = $this->request->route()->getControllerClass();
+        $listClassName = str_replace('Controller', 'Lists', $controllerName);
+        return $listClassName;
+        //{
+        //    "controllerName": "App\\Adminapi\\Controller\\Auth\\AdminController",
+        //    "listClassName": "App\\Adminapi\\Lists\\Auth\\AdminLists"
+        //}
+    }
+
 
     public function isNotNeedLogin(): bool
     {
