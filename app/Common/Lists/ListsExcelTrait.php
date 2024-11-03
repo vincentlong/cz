@@ -7,7 +7,6 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 trait ListsExcelTrait
 {
@@ -42,14 +41,14 @@ trait ListsExcelTrait
         //设置单元格内容
         foreach ($title as $key => $value) {
             // 单元格内容写入
-            $sheet->setCellValueByColumnAndRow($key + 1, 1, $value);
+            $sheet->setCellValue([$key + 1, 1], $value);
         }
         $row = 2; //从第二行开始
         foreach ($data as $item) {
             $column = 1;
             foreach ($item as $value) {
                 //单元格内容写入
-                $sheet->setCellValueByColumnAndRow($column, $row, $value);
+                $sheet->setCellValue([$column, $row], $value);
                 $column++;
             }
             $row++;
@@ -87,8 +86,7 @@ trait ListsExcelTrait
         $writer->save($src . $this->fileName);
         //设置本地excel缓存并返回下载地址
         $vars = ['file' => $exportCache->setFile($this->fileName)];
-        // todo test
-        return (string)(url('adminapi/download/export', $vars, true, true));
+        return url()->query('adminapi/download/export', $vars);
     }
 
     /**

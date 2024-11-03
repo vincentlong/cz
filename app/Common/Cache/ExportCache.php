@@ -19,10 +19,8 @@ class ExportCache extends BaseCache
      */
     public function getSrc()
     {
-        // todo
-        return app()->getRootPath() . 'runtime/file/export/' . date('Y-m') . '/' . $this->uniqid . '/';
+        return storage_path('app/public/file/export/' . date('Y-m') . '/' . $this->uniqid . '/');
     }
-
 
     /**
      * @notes 设置文件路径缓存地址
