@@ -42,7 +42,6 @@ class AdminValidate extends BaseValidate
                     },
                 ],
                 'role_id' => [
-                    'required',
                     function ($attribute, $value, Closure $fail) {
                         $admin = Admin::find(request()->id);
                         if (!$admin) {
