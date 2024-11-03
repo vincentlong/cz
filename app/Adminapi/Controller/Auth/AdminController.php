@@ -1,17 +1,11 @@
 <?php
 
-//namespace app\adminapi\controller\auth;
 namespace App\Adminapi\Controller\Auth;
 
-//use app\adminapi\controller\BaseAdminController;
 use App\Adminapi\Controller\BaseAdminController;
-
-//use app\adminapi\validate\auth\AdminValidate;
 use App\Adminapi\Lists\Auth\AdminLists;
 use App\Adminapi\Logic\Auth\AdminLogic;
 use App\Adminapi\Validate\Auth\AdminValidate;
-
-//use app\adminapi\validate\auth\editSelfValidate;
 
 /**
  * 管理员控制器
@@ -98,7 +92,7 @@ class AdminController extends BaseAdminController
      */
     public function editSelf()
     {
-        $params = (new editSelfValidate())->post()->goCheck('', ['admin_id' => $this->adminId]);
+        $params = (new AdminValidate())->goCheck('editSelf', ['admin_id' => $this->getAdminId()]);
         $result = AdminLogic::editSelf($params);
         return $this->success('操作成功', [], 1, 1);
     }

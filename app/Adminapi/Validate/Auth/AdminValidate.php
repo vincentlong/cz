@@ -5,6 +5,7 @@ namespace App\Adminapi\Validate\Auth;
 use App\Common\Model\Auth\Admin;
 use App\Common\Validate\BaseValidate;
 use Closure;
+use Illuminate\Support\Facades\Config;
 
 class AdminValidate extends BaseValidate
 {
@@ -75,6 +76,34 @@ class AdminValidate extends BaseValidate
             ],
             'delete' => [
                 'id' => 'required|exists:admin,id',
+            ],
+            'editSelf' => [
+                'name' => 'required|string|between:1,16',
+                'avatar' => 'required',
+                'admin_id' => 'required|exists:admin,id',
+                'password' => [
+                    'nullable',
+                    'string',
+                    'between:6,32',
+                    function ($attribute, $value, Closure $fail) {
+                        if (empty(request()->password_old)) {
+                            $fail('请填写当前密码');
+                        }
+
+                        $admin = Admin::find(request()->attributes->get('adminId'));
+                        if (!$admin) {
+                            $fail('管理员不存在');
+                        }
+
+                        $passwordSalt = Config::get('project.unique_identification');
+                        $oldPassword = create_password(request()->password_old, $passwordSalt);
+
+                        if ($admin->password !== $oldPassword) {
+                            $fail('当前密码错误');
+                        }
+                    },
+                ],
+                'password_confirm' => 'required_with:password|same:password',
             ],
         ];
 
