@@ -25,9 +25,9 @@ class RoleController extends BaseAdminController
     /**
      * @notes 添加权限
      */
-    public function add()
+    public function add(RoleValidate $validate)
     {
-        $params = (new RoleValidate())->post()->goCheck('add');
+        $params = $validate->goCheck('add');
         $res = RoleLogic::add($params);
         if (true === $res) {
             return $this->success('添加成功', [], 1, 1);
