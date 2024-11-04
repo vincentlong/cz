@@ -189,27 +189,4 @@ abstract class BaseDataLists implements ListsInterface
         return count($this->lists());
     }
 
-    protected function applySortOrder($query, $sortOrder = null)
-    {
-        if (is_null($sortOrder)) {
-            $sortOrder = $this->sortOrder;
-        }
-        foreach ($sortOrder as $key => $value) {
-            $query->orderBy($key, $value);
-        }
-    }
-
-    protected function applySearchWhere($query, $searchWhere = null)
-    {
-        if (is_null($searchWhere)) {
-            $searchWhere = $this->searchWhere;
-        }
-        foreach ($searchWhere as $where) {
-            if ($where[1] == 'in') {
-                $query->whereIn($where[0], $where[2]);
-            } else {
-                $query->where(...$where);
-            }
-        }
-    }
 }
