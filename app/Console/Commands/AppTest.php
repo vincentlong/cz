@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Adminapi\Logic\Auth\AuthLogic;
 use Illuminate\Console\Command;
 
 class AppTest extends Command
@@ -25,6 +26,7 @@ class AppTest extends Command
      */
     public function handle()
     {
-        dump(storage_path('app/public'), public_path());
+       $res = AuthLogic::getAuthByAdminId(4);
+       dd($res);
     }
 }

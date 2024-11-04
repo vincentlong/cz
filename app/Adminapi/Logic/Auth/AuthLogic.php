@@ -78,7 +78,7 @@ class AuthLogic
         $menuId = SystemRoleMenu::whereIn('role_id', $roleIds)->pluck('menu_id')->toArray();
 
         return SystemMenu::distinct()
-            ->where([
+            ->applySearchWhere([
                 ['is_disable', '=', 0],
                 ['perms', '<>', ''],
                 ['id', 'in', array_unique($menuId)],
