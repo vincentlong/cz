@@ -5,7 +5,6 @@ namespace App\Adminapi\Logic\Auth;
 use App\Common\Logic\BaseLogic;
 use App\Common\Model\Auth\SystemRole;
 use App\Common\Model\Auth\SystemRoleMenu;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 /**

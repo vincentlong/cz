@@ -5,8 +5,8 @@ namespace App\Common\Lists;
 use App\Common\Enum\ExportEnum;
 use App\Common\Service\JsonService;
 use App\Common\Validate\ListsValidate;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 /**
  * 数据列表基类

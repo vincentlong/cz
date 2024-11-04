@@ -5,7 +5,6 @@ namespace App\Common\Cache;
 use App\Common\Model\Auth\Admin;
 use App\Common\Model\Auth\AdminSession;
 use App\Common\Model\Auth\SystemRole;
-use Illuminate\Support\Facades\Log;
 
 /**
  * 管理员token缓存

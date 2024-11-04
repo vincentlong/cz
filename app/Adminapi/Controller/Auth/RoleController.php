@@ -2,10 +2,10 @@
 
 namespace App\Adminapi\Controller\Auth;
 
-use App\Adminapi\Logic\Auth\RoleLogic;
-use App\Adminapi\Lists\Auth\RoleLists;
-use App\Adminapi\Validate\Auth\RoleValidate;
 use App\Adminapi\Controller\BaseAdminController;
+use App\Adminapi\Lists\Auth\RoleLists;
+use App\Adminapi\Logic\Auth\RoleLogic;
+use App\Adminapi\Validate\Auth\RoleValidate;
 
 /**
  * 角色控制器

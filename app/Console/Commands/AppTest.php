@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Adminapi\Logic\Auth\AuthLogic;
 use App\Common\Model\Auth\SystemRole;
 use Illuminate\Console\Command;
 

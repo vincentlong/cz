@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Api\Controller\IndexController;
+use Illuminate\Support\Facades\Route;
 
 // 获取 router 文件夹内的所有路由文件
 $directory = __DIR__;

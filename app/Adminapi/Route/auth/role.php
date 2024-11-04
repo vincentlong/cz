@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Adminapi\Controller\Auth\RoleController;
+use Illuminate\Support\Facades\Route;
 
 Route::controller(RoleController::class)->group(function () {
     Route::get('/auth.role/all', 'all');

@@ -12,7 +12,6 @@ use App\Common\Model\Auth\AdminRole;
 use App\Common\Model\Auth\SystemRole;
 use App\Common\Model\Dept\Dept;
 use App\Common\Model\Dept\Jobs;
-use Illuminate\Database\Query\Builder;
 
 /**
  * 管理员列表
