@@ -41,19 +41,20 @@ class AuthLogic
         }
 
         $menuId = SystemRoleMenu::whereIn('role_id', $admin['role_id'])
-            ->pluck('menu_id')
-            ->toArray();
+            ->pluck('menu_id');
 
-        $roleAuth = SystemMenu::distinct()
-            ->where('id', 'in', $menuId)
+        $roleAuth = SystemMenu::query()
+            ->whereIn('id', $menuId)
             ->where('is_disable', 0)
             ->where('perms', '<>', '')
+            ->distinct()
             ->pluck('perms')
             ->toArray();
 
-        $allAuth = SystemMenu::distinct()
+        $allAuth = SystemMenu::query()
             ->where('is_disable', 0)
             ->where('perms', '<>', '')
+            ->distinct()
             ->pluck('perms')
             ->toArray();
 
