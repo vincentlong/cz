@@ -15,5 +15,5 @@ interface ListsSortInterface
      * @notes 设置默认排序条件
      * @return array
      */
-    public function setDefaultOrder():array;
+    public function setDefaultOrder(): array;
 }

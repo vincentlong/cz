@@ -28,7 +28,7 @@ class BaseLogic
      * @author 段誉
      * @date 2021/7/21 18:23
      */
-    public static function getError() : string
+    public static function getError(): string
     {
         if (false === self::hasError()) {
             return '系统错误';
@@ -43,7 +43,7 @@ class BaseLogic
      * @author 段誉
      * @date 2021/7/21 18:20
      */
-    public static function setError($error) : void
+    public static function setError($error): void
     {
         !empty($error) && self::$error = $error;
     }
@@ -55,7 +55,7 @@ class BaseLogic
      * @author 段誉
      * @date 2021/7/21 18:32
      */
-    public static function hasError() : bool
+    public static function hasError(): bool
     {
         return !empty(self::$error);
     }
@@ -67,7 +67,7 @@ class BaseLogic
      * @author 段誉
      * @date 2021/7/28 17:05
      */
-    public static function setReturnCode($code) : void
+    public static function setReturnCode($code): void
     {
         self::$returnCode = $code;
     }
@@ -79,7 +79,7 @@ class BaseLogic
      * @author 段誉
      * @date 2021/7/28 15:14
      */
-    public static function getReturnCode() : int
+    public static function getReturnCode(): int
     {
         return self::$returnCode;
     }

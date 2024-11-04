@@ -26,7 +26,7 @@ class AppTest extends Command
      */
     public function handle()
     {
-       $res = SystemRole::query()->take(3);
-       dd($res->get()->toArray());
+        $res = SystemRole::query()->take(3);
+        dd($res->get()->toArray());
     }
 }

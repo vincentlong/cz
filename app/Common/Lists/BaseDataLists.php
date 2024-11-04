@@ -189,7 +189,7 @@ abstract class BaseDataLists implements ListsInterface
         return count($this->lists());
     }
 
-    protected function applySortOrder($query, $sortOrder=null)
+    protected function applySortOrder($query, $sortOrder = null)
     {
         if (is_null($sortOrder)) {
             $sortOrder = $this->sortOrder;
@@ -199,7 +199,7 @@ abstract class BaseDataLists implements ListsInterface
         }
     }
 
-    protected function applySearchWhere($query, $searchWhere=null)
+    protected function applySearchWhere($query, $searchWhere = null)
     {
         if (is_null($searchWhere)) {
             $searchWhere = $this->searchWhere;

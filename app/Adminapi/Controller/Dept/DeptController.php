@@ -20,7 +20,7 @@ class DeptController extends BaseAdminController
     {
         $params = $this->request->get();
         $result = DeptLogic::lists($params);
-        return $this->success('',$result);
+        return $this->success('', $result);
     }
 
 
@@ -30,7 +30,7 @@ class DeptController extends BaseAdminController
     public function leaderDept()
     {
         $result = DeptLogic::leaderDept();
-        return $this->success('',$result);
+        return $this->success('', $result);
     }
 
 

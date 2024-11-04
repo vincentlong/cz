@@ -24,7 +24,7 @@ use app\common\model\dept\Jobs;
  * Class JobsLists
  * @package app\adminapi\lists\dept
  */
-class JobsLists extends BaseAdminDataLists implements ListsSearchInterface,ListsExcelInterface
+class JobsLists extends BaseAdminDataLists implements ListsSearchInterface, ListsExcelInterface
 {
 
     /**

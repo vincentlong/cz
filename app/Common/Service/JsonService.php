@@ -36,7 +36,7 @@ class JsonService
         throw new \App\Exception\HttpResponseException($data);
     }
 
-    public static function throwWithHttpCode(string $msg = 'fail', $httpCode=200, array $data = [], int $code = 0, int $show = 1)
+    public static function throwWithHttpCode(string $msg = 'fail', $httpCode = 200, array $data = [], int $code = 0, int $show = 1)
     {
         $data = compact('code', 'show', 'msg', 'data');
         throw new \App\Exception\HttpResponseException($data, $httpCode);

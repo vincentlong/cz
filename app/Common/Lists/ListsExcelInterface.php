@@ -16,6 +16,6 @@ interface ListsExcelInterface
      * @notes 设置导出文件名
      * @return string
      */
-    public function setFileName():string;
+    public function setFileName(): string;
 
 }

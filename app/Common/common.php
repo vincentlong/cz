@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
  * @author 段誉
  * @date 2021/12/28 18:24
  */
-function create_password(string $plaintext, string $salt) : string
+function create_password(string $plaintext, string $salt): string
 {
     return md5($salt . md5($plaintext . $salt));
 }
@@ -24,10 +24,10 @@ function create_password(string $plaintext, string $salt) : string
  * @author 段誉
  * @date 2021/12/28 18:24
  */
-function create_token(string $extra = '') : string
+function create_token(string $extra = ''): string
 {
     $salt = env('project_unique_identification', 'likeadmin');
-    $encryptSalt = md5( $salt . uniqid());
+    $encryptSalt = md5($salt . uniqid());
     return md5($salt . $extra . time() . $encryptSalt);
 }
 
@@ -40,7 +40,7 @@ function create_token(string $extra = '') : string
  * @author 段誉
  * @date 2021/12/28 18:24
  */
-function substr_symbol_behind($str, $symbol = '.') : string
+function substr_symbol_behind($str, $symbol = '.'): string
 {
     $result = strripos($str, $symbol);
     if ($result === false) {
@@ -57,7 +57,7 @@ function substr_symbol_behind($str, $symbol = '.') : string
  * @author 段誉
  * @date 2021/12/28 18:27
  */
-function compare_php(string $version) : bool
+function compare_php(string $version): bool
 {
     return version_compare(PHP_VERSION, $version) >= 0 ? true : false;
 }
@@ -70,7 +70,7 @@ function compare_php(string $version) : bool
  * @author 段誉
  * @date 2021/12/28 18:27
  */
-function check_dir_write(string $dir = '') : bool
+function check_dir_write(string $dir = ''): bool
 {
     $route = root_path() . '/' . $dir;
     return is_writable($route);
@@ -196,7 +196,7 @@ function download_file($url, $saveDir, $fileName)
 function clear_file_domain($content)
 {
     $fileUrl = FileService::getFileUrl();
-    $pattern = '/<img[^>]*\bsrc=["\']'.preg_quote($fileUrl, '/').'([^"\']+)["\']/i';
+    $pattern = '/<img[^>]*\bsrc=["\']' . preg_quote($fileUrl, '/') . '([^"\']+)["\']/i';
     return preg_replace($pattern, '<img src="$1"', $content);
 }
 
@@ -265,7 +265,7 @@ function get_no_prefix_table_name($tableName)
  * @author 段誉
  * @date 2023/2/23 11:35
  */
-function generate_sn($table, $field, $prefix = '', $randSuffixLength = 4, $pool = []) : string
+function generate_sn($table, $field, $prefix = '', $randSuffixLength = 4, $pool = []): string
 {
     $suffix = '';
     for ($i = 0; $i < $randSuffixLength; $i++) {
@@ -282,7 +282,7 @@ function generate_sn($table, $field, $prefix = '', $randSuffixLength = 4, $pool 
     return $sn;
 }
 
-function generate_sn_raw($table, $field, $prefix = '', $randSuffixLength = 4, $pool = []) : string
+function generate_sn_raw($table, $field, $prefix = '', $randSuffixLength = 4, $pool = []): string
 {
     $suffix = '';
     for ($i = 0; $i < $randSuffixLength; $i++) {

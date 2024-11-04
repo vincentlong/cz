@@ -16,7 +16,7 @@ class ListsValidate extends BaseValidate
             'default' => [
                 'page_no' => 'integer|gt:0',
                 'page_size' => [
-                    'integer','gt:0',
+                    'integer', 'gt:0',
                     function (string $attribute, mixed $value, Closure $fail) {
                         $result = $this->pageSizeMax($value);
                         if ($result !== true) {
