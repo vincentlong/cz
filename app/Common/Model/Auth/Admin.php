@@ -5,14 +5,18 @@ namespace App\Common\Model\Auth;
 use App\Common\Model\BaseModel;
 use App\Common\Service\FileService;
 use App\Common\Enum\YesNoEnum;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Admin extends BaseModel
 {
     protected $table = 'admin';
 
-//    use SoftDelete;
-//
-//    protected $deleteTime = 'delete_time';
+    use SoftDeletes;
+
+    protected function getDeletedAtColumn()
+    {
+        return 'delete_time';
+    }
 
     protected $appends = [
         'role_id',

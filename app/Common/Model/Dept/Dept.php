@@ -3,8 +3,7 @@
 namespace App\Common\Model\Dept;
 
 use App\Common\Model\BaseModel;
-
-//use think\model\concern\SoftDelete;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * 部门模型
@@ -14,9 +13,12 @@ class Dept extends BaseModel
 
     protected $table = 'dept';
 
-//    use SoftDelete;
-//
-//    protected $deleteTime = 'delete_time';
+    use SoftDeletes;
+
+    protected function getDeletedAtColumn()
+    {
+        return 'delete_time';
+    }
 
     /**
      * @notes 状态描述
