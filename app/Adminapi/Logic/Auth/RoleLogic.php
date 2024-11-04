@@ -71,6 +71,7 @@ class RoleLogic extends BaseLogic
             ]);
 
             if (!empty($menuId)) {
+                // todo bug: 如果取消某个角色的全部权限，menu_id是空数组，不会走到删除逻辑。结果是一个权限也不会被删除
                 SystemRoleMenu::where('role_id', $params['id'])->delete();
                 $data = [];
                 foreach ($menuId as $item) {
