@@ -2,6 +2,7 @@
 
 namespace App\Adminapi\Logic\Auth;
 
+use App\Common\Cache\AdminAuthCache;
 use App\Common\Logic\BaseLogic;
 use App\Common\Model\Auth\SystemRole;
 use App\Common\Model\Auth\SystemRoleMenu;
@@ -82,6 +83,7 @@ class RoleLogic extends BaseLogic
                 SystemRoleMenu::insert($data);
             }
 
+            (new AdminAuthCache())->deleteTag();
             DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -99,6 +101,7 @@ class RoleLogic extends BaseLogic
     public static function delete(int $id)
     {
         SystemRole::destroy($id);
+        (new AdminAuthCache())->deleteTag();
         return true;
     }
 

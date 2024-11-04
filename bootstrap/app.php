@@ -1,14 +1,16 @@
 <?php
 
-use App\Middleware\LikeAdminAllowMiddleware;
+use App\Adminapi\Middleware\AuthMiddleware;
+use App\Adminapi\Middleware\InitMiddleware;
+use App\Adminapi\Middleware\LoginMiddleware;
+use App\Common\Service\JsonService;
 use App\Exception\HttpResponseException;
+use App\Middleware\LikeAdminAllowMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
-use App\Common\Service\JsonService;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -17,8 +19,9 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->group(app_path('Api/Route/index.php'));
             Route::prefix('adminapi')
                 ->middleware([
-                   \App\Adminapi\Middleware\InitMiddleware::class,
-                   \App\Adminapi\Middleware\LoginMiddleware::class,
+                    InitMiddleware::class, // 初始化
+                    LoginMiddleware::class, // 登录验证
+                    AuthMiddleware::class, // 权限认证
                 ])
                 ->group(app_path('Adminapi/Route/index.php'));
             Route::prefix('/')

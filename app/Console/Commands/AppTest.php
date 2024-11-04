@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Common\Model\Auth\SystemRole;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class AppTest extends Command
 {
@@ -26,7 +27,17 @@ class AppTest extends Command
      */
     public function handle()
     {
-        $res = SystemRole::query()->take(3);
-        dd($res->get()->toArray());
+        $input = [
+            'system_role',
+            'system_role_menu',
+        ];
+        dd($this->formatUrl($input));
+    }
+
+    protected function formatUrl(array $data)
+    {
+        return array_map(function ($item) {
+            return strtolower(Str::camel($item));
+        }, $data);
     }
 }
