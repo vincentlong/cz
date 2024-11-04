@@ -22,14 +22,12 @@ class AdminTokenCache extends BaseCache
         //直接从缓存获取
         $adminInfo = $this->get($this->prefix . $token);
         if ($adminInfo) {
-//            Log::info('get token from cache');
             return $adminInfo;
         }
 
         //从数据获取信息被设置缓存(可能后台清除缓存）
         $adminInfo = $this->setAdminInfo($token);
         if ($adminInfo) {
-//            Log::info('get token from db');
             return $adminInfo;
         }
 
@@ -49,7 +47,6 @@ class AdminTokenCache extends BaseCache
         }
         $admin = Admin::query()
             ->where('id', '=', $adminSession->admin_id)
-//            ->append(['role_id']) // todo
             ->first();
 
         $roleName = '';
@@ -57,7 +54,6 @@ class AdminTokenCache extends BaseCache
         if ($admin['root'] == 1) {
             $roleName = '系统管理员';
         } else {
-            // todo
             foreach ($admin['role_id'] as $roleId) {
                 $roleName .= $roleLists[$roleId] ?? '';
                 $roleName .= '/';
