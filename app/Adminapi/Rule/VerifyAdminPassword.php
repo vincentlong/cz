@@ -3,8 +3,8 @@
 namespace App\Adminapi\Rule;
 
 use App\Common\Cache\AdminAccountSafeCache;
+use App\Common\Model\Auth\Admin;
 use App\Common\Service\ConfigService;
-use App\Models\Admin;
 use Closure;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
