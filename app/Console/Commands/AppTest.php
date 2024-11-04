@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Adminapi\Logic\Auth\AuthLogic;
+use App\Common\Model\Auth\SystemRole;
 use Illuminate\Console\Command;
 
 class AppTest extends Command
@@ -26,7 +27,7 @@ class AppTest extends Command
      */
     public function handle()
     {
-       $res = AuthLogic::getAuthByAdminId(4);
-       dd($res);
+       $res = SystemRole::query()->take(3);
+       dd($res->get()->toArray());
     }
 }

@@ -3,12 +3,16 @@
 namespace App\Common\Model\Auth;
 
 use App\Common\Model\BaseModel;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SystemRole extends BaseModel
 {
-//    use SoftDelete;
-//
-//    protected $deleteTime = 'delete_time';
+    use SoftDeletes;
+
+    protected function getDeletedAtColumn()
+    {
+        return 'delete_time';
+    }
 
     protected $table = 'system_role';
 
