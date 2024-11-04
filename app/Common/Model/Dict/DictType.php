@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * 字典类型模型
- * Class DictType
  */
 class DictType extends BaseModel
 {
