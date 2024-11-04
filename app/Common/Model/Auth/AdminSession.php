@@ -3,10 +3,13 @@
 namespace App\Common\Model\Auth;
 
 use App\Common\Model\BaseModel;
+use Illuminate\Support\Facades\Config;
 
 class AdminSession extends BaseModel
 {
     protected $table = 'admin_session';
+
+    public $timestamps = false;
 
     /**
      * @notes 关联管理员表
