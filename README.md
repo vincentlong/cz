@@ -3,7 +3,7 @@
 技术栈：
 - PHP 8.0 => PHP 8.2
 - ThinkPHP 5 => Laravel 11
-- 管理后台：Vue3 + Typescirpt + ElementUI Plis
+- 管理后台：Vue3 + Typescirpt + ElementPlus UI
 - 小程序：Vue3 + Typescirpt + uniapp
 - PC端：Vue3 + Nuxt
 
