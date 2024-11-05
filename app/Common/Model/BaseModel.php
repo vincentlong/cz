@@ -2,7 +2,7 @@
 
 namespace App\Common\Model;
 
-use app\common\service\FileService;
+use App\Common\Service\FileService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 
