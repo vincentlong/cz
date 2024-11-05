@@ -2,14 +2,14 @@
 
 技术栈：
 - PHP 8.0 => PHP 8.2
-- ThinkPHP 5 => Laravel 11
+- ThinkPHP 8 => Laravel 11
 - 管理后台：Vue3 + TypeScript + ElementPlus UI + TailwindCSS
 - 小程序：Vue3 + TypeScript + Uniapp + TailwindCSS
 - PC端：Vue3 + Nuxt
 
 项目刚启动，欢迎加入开源共建~
 
-来源项目：[likeadmin_php](https://github.com/likeadmin-likeshop/likeadmin_php)
+来源项目：[likeadmin_php](https://github.com/likeadmin-likeshop/likeadmin_php) ( v1.9.4 / bfba16334f)
 
 ### 优先级排期
 
@@ -22,7 +22,7 @@
 - [x] 权限控制中间件
 - [x] 数据表格导出
 - [x] 静态资源放到项目工程
-- [x] 数据库模型兼容 TP6：软删除、创建时间、更新时间
+- [x] 数据库模型兼容TP框架：软删除、创建时间、更新时间
 - [x] 管理端 - 文章资讯管理
 - [ ] 移动端 - 用户登录注册
 - [ ] 移动端 - 文章资讯
