@@ -3,7 +3,6 @@
 namespace App\Common\Model\Auth;
 
 use App\Common\Model\BaseModel;
-use Illuminate\Support\Facades\Config;
 
 class AdminSession extends BaseModel
 {

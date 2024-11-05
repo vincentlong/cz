@@ -2,10 +2,8 @@
 
 namespace App\Adminapi\Validate\Article;
 
-use App\Common\Validate\BaseValidate;
 use App\Common\Model\Article\Article;
-use App\Common\Model\Article\ArticleCate;
-use Illuminate\Support\Facades\Validator;
+use App\Common\Validate\BaseValidate;
 use Closure;
 
 /**

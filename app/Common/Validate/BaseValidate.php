@@ -39,7 +39,7 @@ class BaseValidate
 
     public function goCheck($scene = 'default', $extraData = [])
     {
-        $after =  $this->scene($scene, $extraData)->validate();
+        $after = $this->scene($scene, $extraData)->validate();
         // Laravel验证器会过滤掉不在校验规则中出现的字段，而TP会保留。为了兼容TP，这里返回全部输入。
         return array_merge(request()->all(), $extraData);
     }

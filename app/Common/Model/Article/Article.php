@@ -2,9 +2,9 @@
 
 namespace App\Common\Model\Article;
 
+use App\Common\Enum\YesNoEnum;
 use App\Common\Model\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Common\Enum\YesNoEnum;
 
 /**
  * 资讯管理模型
