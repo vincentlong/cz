@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Common\Model\Article\Article;
+use app\common\model\article\ArticleCate;
 use App\Common\Model\Auth\SystemRole;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -27,17 +29,8 @@ class AppTest extends Command
      */
     public function handle()
     {
-        $input = [
-            'system_role',
-            'system_role_menu',
-        ];
-        dd($this->formatUrl($input));
+        $res = Article::query()->take(1)->get();
+        dd($res->toArray());
     }
 
-    protected function formatUrl(array $data)
-    {
-        return array_map(function ($item) {
-            return strtolower(Str::camel($item));
-        }, $data);
-    }
 }

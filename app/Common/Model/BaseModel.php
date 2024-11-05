@@ -40,7 +40,7 @@ class BaseModel extends Model
      * @param $value
      * @return string
      */
-    public function getImageAttr($value)
+    public function getImageAttribute($value)
     {
         return trim($value) ? FileService::getFileUrl($value) : '';
     }
@@ -49,7 +49,7 @@ class BaseModel extends Model
      * @notes 公共图片处理,去除图片域名
      * @param $value
      */
-    public function setImageAttr($value)
+    public function setImageAttribute($value)
     {
         return trim($value) ? FileService::setFileUrl($value) : '';
     }
