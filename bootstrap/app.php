@@ -3,6 +3,8 @@
 use App\Adminapi\Middleware\AuthMiddleware;
 use App\Adminapi\Middleware\InitMiddleware;
 use App\Adminapi\Middleware\LoginMiddleware;
+use App\Api\Middleware\InitMiddleware as ApiInitMiddleware;
+use App\Api\Middleware\LoginMiddleware as ApiLoginMiddleware;
 use App\Common\Service\JsonService;
 use App\Exception\HttpResponseException;
 use App\Middleware\LikeAdminAllowMiddleware;
@@ -15,8 +17,15 @@ use Illuminate\Validation\ValidationException;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         using: function () {
+            // 用户端API
             Route::prefix('api')
+                ->middleware([
+                    ApiInitMiddleware::class, // 初始化
+                    ApiLoginMiddleware::class, // 登录验证
+                ])
                 ->group(app_path('Api/Route/index.php'));
+
+            // 管理后台API
             Route::prefix('adminapi')
                 ->middleware([
                     InitMiddleware::class, // 初始化
@@ -24,6 +33,8 @@ return Application::configure(basePath: dirname(__DIR__))
                     AuthMiddleware::class, // 权限认证
                 ])
                 ->group(app_path('Adminapi/Route/index.php'));
+
+            // Laravel默认路由
             Route::prefix('/')
                 ->group(base_path('routes/web.php'));
         },

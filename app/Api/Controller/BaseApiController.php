@@ -6,14 +6,13 @@ use App\Common\Controller\BaseLikeAdminController;
 
 class BaseApiController extends BaseLikeAdminController
 {
-    //    protected int $userId = 0;
-    //    protected array $userInfo = [];
-    //
-    //    public function initialize()
-    //    {
-    //        if (isset($this->request->userInfo) && $this->request->userInfo) {
-    //            $this->userInfo = $this->request->userInfo;
-    //            $this->userId = $this->request->userInfo['user_id'];
-    //        }
-    //    }
+    protected function getUserId()
+    {
+        return $this->request->attributes->get('userId');
+    }
+
+    protected function getUserInfo()
+    {
+        return $this->request->attributes->get('userInfo');
+    }
 }
