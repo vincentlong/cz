@@ -233,7 +233,7 @@ class LoginLogic extends BaseLogic
      */
     public static function updateLoginInfo($userId)
     {
-        $user = User::findOrEmpty($userId);
+        $user = User::find($userId);
         if ($user->isEmpty()) {
             throw new \Exception('用户不存在');
         }
@@ -306,16 +306,16 @@ class LoginLogic extends BaseLogic
     public static function createAuth($response)
     {
         //先检查openid是否有记录
-        $isAuth = UserAuth::where('openid', '=', $response['openid'])->findOrEmpty();
-        if (!$isAuth->isEmpty()) {
+        $isAuth = UserAuth::where('openid', '=', $response['openid'])->first();
+        if ($isAuth) {
             throw new \Exception('该微信已被绑定');
         }
 
         if (isset($response['unionid']) && !empty($response['unionid'])) {
             //在用unionid找记录，防止生成两个账号，同个unionid的问题
             $userAuth = UserAuth::where(['unionid' => $response['unionid']])
-                ->findOrEmpty();
-            if (!$userAuth->isEmpty() && $userAuth->user_id != $response['user_id']) {
+                ->first();
+            if ($userAuth && ($userAuth->user_id != $response['user_id'])) {
                 throw new \Exception('该微信已被绑定');
             }
         }

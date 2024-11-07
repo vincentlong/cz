@@ -26,6 +26,7 @@ class NoticeListener
 
         } catch (\Exception $e) {
             Log::error('通知发送失败: ' . $e->getMessage());
+            throw $e;
         }
     }
 }

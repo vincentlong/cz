@@ -4,14 +4,14 @@ namespace App\Api\Validate;
 
 use App\Common\Cache\UserAccountSafeCache;
 use App\Common\Enum\LoginEnum;
+use App\Common\Enum\Notice\NoticeEnum;
 use App\Common\Enum\User\UserTerminalEnum;
 use App\Common\Model\User\User;
 use App\Common\Service\ConfigService;
+use App\Common\Service\Sms\SmsDriver;
 use App\Common\Validate\BaseValidate;
 use Closure;
 
-//use App\Common\Enum\NoticeEnum;
-//use App\Common\Service\SmsDriver;
 
 /**
  * 账号密码登录校验
@@ -76,7 +76,8 @@ class LoginAccountValidate extends BaseValidate
         }
 
         // 账号密码登录
-        if ($scene === LoginEnum::ACCOUNT_PASSWORD) {
+        $data = request()->all();
+        if ($scene == LoginEnum::ACCOUNT_PASSWORD) {
             if (!isset($data['password'])) {
                 $fail('请输入密码');
             } else {
@@ -88,7 +89,7 @@ class LoginAccountValidate extends BaseValidate
         }
 
         // 手机验证码登录
-        if ($scene === LoginEnum::MOBILE_CAPTCHA) {
+        if ($scene == LoginEnum::MOBILE_CAPTCHA) {
             if (!isset($data['code'])) {
                 $fail('请输入手机验证码');
             } else {
