@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Common\Model\Article\Article;
+use App\Common\Events\NoticeEvent;
 use Illuminate\Console\Command;
 
 class AppTest extends Command
@@ -26,8 +26,13 @@ class AppTest extends Command
      */
     public function handle()
     {
-        $res = Article::query()->take(1)->get();
-        dd($res->toArray());
+        event(new NoticeEvent([
+            'scene_id' => 101,
+            'params' => [
+                'mobile' => 15521226475,
+                'code' => mt_rand(1000, 9999),
+            ]
+        ]));
     }
 
 }
