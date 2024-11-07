@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6cd031613ed1b7e504d1a67a00db42b0",
+    "content-hash": "c94506e7c4c8c8c38b8af0469f3c30a4",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -5884,6 +5884,93 @@
                 }
             ],
             "time": "2024-09-25T14:20:29+00:00"
+        },
+        {
+            "name": "tencentcloud/common",
+            "version": "3.0.1258",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tencentcloud-sdk-php/common.git",
+                "reference": "f9167242d791f0d7caed888beaaa2d718797c900"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tencentcloud-sdk-php/common/zipball/f9167242d791f0d7caed888beaaa2d718797c900",
+                "reference": "f9167242d791f0d7caed888beaaa2d718797c900",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3||^7.0",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TencentCloud\\": "./src/TencentCloud"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "tencentcloudapi",
+                    "email": "tencentcloudapi@tencent.com",
+                    "homepage": "https://cloud.tencent.com/document/sdk/PHP",
+                    "role": "Developer"
+                }
+            ],
+            "description": "TencentCloudApi php sdk",
+            "homepage": "https://github.com/tencentcloud-sdk-php/common",
+            "support": {
+                "issues": "https://github.com/tencentcloud-sdk-php/common/issues",
+                "source": "https://github.com/tencentcloud-sdk-php/common/tree/3.0.1258"
+            },
+            "time": "2024-11-07T09:10:06+00:00"
+        },
+        {
+            "name": "tencentcloud/sms",
+            "version": "3.0.1258",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tencentcloud-sdk-php/sms.git",
+                "reference": "c688ec478337d7dc0fc857b1ec091435c984167b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tencentcloud-sdk-php/sms/zipball/c688ec478337d7dc0fc857b1ec091435c984167b",
+                "reference": "c688ec478337d7dc0fc857b1ec091435c984167b",
+                "shasum": ""
+            },
+            "require": {
+                "tencentcloud/common": "3.0.1258"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TencentCloud\\": "./src/TencentCloud"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "tencentcloudapi",
+                    "email": "tencentcloudapi@tencent.com",
+                    "homepage": "https://github.com/tencentcloud-sdk-php/sms",
+                    "role": "Developer"
+                }
+            ],
+            "description": "TencentCloudApi php sdk sms",
+            "homepage": "https://github.com/tencentcloud-sdk-php/sms",
+            "support": {
+                "issues": "https://github.com/tencentcloud-sdk-php/sms/issues",
+                "source": "https://github.com/tencentcloud-sdk-php/sms/tree/3.0.1258"
+            },
+            "time": "2024-11-07T09:49:05+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
