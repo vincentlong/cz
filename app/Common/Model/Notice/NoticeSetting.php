@@ -10,6 +10,11 @@ class NoticeSetting extends BaseModel
 {
     protected $table = 'notice_setting';
 
+    protected $appends = [
+        'sms_status_desc',
+        'type_desc',
+    ];
+
     /**
      * 短信通知状态
      *
