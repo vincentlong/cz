@@ -12,6 +12,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
+use App\Adminapi\Middleware\OperationLogMiddleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -30,6 +31,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     InitMiddleware::class, // 初始化
                     LoginMiddleware::class, // 登录验证
                     AuthMiddleware::class, // 权限认证
+                    OperationLogMiddleware::class, // 操作日志
                 ])
                 ->group(app_path('Adminapi/Route/index.php'));
 

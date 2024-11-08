@@ -6,12 +6,17 @@ use App\Common\Controller\BaseLikeAdminController;
 
 class BaseAdminController extends BaseLikeAdminController
 {
-    protected function getAdminId()
+    /**
+     * @var bool 是否记录操作日志
+     */
+    public bool $shouldLogOperation = true;
+
+    public function getAdminId()
     {
         return $this->request->attributes->get('adminId');
     }
 
-    protected function getAdminInfo()
+    public function getAdminInfo()
     {
         return $this->request->attributes->get('adminInfo');
     }
