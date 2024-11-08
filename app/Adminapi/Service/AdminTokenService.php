@@ -2,9 +2,6 @@
 
 namespace App\Adminapi\Service;
 
-//use app\common\cache\AdminTokenCache;
-//use app\common\model\auth\AdminSession;
-//use think\facade\Config;
 use App\Common\Cache\AdminTokenCache;
 use App\Common\Model\Auth\AdminSession;
 use Illuminate\Support\Facades\Config;

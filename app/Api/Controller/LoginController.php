@@ -2,7 +2,7 @@
 
 namespace App\Api\Controller;
 
-//use app\api\validate\{LoginAccountValidate, RegisterValidate, WebScanLoginValidate, WechatLoginValidate};
+//use app\api\validate\{ WebScanLoginValidate, WechatLoginValidate};
 use App\Api\Logic\LoginLogic;
 use App\Api\Validate\{LoginAccountValidate, RegisterValidate, WebScanLoginValidate, WechatLoginValidate};
 
