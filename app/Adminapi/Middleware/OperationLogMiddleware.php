@@ -52,14 +52,16 @@ class OperationLogMiddleware
 
         $params = $request->all();
 
-        // 过滤密码参数
-        if (isset($params['password'])) {
-            $params['password'] = "******";
+        // 过滤敏感参数
+        $sensitiveParams = [
+            'password', 'app_secret', 'password_old', 'password_confirm'
+        ];
+        foreach ($sensitiveParams as $sensitiveParam) {
+            if (isset($params[$sensitiveParam])) {
+                $params[$sensitiveParam] = "******";
+            }
         }
-        // 过滤密钥参数
-        if (isset($params['app_secret'])) {
-            $params['app_secret'] = "******";
-        }
+
         // 导出数据操作进行记录
         if (isset($params['export']) && $params['export'] == 2) {
             $notes .= '-数据导出';
