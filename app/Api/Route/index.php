@@ -13,5 +13,8 @@ foreach ($iterator as $file) {
     }
 }
 Route::controller(IndexController::class)->group(function () {
-    Route::get('/index', 'index');
+    Route::get('index/index', 'index');
+    Route::get('index/config', 'config');
+    Route::get('index/policy', 'policy');
+    Route::get('index/decorate', 'decorate');
 });
