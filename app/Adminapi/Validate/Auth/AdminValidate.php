@@ -29,32 +29,21 @@ class AdminValidate extends BaseValidate
                 'id' => 'required|exists:admin,id',
                 'account' => ['required', 'string', 'between:1,32', Rule::unique('admin', 'account')->ignore(request()->id)],
                 'name' => ['required', 'string', 'between:1,16', Rule::unique('admin', 'name')->ignore(request()->id)],
-                'password' => [
-                    'nullable',
-                    'string',
-                    'between:6,32',
-                    function ($attribute, $value, Closure $fail) {
-                        if (empty($value) && empty(request()->password_confirm)) {
-                            return; // No password change
-                        }
-                        if (strlen($value) < 6 || strlen($value) > 32) {
-                            $fail('密码长度须在6-32位字符');
-                        }
-                    },
-                ],
+                'password' => 'nullable|string|between:6,32',
+                'password_confirm' => 'nullable|same:password',
                 'role_id' => [
                     function ($attribute, $value, Closure $fail) {
                         $admin = Admin::find(request()->id);
                         if (!$admin) {
-                            $fail('管理员不存在');
+                            return $fail('管理员不存在');
                         }
 
                         if ($admin->root) {
-                            return; // Super admin can skip this check
+                            return;
                         }
 
                         if (empty($value)) {
-                            $fail('请选择角色');
+                            return $fail('请选择角色');
                         }
                     },
                 ],
@@ -64,11 +53,11 @@ class AdminValidate extends BaseValidate
                     function ($attribute, $value, Closure $fail) {
                         $admin = Admin::find(request()->id);
                         if (!$admin) {
-                            $fail('管理员不存在');
+                            return $fail('管理员不存在');
                         }
 
                         if ($value && $admin->root) {
-                            $fail('超级管理员不允许被禁用');
+                            return $fail('超级管理员不允许被禁用');
                         }
                     },
                 ],
@@ -87,19 +76,19 @@ class AdminValidate extends BaseValidate
                     'between:6,32',
                     function ($attribute, $value, Closure $fail) {
                         if (empty(request()->password_old)) {
-                            $fail('请填写当前密码');
+                            return $fail('请填写当前密码');
                         }
 
                         $admin = Admin::find(request()->attributes->get('adminId'));
                         if (!$admin) {
-                            $fail('管理员不存在');
+                            return $fail('管理员不存在');
                         }
 
                         $passwordSalt = Config::get('project.unique_identification');
                         $oldPassword = create_password(request()->password_old, $passwordSalt);
 
                         if ($admin->password !== $oldPassword) {
-                            $fail('当前密码错误');
+                            return $fail('当前密码错误');
                         }
                     },
                 ],
