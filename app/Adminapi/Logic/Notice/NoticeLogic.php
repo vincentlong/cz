@@ -182,7 +182,10 @@ class NoticeLogic extends BaseLogic
      */
     public static function checkOa($item)
     {
-        if (!isset($item['template_id']) || !isset($item['template_sn']) || !isset($item['name']) || !isset($item['first']) || !isset($item['remark']) || !isset($item['tpl']) || !isset($item['status'])) {
+        if (!isset($item['template_id']) || !isset($item['template_sn'])
+            || !isset($item['name']) || !isset($item['first'])
+            || !isset($item['remark']) || !isset($item['tpl'])
+            || !isset($item['status'])) {
             throw new \Exception('微信模板消息必填参数：template_id、template_sn、name、first、remark、tpl、status');
         }
     }
