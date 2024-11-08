@@ -3,16 +3,15 @@
 use App\Adminapi\Middleware\AuthMiddleware;
 use App\Adminapi\Middleware\InitMiddleware;
 use App\Adminapi\Middleware\LoginMiddleware;
+use App\Adminapi\Middleware\OperationLogMiddleware;
 use App\Api\Middleware\InitMiddleware as ApiInitMiddleware;
 use App\Api\Middleware\LoginMiddleware as ApiLoginMiddleware;
 use App\Common\Service\JsonService;
-use App\Exception\HttpResponseException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
-use App\Adminapi\Middleware\OperationLogMiddleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -61,10 +60,8 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->render(function (HttpResponseException $e) {
-            return response()->json($e->getResData(), $e->getCode());
-        });
         $exceptions->render(function (ValidationException $e) {
             return JsonService::throw($e->validator->errors()->first());
         });
-    })->create();
+    })
+    ->create();
