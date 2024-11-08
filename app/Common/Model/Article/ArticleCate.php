@@ -45,7 +45,6 @@ class ArticleCate extends BaseModel
         return $this->attributes['is_show'] ? '启用' : '停用';
     }
 
-
     /**
      * @notes 文章数量
      * @param $value

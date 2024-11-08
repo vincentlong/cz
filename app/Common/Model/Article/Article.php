@@ -75,11 +75,7 @@ class Article extends BaseModel
             return [];
         }
 
-        // 增加点击量 TODO TEST
         $article->increment('click_actual');
-
-        return $article
-            ->makeHidden(['click_virtual', 'click_actual']) // TODO TEST
-            ->toArray();
+        return $article->makeHidden(['click_virtual', 'click_actual'])->toArray();
     }
 }
