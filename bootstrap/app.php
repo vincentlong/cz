@@ -7,7 +7,6 @@ use App\Api\Middleware\InitMiddleware as ApiInitMiddleware;
 use App\Api\Middleware\LoginMiddleware as ApiLoginMiddleware;
 use App\Common\Service\JsonService;
 use App\Exception\HttpResponseException;
-use App\Middleware\LikeAdminAllowMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -40,8 +39,24 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // 全局跨域中间件
-        $middleware->append(LikeAdminAllowMiddleware::class);
+        $middleware->use([
+            // 修改Laravel默认中间件
+            \Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks::class,
+//            \Illuminate\Http\Middleware\TrustHosts::class,
+            \Illuminate\Http\Middleware\TrustProxies::class,
+//            \Illuminate\Http\Middleware\HandleCors::class,
+            \Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class,
+            \Illuminate\Http\Middleware\ValidatePostSize::class,
+            \Illuminate\Foundation\Http\Middleware\TrimStrings::class,
+            // 兼容TP框架：不需要转换空字符串为null
+//            \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        ])->append([
+            // Likeadmin跨域请求中间件
+            \App\Middleware\LikeAdminAllowMiddleware::class,
+            // 在这里添加其他自定义全局中间件
+            // ...
+
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (HttpResponseException $e) {
