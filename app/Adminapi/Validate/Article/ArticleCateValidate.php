@@ -39,7 +39,7 @@ class ArticleCateValidate extends BaseValidate
                     function ($attribute, $value, Closure $fail) {
                         $article = Article::where('cid', $value)->exists();
                         if ($article) {
-                            $fail('资讯分类已使用，请先删除绑定该资讯分类的资讯');
+                            return $fail('资讯分类已使用，请先删除绑定该资讯分类的资讯');
                         }
                     },
                 ],

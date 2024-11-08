@@ -71,7 +71,7 @@ class LoginAccountValidate extends BaseValidate
     {
         $config = ConfigService::get('login', 'login_way');
         if (!in_array($scene, $config)) {
-            $fail('不支持的登录方式');
+            return $fail('不支持的登录方式');
             return;
         }
 
@@ -79,11 +79,11 @@ class LoginAccountValidate extends BaseValidate
         $data = request()->all();
         if ($scene == LoginEnum::ACCOUNT_PASSWORD) {
             if (!isset($data['password'])) {
-                $fail('请输入密码');
+                return $fail('请输入密码');
             } else {
                 $passwordCheck = $this->checkPassword($data['password'], $data);
                 if ($passwordCheck !== true) {
-                    $fail($passwordCheck);
+                    return $fail($passwordCheck);
                 }
             }
         }
@@ -91,11 +91,11 @@ class LoginAccountValidate extends BaseValidate
         // 手机验证码登录
         if ($scene == LoginEnum::MOBILE_CAPTCHA) {
             if (!isset($data['code'])) {
-                $fail('请输入手机验证码');
+                return $fail('请输入手机验证码');
             } else {
                 $codeCheck = $this->checkCode($data['code'], $data);
                 if ($codeCheck !== true) {
-                    $fail($codeCheck);
+                    return $fail($codeCheck);
                 }
             }
         }

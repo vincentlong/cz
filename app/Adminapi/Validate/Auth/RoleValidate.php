@@ -37,7 +37,7 @@ class RoleValidate extends BaseValidate
                     'exists:system_role,id',
                     function (string $attribute, mixed $value, Closure $fail) {
                         if (AdminRole::where('role_id', $value)->exists()) {
-                            $fail('有管理员在使用该角色，不允许删除');
+                            return $fail('有管理员在使用该角色，不允许删除');
                         }
                     },
                 ],

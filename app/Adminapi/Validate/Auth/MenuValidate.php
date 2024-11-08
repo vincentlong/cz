@@ -17,7 +17,7 @@ class MenuValidate extends BaseValidate
                     'required',
                     function ($attribute, $value, Closure $fail) {
                         if (!empty(request()->input('id')) && request()->input('id') == $value) {
-                            $fail('上级菜单不能选择自己');
+                            return $fail('上级菜单不能选择自己');
                         }
                     },
                 ],
@@ -43,7 +43,7 @@ class MenuValidate extends BaseValidate
                         $check = SystemMenu::where($where)->first();
 
                         if ($check) {
-                            $fail('菜单名称已存在');
+                            return $fail('菜单名称已存在');
                         }
                     },
                 ],
@@ -67,7 +67,7 @@ class MenuValidate extends BaseValidate
                     function ($attribute, $value, Closure $fail) {
                         $hasChild = SystemMenu::query()->where('pid', $value)->exists();
                         if ($hasChild) {
-                            $fail('存在子菜单,不允许删除');
+                            return $fail('存在子菜单,不允许删除');
                         }
 
                         $isBindRole = SystemRole::query()->whereHas('roleMenuIndex', function ($query) use ($value) {
@@ -75,7 +75,7 @@ class MenuValidate extends BaseValidate
                         })->exists();
 
                         if ($isBindRole) {
-                            $fail('已分配菜单不可删除');
+                            return $fail('已分配菜单不可删除');
                         }
                     },
                 ],

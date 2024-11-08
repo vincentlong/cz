@@ -20,7 +20,7 @@ class ListsValidate extends BaseValidate
                     function (string $attribute, mixed $value, Closure $fail) {
                         $result = $this->pageSizeMax($value);
                         if ($result !== true) {
-                            $fail($result);
+                            return $fail($result);
                         }
                     },
                 ],
