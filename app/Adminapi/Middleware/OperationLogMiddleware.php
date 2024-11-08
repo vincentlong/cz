@@ -5,8 +5,6 @@ namespace App\Adminapi\Middleware;
 use App\Common\Model\OperationLog;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class OperationLogMiddleware

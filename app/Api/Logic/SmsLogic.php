@@ -2,9 +2,9 @@
 
 namespace App\Api\Logic;
 
+use App\Common\Enum\Notice\NoticeEnum;
 use App\Common\Events\NoticeEvent;
 use App\Common\Logic\BaseLogic;
-use App\Common\Enum\Notice\NoticeEnum;
 
 /**
  * 短信逻辑

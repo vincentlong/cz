@@ -4,7 +4,6 @@ namespace App\Adminapi\Logic\Notice;
 
 use App\Common\Logic\BaseLogic;
 use App\Common\Service\ConfigService;
-use App\Common\Enum\Notice\SmsEnum;
 
 /**
  * 短信配置逻辑层

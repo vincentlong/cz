@@ -2,12 +2,11 @@
 
 namespace App\Common\Service\Sms\Engine;
 
-use TencentCloud\Sms\V20190711\SmsClient;
-use TencentCloud\Sms\V20190711\Models\SendSmsRequest;
-use TencentCloud\Common\Exception\TencentCloudSDKException;
 use TencentCloud\Common\Credential;
 use TencentCloud\Common\Profile\ClientProfile;
 use TencentCloud\Common\Profile\HttpProfile;
+use TencentCloud\Sms\V20190711\Models\SendSmsRequest;
+use TencentCloud\Sms\V20190711\SmsClient;
 
 /**
  * 腾讯云短信
@@ -22,7 +21,7 @@ class TencentSms
 
     public function __construct($config)
     {
-        if(empty($config)) {
+        if (empty($config)) {
             $this->error = '请联系管理员配置参数';
             return false;
         }
@@ -92,11 +91,11 @@ class TencentSms
 
             $client = new SmsClient($cred, 'ap-guangzhou', $clientProfile);
             $params = [
-                'PhoneNumberSet'    => ['+86' . $this->mobile],
-                'TemplateID'        => $this->templateId,
-                'Sign'              => $this->config['sign'],
-                'TemplateParamSet'  => $this->templateParams,
-                'SmsSdkAppid'       => $this->config['app_id'],
+                'PhoneNumberSet' => ['+86' . $this->mobile],
+                'TemplateID' => $this->templateId,
+                'Sign' => $this->config['sign'],
+                'TemplateParamSet' => $this->templateParams,
+                'SmsSdkAppid' => $this->config['app_id'],
             ];
             $req = new SendSmsRequest();
             $req->fromJsonString(json_encode($params));
@@ -107,7 +106,7 @@ class TencentSms
                 $message = $res['SendStatusSet'][0]['Message'] ?? json_encode($resp);
                 throw new \Exception('腾讯云短信错误：' . $message);
             }
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->error = $e->getMessage();
             return false;
         }

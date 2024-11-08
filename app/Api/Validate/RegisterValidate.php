@@ -2,7 +2,6 @@
 
 namespace App\Api\Validate;
 
-use App\Common\Model\User;
 use App\Common\Validate\BaseValidate;
 
 /**

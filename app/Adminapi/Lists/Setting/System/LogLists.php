@@ -19,7 +19,7 @@ class LogLists extends BaseAdminDataLists implements ListsSearchInterface, Lists
     public function setSearch(): array
     {
         return [
-            '%like%' => ['admin_name','url','ip','type'],
+            '%like%' => ['admin_name', 'url', 'ip', 'type'],
             'between_time' => 'create_time',
         ];
     }

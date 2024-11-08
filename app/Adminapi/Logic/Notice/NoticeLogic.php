@@ -2,8 +2,8 @@
 
 namespace App\Adminapi\Logic\Notice;
 
-use App\Common\Logic\BaseLogic;
 use App\Common\Enum\Notice\NoticeEnum;
+use App\Common\Logic\BaseLogic;
 use App\Common\Model\Notice\NoticeSetting;
 
 /**

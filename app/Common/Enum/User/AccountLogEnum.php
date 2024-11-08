@@ -125,7 +125,7 @@ class AccountLogEnum
      * @author 段誉
      * @date 2023/2/23 10:08
      */
-    public static function getUserMoneyChangeType() : array
+    public static function getUserMoneyChangeType(): array
     {
         return array_merge(self::UM_DEC, self::UM_INC);
     }

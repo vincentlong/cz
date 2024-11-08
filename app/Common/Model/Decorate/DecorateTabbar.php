@@ -25,7 +25,7 @@ class DecorateTabbar extends BaseModel
         $tabbar = self::all()->toArray();
 
         if (empty($tabbar)) {
-           return $tabbar;
+            return $tabbar;
         }
 
         foreach ($tabbar as &$item) {

@@ -10,16 +10,15 @@ namespace App\Api\Logic;
 //    wechat\WeChatOaService,
 //    wechat\WeChatRequestService};
 
+use App\Api\Service\UserTokenService;
 use App\Common\Enum\LoginEnum;
 use App\Common\Enum\User\UserTerminalEnum;
-use App\Api\Service\UserTokenService;
 use App\Common\Enum\YesNoEnum;
 use App\Common\Logic\BaseLogic;
 use App\Common\Model\User\User;
 use App\Common\Model\User\UserAuth;
 use App\Common\Service\ConfigService;
 use App\Common\Service\FileService;
-
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
@@ -345,7 +344,7 @@ class LoginLogic extends BaseLogic
             $redirectUri = UrlEncode($redirectUri);
 
             // 设置有效时间标记状态, 超时扫码不可登录
-            $state = MD5(time().rand(10000, 99999));
+            $state = MD5(time() . rand(10000, 99999));
             (new WebScanLoginCache())->setScanLoginState($state);
 
             // 扫码地址

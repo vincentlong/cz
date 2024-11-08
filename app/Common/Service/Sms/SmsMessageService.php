@@ -32,11 +32,11 @@ class SmsMessageService
             $this->notice = NoticeLogic::addNotice($params, $noticeSetting, NoticeEnum::SMS, $content);
             // 发送短信
             $smsDriver = new SmsDriver();
-            if(!is_null($smsDriver->getError())) {
+            if (!is_null($smsDriver->getError())) {
                 throw new \Exception($smsDriver->getError());
             }
 
-            $result =  $smsDriver->send($params['params']['mobile'], [
+            $result = $smsDriver->send($params['params']['mobile'], [
                 'template_id' => $noticeSetting['sms_notice']['template_id'],
                 'params' => $this->setSmsParams($noticeSetting, $params)
             ]);
@@ -63,7 +63,7 @@ class SmsMessageService
     public function contentFormat($noticeSetting, $params)
     {
         $content = $noticeSetting['sms_notice']['content'];
-        foreach($params['params'] as $k => $v) {
+        foreach ($params['params'] as $k => $v) {
             $search = '${' . $k . '}';
             $content = str_replace($search, $v, $content);
         }
@@ -79,12 +79,12 @@ class SmsMessageService
     public function addSmsLog($params, $content)
     {
         $data = [
-            'scene_id'   => $params['scene_id'],
-            'mobile'        => $params['params']['mobile'],
-            'content'       => $content,
-            'code'          => $params['params']['code'] ?? '',
-            'send_status'   => SmsEnum::SEND_ING,
-            'send_time'     => time(),
+            'scene_id' => $params['scene_id'],
+            'mobile' => $params['params']['mobile'],
+            'content' => $content,
+            'code' => $params['params']['code'] ?? '',
+            'send_status' => SmsEnum::SEND_ING,
+            'send_time' => time(),
         ];
         return SmsLog::create($data);
     }
@@ -100,11 +100,11 @@ class SmsMessageService
     {
         $defaultEngine = ConfigService::get('sms', 'engine', false);
         // 阿里云 且是 验证码类型
-        if($defaultEngine != 'TENCENT' && in_array($params['scene_id'], NoticeEnum::SMS_SCENE)) {
+        if ($defaultEngine != 'TENCENT' && in_array($params['scene_id'], NoticeEnum::SMS_SCENE)) {
             return ['code' => $params['params']['code']];
         }
 
-        if($defaultEngine != 'TENCENT') {
+        if ($defaultEngine != 'TENCENT') {
             return $params['params'];
         }
 
@@ -113,7 +113,7 @@ class SmsMessageService
         $content = $noticeSetting['sms_notice']['content'];
         foreach ($params['params'] as $item => $val) {
             $search = '${' . $item . '}';
-            if(strpos($content, $search) !== false && !in_array($item, $arr)) {
+            if (strpos($content, $search) !== false && !in_array($item, $arr)) {
                 //arr => 获的数组[nickname, order_sn] //顺序可能是乱的
                 $arr[] = $item;
             }
@@ -135,7 +135,7 @@ class SmsMessageService
         //arr4 => 获取到变量数组的对应的值 [mofung, 123456789]
         $arr4 = [];
         foreach ($arr3 as $v2) {
-            if(isset($params['params'][$v2])) {
+            if (isset($params['params'][$v2])) {
                 $arr4[] = $params['params'][$v2] . "";
             }
         }

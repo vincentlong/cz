@@ -29,7 +29,7 @@ class SmsConfigController extends BaseAdminController
     {
         $params = (new SmsConfigValidate())->post()->goCheck('setConfig');
         SmsConfigLogic::setConfig($params);
-        return $this->success('操作成功',[],1,1);
+        return $this->success('操作成功', [], 1, 1);
     }
 
 

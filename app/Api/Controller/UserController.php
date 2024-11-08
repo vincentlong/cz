@@ -100,7 +100,7 @@ class UserController extends BaseApiController
         $params = (new UserValidate())->post()->goCheck('bindMobile');
         $params['user_id'] = $this->getUserId();
         $result = UserLogic::bindMobile($params);
-        if($result) {
+        if ($result) {
             return $this->success('绑定成功', [], 1, 1);
         }
         return $this->fail(UserLogic::getError());

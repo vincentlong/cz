@@ -12,7 +12,7 @@ use App\Api\Validate\{LoginAccountValidate, RegisterValidate, WebScanLoginValida
 class LoginController extends BaseApiController
 {
 
-    public array $notNeedLogin = ['register', 'account', 'logout', 'codeUrl', 'oaLogin',  'mnpLogin', 'getScanCode', 'scanLogin'];
+    public array $notNeedLogin = ['register', 'account', 'logout', 'codeUrl', 'oaLogin', 'mnpLogin', 'getScanCode', 'scanLogin'];
 
     /**
      * @notes 注册账号
@@ -117,7 +117,6 @@ class LoginController extends BaseApiController
         }
         return $this->success('绑定成功', [], 1, 1);
     }
-
 
 
     /**

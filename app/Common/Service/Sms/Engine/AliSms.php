@@ -17,7 +17,7 @@ class AliSms
 
     public function __construct($config)
     {
-        if(empty($config)) {
+        if (empty($config)) {
             $this->error = '请联系管理员配置参数';
             return false;
         }
@@ -90,9 +90,9 @@ class AliSms
                 ->method('POST')
                 ->options([
                     'query' => [
-                        'PhoneNumbers'  => $this->mobile,            //发送手机号
-                        'SignName'      => $this->config['sign'],    //短信签名
-                        'TemplateCode'  => $this->templateId,     //短信模板CODE
+                        'PhoneNumbers' => $this->mobile,            //发送手机号
+                        'SignName' => $this->config['sign'],    //短信签名
+                        'TemplateCode' => $this->templateId,     //短信模板CODE
                         'TemplateParam' => $this->templateParams,    //自定义随机数
                     ],
                 ])
@@ -104,7 +104,7 @@ class AliSms
             }
             $message = $res['Message'] ?? $res;
             throw new \Exception('阿里云短信错误：' . $message);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->error = $e->getMessage();
             return false;
         }
