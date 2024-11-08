@@ -16,7 +16,7 @@ class RoleValidate extends BaseValidate
                 'menu_id' => 'array',
             ],
             'edit' => [
-                'name' => 'required|max:64',
+                'name' => 'required|max:64|unique:system_role,name,' . request()->id,
                 'menu_id' => 'array',
                 'sort' => 'integer',
                 'desc' => 'nullable|string',

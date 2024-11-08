@@ -6,6 +6,7 @@ use App\Common\Model\Auth\Admin;
 use App\Common\Validate\BaseValidate;
 use Closure;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Validation\Rule;
 
 class AdminValidate extends BaseValidate
 {
@@ -26,8 +27,8 @@ class AdminValidate extends BaseValidate
             ],
             'edit' => [
                 'id' => 'required|exists:admin,id',
-                'account' => 'required|string|between:1,32',
-                'name' => 'required|string|between:1,16',
+                'account' => ['required', 'string', 'between:1,32', Rule::unique('admin', 'account')->ignore(request()->id)],
+                'name' => ['required', 'string', 'between:1,16', Rule::unique('admin', 'name')->ignore(request()->id)],
                 'password' => [
                     'nullable',
                     'string',
