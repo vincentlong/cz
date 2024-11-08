@@ -1,6 +1,4 @@
-## LikeAdmin - Laravel版本
-
-**用Laravel 11重写Likeadmin前后端分离全栈开发框架**
+## Laravel版本的likeadmin 
 
 当前进度：
 ████░░░░░░ 40%
