@@ -19,7 +19,6 @@ class OperationLogMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $response = $next($request);
-        Log::info('OperationLogMiddleware after response');
 
         /**
          * @var $controllerObject \App\Adminapi\Controller\BaseAdminController
