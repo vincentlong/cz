@@ -1,4 +1,7 @@
-## likeadmin_laravel
+<h1 align="center" style="margin: 10px 0 10px; font-weight: bold;">likeadmin_laravel</h1>
+<h3 align="center" style="margin-bottom: 10px;">用Laravel 11重写likeadmin前后端分离全栈开发框架</h3>
+
+来源项目：[likeadmin_php](https://github.com/likeadmin-likeshop/likeadmin_php) ( v1.9.4 / bfba16334f)
 
 当前进度：
 ████░░░░░░ 40%
@@ -10,9 +13,11 @@
 - 小程序：Vue3 + TypeScript + Uniapp + TailwindCSS
 - PC端：Vue3 + Nuxt
 
-项目刚启动，欢迎加入开源共建~
+### 设计目标
 
-来源项目：[likeadmin_php](https://github.com/likeadmin-likeshop/likeadmin_php) ( v1.9.4 / bfba16334f)
+1. 完全兼容likeadmin_php数据库表结构、API接口路由等
+
+2. 无需改动任何一行前端代码/任何一个表结构，即可无缝迁移到Laravel
 
 ### 优先级排期
 
