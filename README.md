@@ -1,6 +1,14 @@
 <h1 align="center" style="margin: 10px 0 10px; font-weight: bold;">likeadmin_laravel</h1>
 <h3 align="center" style="margin-bottom: 10px;">用Laravel 11重写likeadmin前后端分离全栈开发框架</h3>
-
+<p align="center">
+<a href="#"><img src="https://img.shields.io/badge/PHP-8.2-8892bf"></a>
+<a href="#"><img src="https://img.shields.io/badge/Laravel-11-ef6763"></a>
+<a href="#"><img src="https://img.shields.io/badge/Vue.js-3-4eb883"></a>
+<a href="#"><img src="https://img.shields.io/badge/uniapp-3-d85806"></a>
+<a href="#"><img src="https://img.shields.io/badge/TypeScript-5-294e80"></a>
+<a href="#"><img src="https://img.shields.io/badge/Element Plus-2.8-409eff"></a>
+<a href="#"><img src="https://img.shields.io/badge/vite-5-ffc018"></a>
+</p>
 来源项目：[likeadmin_php](https://github.com/likeadmin-likeshop/likeadmin_php) ( v1.9.4 / bfba16334f)
 
 当前进度：
