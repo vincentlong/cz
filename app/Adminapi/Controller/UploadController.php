@@ -5,6 +5,7 @@ namespace App\Adminapi\Controller;
 use App\Common\Service\UploadService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 /**
  * 上传文件
@@ -26,7 +27,7 @@ class UploadController extends BaseAdminController
 
         try {
             $cid = $this->request->post('cid', 0);
-            $result = UploadService::image($cid);
+            $result = UploadService::image(intval($cid));
             return $this->success('上传成功', $result);
         } catch (Exception $e) {
             return $this->fail($e->getMessage());
@@ -48,7 +49,7 @@ class UploadController extends BaseAdminController
 
         try {
             $cid = $this->request->post('cid', 0);
-            $result = UploadService::video($cid);
+            $result = UploadService::video(intval($cid));
             return $this->success('上传成功', $result);
         } catch (Exception $e) {
             return $this->fail($e->getMessage());
@@ -61,7 +62,7 @@ class UploadController extends BaseAdminController
     public function file(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|mimes:' . implode(',', config('project.file_file'))
+            'file' => 'required|file|mimes:' . implode(',', config('project.file_file')),
         ], [
             'file.required' => '请上传文件',
             'file.file' => '请上传文件',
@@ -70,7 +71,7 @@ class UploadController extends BaseAdminController
 
         try {
             $cid = $this->request->post('cid', 0);
-            $result = UploadService::file($cid);
+            $result = UploadService::file(intval($cid));
             return $this->success('上传成功', $result);
         } catch (Exception $e) {
             return $this->fail($e->getMessage());
