@@ -67,6 +67,6 @@ class OfficialAccountReplyValidate extends BaseValidate
         'delete' => ['id'],
         'sort' => ['id', 'new_sort'],
         'status' => ['id'],
-        'edit' => ['id', 'reply_type', 'name', 'content_type', 'content', 'status','keyword', 'matching_type', 'sort', 'reply_num']
+        'edit' => ['id', 'reply_type', 'name', 'content_type', 'content', 'status', 'keyword', 'matching_type', 'sort', 'reply_num']
     ];
 }

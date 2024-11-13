@@ -18,9 +18,7 @@ use app\common\enum\OfficialAccountEnum;
 use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\channel\OfficialAccountReply;
-use app\common\service\wechat\WeChatConfigService;
 use app\common\service\wechat\WeChatOaService;
-
 
 
 /**

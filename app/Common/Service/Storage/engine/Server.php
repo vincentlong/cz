@@ -2,9 +2,8 @@
 
 namespace App\Common\Service\Storage\Engine;
 
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Request;
 use Exception;
+use Illuminate\Http\UploadedFile;
 
 /**
  * 存储引擎抽象类
@@ -42,10 +41,10 @@ abstract class Server
 
         // 文件信息
         $this->fileInfo = [
-            'ext'      => $this->file->getExtension(),
-            'size'     => $this->file->getSize(),
-            'mime'     => $this->file->getMimeType(),
-            'name'     => $this->file->getClientOriginalName(),
+            'ext' => $this->file->getExtension(),
+            'size' => $this->file->getSize(),
+            'mime' => $this->file->getMimeType(),
+            'name' => $this->file->getClientOriginalName(),
             'realPath' => $this->file->getRealPath(),
         ];
         // 生成保存文件名
@@ -75,8 +74,8 @@ abstract class Server
      * Notes: 抓取网络资源
      * @param $url
      * @param $key
-     * @author 张无忌(2021/3/2 14:15)
      * @return mixed
+     * @author 张无忌(2021/3/2 14:15)
      */
     abstract protected function fetch($url, $key);
 

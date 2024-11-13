@@ -3,7 +3,6 @@
 namespace App\Adminapi\Validate\Channel;
 
 use App\Common\Validate\BaseValidate;
-use Illuminate\Support\Facades\Validator;
 
 /**
  * 小程序设置验证

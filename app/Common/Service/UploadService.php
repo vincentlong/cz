@@ -4,8 +4,8 @@ namespace App\Common\Service;
 
 use App\Common\Enum\FileEnum;
 use App\Common\Model\File\File;
-use Exception;
 use App\Common\Service\Storage\Driver as StorageDriver;
+use Exception;
 
 class UploadService
 {

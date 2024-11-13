@@ -5,7 +5,6 @@ namespace App\Adminapi\Controller;
 use App\Common\Service\UploadService;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 /**
  * 上传文件

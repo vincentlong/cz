@@ -9,15 +9,14 @@ class PayEnum
 {
 
     //支付类型
-    const BALANCE_PAY   = 1; //余额支付
-    const WECHAT_PAY    = 2; //微信支付
-    const ALI_PAY       = 3; //支付宝支付
+    const BALANCE_PAY = 1; //余额支付
+    const WECHAT_PAY = 2; //微信支付
+    const ALI_PAY = 3; //支付宝支付
 
 
     //支付状态
     const UNPAID = 0; //未支付
     const ISPAID = 1; //已支付
-
 
 
     //支付场景
@@ -47,7 +46,6 @@ class PayEnum
         }
         return $data[$value] ?? '';
     }
-
 
 
     /**

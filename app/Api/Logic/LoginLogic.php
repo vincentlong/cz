@@ -3,13 +3,8 @@
 namespace App\Api\Logic;
 
 //use app\common\cache\WebScanLoginCache;
-use App\Api\Service\WechatUserService;
-use App\Common\Service\Wechat\WeChatConfigService;
-use App\Common\Service\Wechat\WeChatMnpService;
-use App\Common\Service\Wechat\WeChatOaService;
-use App\Common\Service\Wechat\WeChatRequestService;
-
 use App\Api\Service\UserTokenService;
+use App\Api\Service\WechatUserService;
 use App\Common\Enum\LoginEnum;
 use App\Common\Enum\User\UserTerminalEnum;
 use App\Common\Enum\YesNoEnum;
@@ -18,6 +13,10 @@ use App\Common\Model\User\User;
 use App\Common\Model\User\UserAuth;
 use App\Common\Service\ConfigService;
 use App\Common\Service\FileService;
+use App\Common\Service\Wechat\WeChatConfigService;
+use App\Common\Service\Wechat\WeChatMnpService;
+use App\Common\Service\Wechat\WeChatOaService;
+use App\Common\Service\Wechat\WeChatRequestService;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 

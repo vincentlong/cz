@@ -4,8 +4,8 @@ namespace app\common\service\storage\Engine;
 
 use Exception;
 use Qiniu\Auth;
-use Qiniu\Storage\UploadManager;
 use Qiniu\Storage\BucketManager;
+use Qiniu\Storage\UploadManager;
 
 /**
  * 七牛云存储引擎
@@ -72,7 +72,7 @@ class Qiniu extends Server
      * @author 张无忌
      * @date 2021/7/27 16:02
      */
-    public function fetch($url, $key=null)
+    public function fetch($url, $key = null)
     {
         try {
             if (substr($url, 0, 1) !== '/' || strstr($url, 'http://') || strstr($url, 'https://')) {

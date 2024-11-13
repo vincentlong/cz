@@ -2,8 +2,6 @@
 
 namespace App\Common\Service\Storage\Engine;
 
-use function PHPUnit\Framework\fileExists;
-
 /**
  * 本地文件驱动
  */
@@ -30,7 +28,9 @@ class Local extends Server
         return true;
     }
 
-    public function fetch($url, $key=null) {}
+    public function fetch($url, $key = null)
+    {
+    }
 
     /**
      * 删除文件
@@ -42,7 +42,7 @@ class Local extends Server
         $check = strpos($fileName, '/');
         if ($check !== false && $check == 0) {
             // 文件所在目录
-            $fileName = substr_replace($fileName,"",0,1);
+            $fileName = substr_replace($fileName, "", 0, 1);
         }
         $filePath = public_path($fileName);
         return !file_exists($filePath) ?: unlink($filePath);

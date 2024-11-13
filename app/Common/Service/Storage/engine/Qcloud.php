@@ -68,15 +68,16 @@ class Qcloud extends Server
      * notes: 抓取远程资源(最大支持上传5G文件)
      * @param $url
      * @param null $key
-     * @author 张无忌(2021/3/2 14:36)
      * @return mixed|void
+     * @author 张无忌(2021/3/2 14:36)
      */
-    public function fetch($url, $key=null) {
+    public function fetch($url, $key = null)
+    {
         try {
             $this->cosClient->putObject([
                 'Bucket' => $this->config['bucket'],
-                'Key'    => $key,
-                'Body'   => fopen($url, 'rb')
+                'Key' => $key,
+                'Body' => fopen($url, 'rb')
             ]);
             return true;
         } catch (Exception $e) {

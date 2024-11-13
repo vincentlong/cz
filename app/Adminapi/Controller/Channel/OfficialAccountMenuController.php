@@ -35,10 +35,10 @@ class OfficialAccountMenuController extends BaseAdminController
     {
         $params = $this->request->post();
         $result = OfficialAccountMenuLogic::save($params);
-        if(false === $result) {
+        if (false === $result) {
             return $this->fail(OfficialAccountMenuLogic::getError());
         }
-        return $this->success('保存成功',[],1,1);
+        return $this->success('保存成功', [], 1, 1);
     }
 
 
@@ -52,12 +52,11 @@ class OfficialAccountMenuController extends BaseAdminController
     {
         $params = $this->request->post();
         $result = OfficialAccountMenuLogic::saveAndPublish($params);
-        if($result) {
-            return $this->success('保存并发布成功',[],1,1);
+        if ($result) {
+            return $this->success('保存并发布成功', [], 1, 1);
         }
         return $this->fail(OfficialAccountMenuLogic::getError());
     }
-
 
 
     /**

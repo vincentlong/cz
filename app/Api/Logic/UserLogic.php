@@ -9,9 +9,9 @@ use App\Common\Logic\BaseLogic;
 use App\Common\Model\User\User;
 use App\Common\Model\User\UserAuth;
 use App\Common\Service\FileService;
-use Illuminate\Support\Facades\Config;
 use App\Common\Service\Sms\SmsDriver;
 use App\Common\Service\Wechat\WeChatMnpService;
+use Illuminate\Support\Facades\Config;
 
 /**
  * 会员逻辑层

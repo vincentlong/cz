@@ -2,8 +2,8 @@
 
 namespace app\common\service\storage\Engine;
 
-use OSS\OssClient;
 use OSS\Core\OssException;
+use OSS\OssClient;
 
 /**
  * 阿里云存储引擎 (OSS)
