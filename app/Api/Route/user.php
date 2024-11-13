@@ -8,4 +8,5 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/user/info', 'info');
     Route::post('/user/resetPassword', 'resetPassword');
     Route::post('/user/changePassword', 'changePassword');
+    Route::post('/user/bindMobile', 'bindMobile');
 });

@@ -2,13 +2,12 @@
 
 namespace App\Api\Logic;
 
-//use app\api\service\{ WechatUserService};
 //use app\common\cache\WebScanLoginCache;
-//use app\common\service\{
-//    wechat\WeChatConfigService,
-//    wechat\WeChatMnpService,
-//    wechat\WeChatOaService,
-//    wechat\WeChatRequestService};
+use App\Api\Service\WechatUserService;
+use App\Common\Service\Wechat\WeChatConfigService;
+use App\Common\Service\Wechat\WeChatMnpService;
+use App\Common\Service\Wechat\WeChatOaService;
+use App\Common\Service\Wechat\WeChatRequestService;
 
 use App\Api\Service\UserTokenService;
 use App\Common\Enum\LoginEnum;
@@ -145,7 +144,7 @@ class LoginLogic extends BaseLogic
      */
     public static function oaLogin(array $params)
     {
-        Db::startTrans();
+        DB::beginTransaction();
         try {
             //通过code获取微信 openid
             $response = (new WeChatOaService())->getOaResByCode($params['code']);
@@ -155,11 +154,10 @@ class LoginLogic extends BaseLogic
             // 更新登录信息
             self::updateLoginInfo($userInfo['id']);
 
-            Db::commit();
+            DB::commit();
             return $userInfo;
-
         } catch (\Exception $e) {
-            Db::rollback();
+            DB::rollback();
             self::$error = $e->getMessage();
             return false;
         }
@@ -203,7 +201,7 @@ class LoginLogic extends BaseLogic
      */
     public static function mnpLogin(array $params)
     {
-        Db::startTrans();
+        DB::beginTransaction();
         try {
             //通过code获取微信 openid
             $response = (new WeChatMnpService())->getMnpResByCode($params['code']);
@@ -213,10 +211,10 @@ class LoginLogic extends BaseLogic
             // 更新登录信息
             self::updateLoginInfo($userInfo['id']);
 
-            Db::commit();
+            DB::commit();
             return $userInfo;
         } catch (\Exception  $e) {
-            Db::rollback();
+            DB::rollback();
             self::$error = $e->getMessage();
             return false;
         }
@@ -233,14 +231,13 @@ class LoginLogic extends BaseLogic
     public static function updateLoginInfo($userId)
     {
         $user = User::find($userId);
-        if ($user->isEmpty()) {
+        if (!$user) {
             throw new \Exception('用户不存在');
         }
 
         $time = time();
         $user->login_time = $time;
         $user->login_ip = request()->ip();
-        $user->update_time = $time;
         $user->save();
     }
 
@@ -367,7 +364,7 @@ class LoginLogic extends BaseLogic
      */
     public static function scanLogin($params)
     {
-        Db::startTrans();
+        DB::beginTransaction();
         try {
             // 通过code 获取 access_token,openid,unionid等信息
             $userAuth = WeChatRequestService::getUserAuthByCode($params['code']);
@@ -386,11 +383,10 @@ class LoginLogic extends BaseLogic
             // 更新登录信息
             self::updateLoginInfo($userInfo['id']);
 
-            Db::commit();
+            DB::commit();
             return $userInfo;
-
         } catch (\Exception $e) {
-            Db::rollback();
+            DB::rollback();
             self::$error = $e->getMessage();
             return false;
         }

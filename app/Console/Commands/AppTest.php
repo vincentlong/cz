@@ -2,7 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Common\Events\NoticeEvent;
+use App\Common\Service\ConfigService;
+use App\Common\Service\Storage\Driver as StorageDriver;
 use Illuminate\Console\Command;
 
 class AppTest extends Command
@@ -26,13 +27,15 @@ class AppTest extends Command
      */
     public function handle()
     {
-        event(new NoticeEvent([
-            'scene_id' => 101,
-            'params' => [
-                'mobile' => 15521226475,
-                'code' => mt_rand(1000, 9999),
-            ]
-        ]));
+
+        $config = [
+            'default' => ConfigService::get('storage', 'default', 'local'),
+            'engine' => ConfigService::get('storage') ?? ['local' => []],
+        ];
+
+        // 2、执行文件上传
+        $driver = new StorageDriver($config);
+        $driver->delete('/uploads/images/20241113/2024111317322465cca0840.png');
     }
 
 }

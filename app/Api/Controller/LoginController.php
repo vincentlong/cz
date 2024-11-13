@@ -68,10 +68,6 @@ class LoginController extends BaseApiController
 
     /**
      * @notes 公众号登录
-     * @return \think\response\Json
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @author 段誉
-     * @date 2022/9/20 19:48
      */
     public function oaLogin()
     {
@@ -86,9 +82,6 @@ class LoginController extends BaseApiController
 
     /**
      * @notes 小程序-登录接口
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2022/9/20 19:48
      */
     public function mnpLogin()
     {
@@ -103,9 +96,6 @@ class LoginController extends BaseApiController
 
     /**
      * @notes 小程序绑定微信
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2022/9/20 19:48
      */
     public function mnpAuthBind()
     {
@@ -121,10 +111,6 @@ class LoginController extends BaseApiController
 
     /**
      * @notes 公众号绑定微信
-     * @return \think\response\Json
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @author 段誉
-     * @date 2022/9/20 19:48
      */
     public function oaAuthBind()
     {
@@ -140,9 +126,6 @@ class LoginController extends BaseApiController
 
     /**
      * @notes 获取扫码地址
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2022/10/20 18:25
      */
     public function getScanCode()
     {
@@ -157,9 +140,6 @@ class LoginController extends BaseApiController
 
     /**
      * @notes 网站扫码登录
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2022/10/21 10:28
      */
     public function scanLogin()
     {
@@ -174,14 +154,11 @@ class LoginController extends BaseApiController
 
     /**
      * @notes 更新用户头像昵称
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2023/2/22 11:15
      */
     public function updateUser()
     {
         $params = (new WechatLoginValidate())->post()->goCheck("updateUser");
-        LoginLogic::updateUser($params, $this->userId);
+        LoginLogic::updateUser($params, $this->getUserId());
         return $this->success('操作成功', [], 1, 1);
     }
 
