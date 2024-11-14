@@ -1,34 +1,38 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
-namespace app\adminapi\validate\channel;
 
-use app\common\validate\BaseValidate;
+namespace App\Adminapi\Validate\Channel;
+
+use App\Common\Validate\BaseValidate;
 
 /**
  * 开放平台验证
- * Class OpenSettingValidate
- * @package app\adminapi\validate\channel
  */
 class OpenSettingValidate extends BaseValidate
 {
-    protected $rule = [
-        'app_id' => 'require',
-        'app_secret' => 'require',
+    protected $messages = [
+        'app_id.required' => '请输入appId',
+        'app_secret.required' => '请输入appSecret',
     ];
 
-    protected $message = [
-        'app_id.require' => '请输入appId',
-        'app_secret.require' => '请输入appSecret',
-    ];
+    public function rules($scene = '')
+    {
+        // 定义基本的验证规则
+        $rules = [
+            'app_id' => 'required',
+            'app_secret' => 'required',
+        ];
+
+        // 定义场景
+        $scenes = [
+            'default' => ['app_id', 'app_secret'], // 默认场景
+            // 可以在这里添加更多场景
+        ];
+
+        // 根据场景返回相应的规则
+        if (isset($scenes[$scene])) {
+            return array_intersect_key($rules, array_flip($scenes[$scene]));
+        }
+
+        return $rules; // 默认返回所有规则
+    }
 }

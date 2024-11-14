@@ -1,35 +1,18 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
-namespace app\adminapi\logic\channel;
+namespace App\Adminapi\Logic\Channel;
 
-use app\common\logic\BaseLogic;
-use app\common\service\ConfigService;
-use app\common\service\FileService;
+use App\Common\Logic\BaseLogic;
+use App\Common\Service\ConfigService;
+use App\Common\Service\FileService;
 
 /**
  * 公众号设置逻辑
- * Class OfficialAccountSettingLogic
- * @package app\adminapi\logic\channel
  */
 class OfficialAccountSettingLogic extends BaseLogic
 {
     /**
      * @notes 获取公众号配置
-     * @return array
-     * @author ljj
-     * @date 2022/2/16 10:08 上午
      */
     public function getConfig()
     {
@@ -42,8 +25,7 @@ class OfficialAccountSettingLogic extends BaseLogic
             'qr_code' => $qrCode,
             'app_id' => ConfigService::get('oa_setting', 'app_id', ''),
             'app_secret' => ConfigService::get('oa_setting', 'app_secret', ''),
-            // url()方法返回Url实例，通过与空字符串连接触发该实例的__toString()方法以得到路由地址
-            'url' => url('adminapi/channel.official_account_reply/index', [], '', true) . '',
+            'url' => route('channel.official_account_reply.index'),
             'token' => ConfigService::get('oa_setting', 'token'),
             'encoding_aes_key' => ConfigService::get('oa_setting', 'encoding_aes_key', ''),
             'encryption_type' => ConfigService::get('oa_setting', 'encryption_type', 1),
@@ -56,9 +38,6 @@ class OfficialAccountSettingLogic extends BaseLogic
 
     /**
      * @notes 设置公众号配置
-     * @param $params
-     * @author ljj
-     * @date 2022/2/16 10:08 上午
      */
     public function setConfig($params)
     {

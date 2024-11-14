@@ -1,37 +1,20 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
-namespace app\adminapi\logic\channel;
+namespace App\Adminapi\Logic\Channel;
 
-use app\common\enum\OfficialAccountEnum;
-use app\common\logic\BaseLogic;
-use app\common\service\ConfigService;
-use app\common\service\wechat\WeChatOaService;
+use App\Common\Enum\OfficialAccountEnum;
+use App\Common\Logic\BaseLogic;
+use App\Common\Service\ConfigService;
+use App\Common\Service\Wechat\WeChatOaService;
+
 
 /**
  * 微信公众号菜单逻辑层
- * Class OfficialAccountMenuLogic
- * @package app\adminapi\logic\wechat
  */
 class OfficialAccountMenuLogic extends BaseLogic
 {
     /**
      * @notes 保存
-     * @param $params
-     * @return bool
-     * @author 段誉
-     * @date 2022/3/29 10:43
      */
     public static function save($params)
     {
@@ -48,10 +31,6 @@ class OfficialAccountMenuLogic extends BaseLogic
 
     /**
      * @notes 一级菜单校验
-     * @param $menu
-     * @throws \Exception
-     * @author 段誉
-     * @date 2022/3/29 10:55
      */
     public static function checkMenu($menu)
     {
@@ -99,10 +78,6 @@ class OfficialAccountMenuLogic extends BaseLogic
 
     /**
      * @notes 二级菜单校验
-     * @param $subButtion
-     * @throws \Exception
-     * @author 段誉
-     * @date 2022/3/29 10:55
      */
     public static function checkSubButton($subButtion)
     {
@@ -138,10 +113,6 @@ class OfficialAccountMenuLogic extends BaseLogic
 
     /**
      * @notes 菜单类型校验
-     * @param $item
-     * @throws \Exception
-     * @author 段誉
-     * @date 2022/3/29 10:55
      */
     public static function checkType($item)
     {
@@ -175,11 +146,6 @@ class OfficialAccountMenuLogic extends BaseLogic
 
     /**
      * @notes 保存发布菜单
-     * @param $params
-     * @return bool
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @author 段誉
-     * @date 2022/3/29 10:55
      */
     public static function saveAndPublish($params)
     {
@@ -205,9 +171,6 @@ class OfficialAccountMenuLogic extends BaseLogic
 
     /**
      * @notes 查看菜单详情
-     * @return array|int|mixed|string|null
-     * @author 段誉
-     * @date 2022/3/29 10:56
      */
     public static function detail()
     {

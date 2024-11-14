@@ -1,51 +1,42 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
-namespace app\adminapi\logic\channel;
+namespace App\Adminapi\Logic\Channel;
 
-use app\common\enum\OfficialAccountEnum;
-use app\common\enum\YesNoEnum;
-use app\common\logic\BaseLogic;
-use app\common\model\channel\OfficialAccountReply;
-use app\common\service\wechat\WeChatOaService;
-
+use App\Common\Enum\OfficialAccountEnum;
+use App\Common\Enum\YesNoEnum;
+use App\Common\Logic\BaseLogic;
+use App\Common\Model\Channel\OfficialAccountReply;
+use App\Common\Service\Wechat\WeChatOaService;
 
 /**
  * 微信公众号回复逻辑层
- * Class OfficialAccountReplyLogic
- * @package app\adminapi\logic\channel
  */
 class OfficialAccountReplyLogic extends BaseLogic
 {
     /**
      * @notes 添加回复(关注/关键词/默认)
-     * @param $params
-     * @return bool
-     * @author 段誉
-     * @date 2022/3/29 10:57
      */
-    public static function add($params)
+    public static function add(array $params)
     {
         try {
-            // 关键字回复排序值须大于0
+            // 关键字回复排序值须大于或等于0
             if ($params['reply_type'] == OfficialAccountEnum::REPLY_TYPE_KEYWORD && $params['sort'] < 0) {
                 throw new \Exception('排序值须大于或等于0');
             }
             if ($params['reply_type'] != OfficialAccountEnum::REPLY_TYPE_KEYWORD && $params['status']) {
-                // 非关键词回复只能有一条记录处于启用状态，所以将该回复类型下的已有记录置为禁用状态
-                OfficialAccountReply::where(['reply_type' => $params['reply_type']])->update(['status' => YesNoEnum::NO]);
+                // 非关键词回复只能有一条记录处于启用状态
+                OfficialAccountReply::where('reply_type', $params['reply_type'])
+                    ->update(['status' => YesNoEnum::NO]);
             }
+
+            // Likeadmin BUG：数据库并没有这个字段
+            if (isset($params['reply_num'])) {
+                unset($params['reply_num']);
+            }
+            if (isset($params['id'])) {
+                unset($params['id']);
+            }
+
             OfficialAccountReply::create($params);
             return true;
         } catch (\Exception $e) {
@@ -54,41 +45,41 @@ class OfficialAccountReplyLogic extends BaseLogic
         }
     }
 
-
     /**
      * @notes 查看回复详情
-     * @param $params
-     * @return array
-     * @author 段誉
-     * @date 2022/3/29 11:00
      */
-    public static function detail($params)
+    public static function detail(array $params)
     {
-        $field = 'id,name,keyword,reply_type,matching_type,content_type,content,status,sort';
-        $field .= ',reply_type as reply_type_desc, matching_type as matching_type_desc, content_type as content_type_desc, status as status_desc';
-        return OfficialAccountReply::field($field)->findOrEmpty($params['id'])->toArray();
+        return OfficialAccountReply::select([
+            'id', 'name', 'keyword', 'reply_type', 'matching_type',
+            'content_type', 'content', 'status', 'sort',
+            'reply_type as reply_type_desc',
+            'matching_type as matching_type_desc',
+            'content_type as content_type_desc',
+            'status as status_desc'
+        ])->findOrFail($params['id'])->toArray();
     }
-
 
     /**
      * @notes 编辑回复(关注/关键词/默认)
-     * @param $params
-     * @return bool
-     * @author 段誉
-     * @date 2022/3/29 11:01
      */
-    public static function edit($params)
+    public static function edit(array $params)
     {
         try {
-            // 关键字回复排序值须大于0
+            // 关键字回复排序值须大于或等于0
             if ($params['reply_type'] == OfficialAccountEnum::REPLY_TYPE_KEYWORD && $params['sort'] < 0) {
                 throw new \Exception('排序值须大于或等于0');
             }
             if ($params['reply_type'] != OfficialAccountEnum::REPLY_TYPE_KEYWORD && $params['status']) {
-                // 非关键词回复只能有一条记录处于启用状态，所以将该回复类型下的已有记录置为禁用状态
-                OfficialAccountReply::where(['reply_type' => $params['reply_type']])->update(['status' => YesNoEnum::NO]);
+                // 非关键词回复只能有一条记录处于启用状态
+                OfficialAccountReply::where('reply_type', $params['reply_type'])
+                    ->update(['status' => YesNoEnum::NO]);
             }
-            OfficialAccountReply::update($params);
+            // Likeadmin BUG：数据库并没有这个字段
+            if (isset($params['reply_num'])) {
+                unset($params['reply_num']);
+            }
+            OfficialAccountReply::where('id', $params['id'])->update($params);
             return true;
         } catch (\Exception $e) {
             self::setError($e->getMessage());
@@ -96,60 +87,39 @@ class OfficialAccountReplyLogic extends BaseLogic
         }
     }
 
-
     /**
      * @notes 删除回复(关注/关键词/默认)
-     * @param $params
-     * @author 段誉
-     * @date 2022/3/29 11:01
      */
-    public static function delete($params)
+    public static function delete(array $params)
     {
         OfficialAccountReply::destroy($params['id']);
     }
 
-
     /**
      * @notes 更新排序
-     * @param $params
-     * @author 段誉
-     * @date 2022/3/29 11:01
      */
-    public static function sort($params)
+    public static function sort(array $params)
     {
-        $params['sort'] = $params['new_sort'];
-        OfficialAccountReply::update($params);
+        OfficialAccountReply::where('id', $params['id'])->update(['sort' => $params['new_sort']]);
     }
-
 
     /**
      * @notes 更新状态
-     * @param $params
-     * @author 段誉
-     * @date 2022/3/29 11:01
      */
-    public static function status($params)
+    public static function status(array $params)
     {
-        $reply = OfficialAccountReply::findOrEmpty($params['id']);
+        $reply = OfficialAccountReply::findOrFail($params['id']);
         $reply->status = !$reply->status;
         $reply->save();
     }
 
-
     /**
      * @notes 微信公众号回调
-     * @return \Psr\Http\Message\ResponseInterface|void
-     * @throws \EasyWeChat\Kernel\Exceptions\BadRequestException
-     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
-     * @throws \EasyWeChat\Kernel\Exceptions\RuntimeException
-     * @throws \ReflectionException
-     * @throws \Throwable
-     * @author 段誉
-     * @date 2023/2/27 14:38\
      */
     public static function index()
     {
         $server = (new WeChatOaService())->getServer();
+
         // 事件
         $server->addMessageListener(OfficialAccountEnum::MSG_TYPE_EVENT, function ($message, \Closure $next) {
             switch ($message['Event']) {
@@ -173,9 +143,7 @@ class OfficialAccountReplyLogic extends BaseLogic
             $replyList = OfficialAccountReply::where([
                 'reply_type' => OfficialAccountEnum::REPLY_TYPE_KEYWORD,
                 'status' => YesNoEnum::YES
-            ])
-                ->order('sort asc')
-                ->select();
+            ])->orderBy('sort', 'asc')->get();
 
             $replyContent = '';
             foreach ($replyList as $reply) {
@@ -204,19 +172,14 @@ class OfficialAccountReplyLogic extends BaseLogic
         return $server->serve();
     }
 
-
     /**
      * @notes 默认回复信息
-     * @return mixed
-     * @author 段誉
-     * @date 2023/2/27 14:36
      */
     public static function getDefaultReply()
     {
         return OfficialAccountReply::where([
             'reply_type' => OfficialAccountEnum::REPLY_TYPE_DEFAULT,
             'status' => YesNoEnum::YES
-        ])
-            ->value('content');
+        ])->value('content');
     }
 }
