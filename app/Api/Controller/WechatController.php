@@ -2,11 +2,8 @@
 
 namespace App\Api\Controller;
 
-//use app\api\logic\WechatLogic;
-//use app\api\validate\WechatValidate;
 use App\Api\Logic\WechatLogic;
 use App\Api\Validate\WechatValidate;
-
 
 /**
  * 微信
