@@ -15,6 +15,8 @@ class OfficialAccountReplyController extends BaseAdminController
 
     public array $notNeedLogin = ['index'];
 
+    public bool $shouldLogOperation = false;
+
     /**
      * @notes 查看回复列表(关注/关键词/默认)
      */
@@ -97,13 +99,12 @@ class OfficialAccountReplyController extends BaseAdminController
 
 
     /**
-     * @notes 微信公众号回调 TODO TEST
+     * @notes 微信公众号回调
      */
     public function index()
     {
         $result = OfficialAccountReplyLogic::index();
-        return response($result->getBody())->header([
-            'Content-Type' => 'text/plain;charset=utf-8'
-        ]);
+        return response($result->getBody())
+            ->header('Content-Type', 'text/plain;charset=utf-8');
     }
 }
