@@ -15,8 +15,6 @@ class OfficialAccountReplyController extends BaseAdminController
 
     public array $notNeedLogin = ['index'];
 
-    public bool $shouldLogOperation = false;
-
     /**
      * @notes 查看回复列表(关注/关键词/默认)
      */
