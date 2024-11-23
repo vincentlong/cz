@@ -39,7 +39,8 @@
 - [x] 移动端 - 账号登录注册
 - [x] 移动端 - 第三方登录：手机验证码登录
 - [ ] 渠道设置：微信小程序配置✔、公众号菜单管理✔、公众号消息回复逻辑✔、h5设置✔、开放平台TODO
-- [ ] 第三方登录：微信小程序授权登录✔、H5公众号授权登录、PC端扫码登录
+- [ ] 第三方登录：微信小程序授权登录✔、H5公众号授权登录✔、PC端扫码登录
+- [ ] 系统设置 - 用户设置、网站设置
 - [ ] 存储引擎 - 文件上传：本地存储✔、阿里云、腾讯云、七牛云
 - [x] 素材中心 - 文件管理
 - [ ] 移动端 - 账号信息变更：绑定手机号、修改密码等
@@ -74,7 +75,15 @@
     
  ```
 location / {
-    try_files $uri $uri/ /index.php?$query_string;
+  try_files $uri $uri/ /index.php?$query_string;
+}
+
+location /mobile {
+  try_files $uri $uri/ /mobile/index.html;
+}
+
+location /pc {
+  try_files $uri $uri/ /pc/index.html;
 }
 ```
 
