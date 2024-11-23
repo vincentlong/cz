@@ -67,3 +67,17 @@
 | 通用数据 |    |                |    |                |      |
 | 营销应用 |    |                |    |                |      |
 | 财务管理 |    |                |    |                |      |
+
+### 宝塔部署指南
+
+伪静态规则
+    
+ ```
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+```
+
+移除PHP禁用函数symlink。然后执行命令：`php artisan storage:link`
+
+该命令创建了一个软链接到由public/storage指向storage/app/public目录，使后者目录下的文件可以通过HTTP访问。
