@@ -2,7 +2,6 @@
 
 namespace App\Api\Controller;
 
-//use app\api\validate\{ WebScanLoginValidate, WechatLoginValidate};
 use App\Api\Logic\LoginLogic;
 use App\Api\Validate\{LoginAccountValidate, RegisterValidate, WebScanLoginValidate, WechatLoginValidate};
 
@@ -54,9 +53,6 @@ class LoginController extends BaseApiController
 
     /**
      * @notes 获取微信请求code的链接
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2022/9/15 18:27
      */
     public function codeUrl()
     {
