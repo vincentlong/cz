@@ -42,6 +42,9 @@ class ArticleCate extends BaseModel
      */
     public function getIsShowDescAttribute($value)
     {
+        if (!isset($this->attributes['is_show'])) {
+            return '';
+        }
         return $this->attributes['is_show'] ? '启用' : '停用';
     }
 

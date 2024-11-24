@@ -40,7 +40,7 @@ class Article extends BaseModel
      */
     public function getClickAttribute($value)
     {
-        return $this->attributes['click_actual'] + $this->attributes['click_virtual'];
+        return ($this->attributes['click_actual'] ?? 0) + ($this->attributes['click_virtual'] ?? 0);
     }
 
     /**

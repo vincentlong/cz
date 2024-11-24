@@ -145,10 +145,10 @@ class PcLogic extends BaseLogic
      */
     public static function getInfoCenter()
     {
-        $data = ArticleCate::query()->select(['id', 'name'])
+        $data = ArticleCate::query()->select(['id', 'name', 'is_show'])
             ->with(['article' => function ($query) {
-                $query->select(['id', 'cid', 'title', 'sort']) // 确保选择必要的字段
-                ->orderByDesc('sort')
+                $query->select(['id', 'cid', 'title', 'sort', 'click_actual', 'click_virtual', 'image'])
+                    ->orderByDesc('sort')
                     ->orderByDesc('id')
                     ->limit(10);
             }])
