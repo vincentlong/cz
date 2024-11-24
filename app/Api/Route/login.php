@@ -10,7 +10,7 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/login/codeUrl', 'codeUrl');
     Route::post('/login/oaLogin', 'oaLogin');
     Route::post('/login/mnpLogin', 'mnpLogin');
-    Route::post('/login/getScanCode', 'getScanCode');
+    Route::get('/login/getScanCode', 'getScanCode');
     Route::post('/login/scanLogin', 'scanLogin');
     Route::post('/login/wechatAuth', 'wechatAuth');
     Route::post('/login/updateUser', 'updateUser');

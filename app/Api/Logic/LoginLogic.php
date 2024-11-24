@@ -2,9 +2,9 @@
 
 namespace App\Api\Logic;
 
-//use app\common\cache\WebScanLoginCache;
 use App\Api\Service\UserTokenService;
 use App\Api\Service\WechatUserService;
+use App\Common\Cache\WebScanLoginCache;
 use App\Common\Enum\LoginEnum;
 use App\Common\Enum\User\UserTerminalEnum;
 use App\Common\Enum\YesNoEnum;
@@ -327,26 +327,22 @@ class LoginLogic extends BaseLogic
 
 
     /**
-     * @notes 获取扫码登录地址
-     * @return array|false
-     * @author 段誉
-     * @date 2022/10/20 18:23
+     * @notes 获取扫码登录地址 TODO TEST
      */
     public static function getScanCode($redirectUri)
     {
         try {
             $config = WeChatConfigService::getOpConfig();
             $appId = $config['app_id'];
-            $redirectUri = UrlEncode($redirectUri);
+            $redirectUri = urlencode($redirectUri);
 
             // 设置有效时间标记状态, 超时扫码不可登录
-            $state = MD5(time() . rand(10000, 99999));
+            $state = md5(time() . rand(10000, 99999));
             (new WebScanLoginCache())->setScanLoginState($state);
 
             // 扫码地址
             $url = WeChatRequestService::getScanCodeUrl($appId, $redirectUri, $state);
             return ['url' => $url];
-
         } catch (\Exception $e) {
             self::$error = $e->getMessage();
             return false;
