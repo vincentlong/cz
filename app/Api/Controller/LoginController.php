@@ -46,7 +46,7 @@ class LoginController extends BaseApiController
      */
     public function logout()
     {
-        LoginLogic::logout($this->userInfo);
+        LoginLogic::logout($this->getUserInfo());
         return $this->success();
     }
 

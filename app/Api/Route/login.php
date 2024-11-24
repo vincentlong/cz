@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::controller(LoginController::class)->group(function () {
     Route::post('/login/account', 'account');
     Route::post('/login/register', 'register');
-    Route::get('/login/logout', 'logout');
+    Route::post('/login/logout', 'logout');
     Route::get('/login/codeUrl', 'codeUrl');
     Route::post('/login/oaLogin', 'oaLogin');
     Route::post('/login/mnpLogin', 'mnpLogin');

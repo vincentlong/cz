@@ -31,7 +31,6 @@ class IndexLogic extends BaseLogic
             ->orderBy('id', 'desc')
             ->limit(20)
             ->get()
-            ->makeHidden(['click_actual', 'click_virtual'])
             ->toArray();
 
         return [

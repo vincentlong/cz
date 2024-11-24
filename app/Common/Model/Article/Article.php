@@ -76,6 +76,6 @@ class Article extends BaseModel
         }
 
         $article->increment('click_actual');
-        return $article->makeHidden(['click_virtual', 'click_actual'])->toArray();
+        return $article->toArray();
     }
 }

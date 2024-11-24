@@ -62,7 +62,6 @@ class ArticleLists extends BaseApiDataLists implements ListsSearchInterface
             ->limit($this->limitLength)
             ->offset($this->limitOffset)
             ->get()
-            ->makeHidden(['click_virtual', 'click_actual'])
             ->toArray();
 
         $articleIds = array_column($result, 'id');
