@@ -8,7 +8,7 @@
 来源项目：[likeadmin_php](https://github.com/likeadmin-likeshop/likeadmin_php) ( v1.9.4 / bfba16334f)
 
 当前进度：
-█████░░░░░ 50%
+██████░░░░ 60%
 
 技术栈：
 - PHP 8.0 => PHP 8.2
