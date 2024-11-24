@@ -327,7 +327,7 @@ class LoginLogic extends BaseLogic
 
 
     /**
-     * @notes 获取扫码登录地址 TODO TEST
+     * @notes 获取扫码登录地址 TODO TEST 开放平台配置
      */
     public static function getScanCode($redirectUri)
     {
@@ -351,7 +351,7 @@ class LoginLogic extends BaseLogic
 
 
     /**
-     * @notes 网站扫码登录
+     * @notes 网站扫码登录 TODO TEST 开放平台配置
      * @param $params
      * @return array|false
      * @author 段誉
