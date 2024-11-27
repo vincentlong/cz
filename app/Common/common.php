@@ -277,7 +277,7 @@ function generate_sn($table, $field, $prefix = '', $randSuffixLength = 4, $pool 
         }
     }
     $sn = $prefix . date('YmdHis') . $suffix;
-    if (app()->make($table)->where($field, $sn)->find()) {
+    if (app()->make($table)->where($field, $sn)->first()) {
         return generate_sn($table, $field, $prefix, $randSuffixLength, $pool);
     }
     return $sn;
@@ -294,7 +294,7 @@ function generate_sn_raw($table, $field, $prefix = '', $randSuffixLength = 4, $p
         }
     }
     $sn = $prefix . $suffix;
-    if (app()->make($table)->where($field, $sn)->find()) {
+    if (app()->make($table)->where($field, $sn)->first()) {
         return generate_sn($table, $field, $prefix, $randSuffixLength, $pool);
     }
     return $sn;

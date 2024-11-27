@@ -23,7 +23,6 @@ class User extends BaseModel
 
     /**
      * @notes 关联用户授权模型
-     * @return \think\model\relation\HasOne
      */
     public function userAuth()
     {
@@ -31,67 +30,7 @@ class User extends BaseModel
     }
 
     /**
-     * @notes 搜索器-用户信息
-     * @param $query
-     * @param $value
-     * @param $data
-     */
-    public function searchKeywordAttr($query, $value, $data)
-    {
-        if ($value) {
-            $query->where('sn|nickname|mobile|account', 'like', '%' . $value . '%');
-        }
-    }
-
-
-    /**
-     * @notes 搜索器-注册来源
-     * @param $query
-     * @param $value
-     * @param $data
-     */
-    public function searchChannelAttr($query, $value, $data)
-    {
-        if ($value) {
-            $query->where('channel', '=', $value);
-        }
-    }
-
-
-    /**
-     * @notes 搜索器-注册时间
-     * @param $query
-     * @param $value
-     * @param $data
-     */
-    public function searchCreateTimeStartAttr($query, $value, $data)
-    {
-        if ($value) {
-            $query->where('create_time', '>=', strtotime($value));
-        }
-    }
-
-
-    /**
-     * @notes 搜索器-注册时间
-     * @param $query
-     * @param $value
-     * @param $data
-     * @author 段誉
-     * @date 2022/9/22 16:13
-     */
-    public function searchCreateTimeEndAttr($query, $value, $data)
-    {
-        if ($value) {
-            $query->where('create_time', '<=', strtotime($value));
-        }
-    }
-
-
-    /**
      * @notes 头像获取器 - 用于头像地址拼接域名
-     * @param $value
-     * @return string
      */
     public function getAvatarAttribute($value)
     {
@@ -101,9 +40,6 @@ class User extends BaseModel
 
     /**
      * @notes 获取器-性别描述
-     * @param $value
-     * @param $data
-     * @return string|string[]
      */
     public function getSexAttribute($value)
     {
@@ -112,8 +48,6 @@ class User extends BaseModel
 
     /**
      * @notes 登录时间
-     * @param $value
-     * @return string
      */
     public function getLoginTimeAttribute($value)
     {
@@ -122,9 +56,6 @@ class User extends BaseModel
 
     /**
      * @notes 生成用户编码
-     * @param string $prefix
-     * @param int $length
-     * @return string
      */
     public static function createUserSn($prefix = '', $length = 8)
     {
