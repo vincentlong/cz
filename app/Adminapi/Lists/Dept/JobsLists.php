@@ -1,37 +1,20 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
-namespace app\adminapi\lists\dept;
+namespace App\Adminapi\Lists\Dept;
 
-use app\adminapi\lists\BaseAdminDataLists;
-use app\common\lists\ListsExcelInterface;
-use app\common\lists\ListsSearchInterface;
-use app\common\model\dept\Jobs;
+use App\Adminapi\Lists\BaseAdminDataLists;
+use App\Common\Lists\ListsExcelInterface;
+use App\Common\Lists\ListsSearchInterface;
+use App\Common\Model\Dept\Jobs;
 
 /**
  * 岗位列表
- * Class JobsLists
- * @package app\adminapi\lists\dept
  */
 class JobsLists extends BaseAdminDataLists implements ListsSearchInterface, ListsExcelInterface
 {
 
     /**
      * @notes 设置搜索条件
-     * @return \string[][]
-     * @author 段誉
-     * @date 2022/5/26 9:46
      */
     public function setSearch(): array
     {
@@ -44,17 +27,15 @@ class JobsLists extends BaseAdminDataLists implements ListsSearchInterface, List
 
     /**
      * @notes  获取管理列表
-     * @return array
-     * @author heshihu
-     * @date 2022/2/21 17:11
      */
     public function lists(): array
     {
-        $lists = Jobs::where($this->searchWhere)
-            ->append(['status_desc'])
-            ->limit($this->limitOffset, $this->limitLength)
-            ->order(['sort' => 'desc', 'id' => 'desc'])
-            ->select()
+        $lists = Jobs::applySearchWhere($this->searchWhere)
+            ->orderBy('sort', 'desc')
+            ->orderBy('id', 'desc')
+            ->limit($this->limitLength)
+            ->offset($this->limitOffset)
+            ->get()
             ->toArray();
 
         return $lists;
@@ -63,21 +44,15 @@ class JobsLists extends BaseAdminDataLists implements ListsSearchInterface, List
 
     /**
      * @notes 获取数量
-     * @return int
-     * @author 段誉
-     * @date 2022/5/26 9:48
      */
     public function count(): int
     {
-        return Jobs::where($this->searchWhere)->count();
+        return Jobs::applySearchWhere($this->searchWhere)->count();
     }
 
 
     /**
      * @notes 导出文件名
-     * @return string
-     * @author 段誉
-     * @date 2022/11/24 16:17
      */
     public function setFileName(): string
     {
@@ -87,9 +62,6 @@ class JobsLists extends BaseAdminDataLists implements ListsSearchInterface, List
 
     /**
      * @notes 导出字段
-     * @return string[]
-     * @author 段誉
-     * @date 2022/11/24 16:17
      */
     public function setExcelFields(): array
     {

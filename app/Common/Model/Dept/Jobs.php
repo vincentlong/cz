@@ -12,6 +12,8 @@ class Jobs extends BaseModel
 {
     protected $table = 'jobs';
 
+    protected $appends = ['status_desc'];
+
     use SoftDeletes;
 
     protected function getDeletedAtColumn()
