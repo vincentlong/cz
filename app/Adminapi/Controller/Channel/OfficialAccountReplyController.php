@@ -3,8 +3,8 @@
 namespace App\Adminapi\Controller\Channel;
 
 use App\Adminapi\Controller\BaseAdminController;
-use App\Adminapi\Logic\Channel\OfficialAccountReplyLogic;
 use App\Adminapi\Lists\Channel\OfficialAccountReplyLists;
+use App\Adminapi\Logic\Channel\OfficialAccountReplyLogic;
 use App\Adminapi\Validate\Channel\OfficialAccountReplyValidate;
 
 /**

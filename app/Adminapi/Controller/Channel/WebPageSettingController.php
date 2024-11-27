@@ -2,9 +2,9 @@
 
 namespace App\Adminapi\Controller\Channel;
 
+use App\Adminapi\Controller\BaseAdminController;
 use App\Adminapi\Logic\Channel\WebPageSettingLogic;
 use App\Adminapi\Validate\Channel\WebPageSettingValidate;
-use App\Adminapi\Controller\BaseAdminController;
 
 /**
  * H5设置控制器

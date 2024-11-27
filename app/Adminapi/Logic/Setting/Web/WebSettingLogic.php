@@ -69,7 +69,7 @@ class WebSettingLogic extends BaseLogic
     /**
      * @notes 获取版权备案
      */
-    public static function getCopyright() : array
+    public static function getCopyright(): array
     {
         return ConfigService::get('copyright', 'config', []);
     }
@@ -110,7 +110,7 @@ class WebSettingLogic extends BaseLogic
     /**
      * @notes 获取政策协议
      */
-    public static function getAgreement() : array
+    public static function getAgreement(): array
     {
         $config = [
             'service_title' => ConfigService::get('agreement', 'service_title'),

@@ -2,9 +2,9 @@
 
 namespace App\Api\Logic;
 
-use EasyWeChat\Kernel\Exceptions\Exception;
-use App\Common\Service\Wechat\WeChatOaService;
 use App\Common\Logic\BaseLogic;
+use App\Common\Service\Wechat\WeChatOaService;
+use EasyWeChat\Kernel\Exceptions\Exception;
 
 /**
  * 微信

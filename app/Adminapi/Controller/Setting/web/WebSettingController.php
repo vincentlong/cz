@@ -33,7 +33,6 @@ class WebSettingController extends BaseAdminController
     }
 
 
-
     /**
      * @notes 获取备案信息
      */
