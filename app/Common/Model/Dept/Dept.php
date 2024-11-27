@@ -10,8 +10,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Dept extends BaseModel
 {
-
     protected $table = 'dept';
+
+    protected $appends = ['status_desc'];
 
     use SoftDeletes;
 

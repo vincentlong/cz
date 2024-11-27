@@ -26,7 +26,6 @@ class DeptLogic extends BaseLogic
             $where[] = ['status', '=', $params['status']];
         }
         $lists = Dept::where($where)
-            ->append(['status_desc'])
             ->orderBy('sort', 'desc')
             ->orderBy('id', 'desc')
             ->get()
@@ -60,7 +59,7 @@ class DeptLogic extends BaseLogic
     }
 
     /**
-     * @notes 上级部门
+     * @notes 上级部门 TODO 这个用不到
      * @return array
      */
     public static function leaderDept()

@@ -18,7 +18,7 @@ class DeptController extends BaseAdminController
      */
     public function lists()
     {
-        $params = $this->request->get();
+        $params = $this->request->all();
         $result = DeptLogic::lists($params);
         return $this->success('', $result);
     }
