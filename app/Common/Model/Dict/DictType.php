@@ -12,6 +12,8 @@ class DictType extends BaseModel
 {
     protected $table = 'dict_type';
 
+    protected $appends = ['status_desc'];
+
     use SoftDeletes;
 
     protected function getDeletedAtColumn()
@@ -22,9 +24,9 @@ class DictType extends BaseModel
     /**
      * @notes 状态描述
      */
-    public function getStatusDescAttribute($value, $data)
+    public function getStatusDescAttribute($value)
     {
-        return $data['status'] ? '正常' : '停用';
+        return $this->attributes['status'] ? '正常' : '停用';
     }
 
 }
