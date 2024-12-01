@@ -96,7 +96,7 @@ class LoginController extends BaseApiController
     public function mnpAuthBind()
     {
         $params = (new WechatLoginValidate())->post()->goCheck("wechatAuth");
-        $params['user_id'] = $this->userId;
+        $params['user_id'] = $this->getUserId();
         $result = LoginLogic::mnpAuthLogin($params);
         if ($result === false) {
             return $this->fail(LoginLogic::getError());
@@ -111,7 +111,7 @@ class LoginController extends BaseApiController
     public function oaAuthBind()
     {
         $params = (new WechatLoginValidate())->post()->goCheck("wechatAuth");
-        $params['user_id'] = $this->userId;
+        $params['user_id'] = $this->getUserId();
         $result = LoginLogic::oaAuthLogin($params);
         if ($result === false) {
             return $this->fail(LoginLogic::getError());

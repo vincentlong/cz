@@ -14,4 +14,6 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('/login/scanLogin', 'scanLogin');
     Route::post('/login/wechatAuth', 'wechatAuth');
     Route::post('/login/updateUser', 'updateUser');
+    Route::post('/login/mnpAuthBind', 'mnpAuthBind');
+    Route::post('/login/oaAuthBind', 'oaAuthBind');
 });
