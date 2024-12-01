@@ -10,7 +10,8 @@ class BaseValidate
 
     protected $messages = [];
 
-    protected $attributes = [];
+    // 全部输入参数
+    private static array $params = [];
 
     public function rules($scene = 'default')
     {
@@ -22,9 +23,19 @@ class BaseValidate
         return $this->messages;
     }
 
-    public function attributes()
+    public static function getParam($key)
     {
-        return $this->attributes;
+        return self::$params[$key] ?? null;
+    }
+
+    private static function setParams(array $params): void
+    {
+        self::$params = $params;
+    }
+
+    public static function getParams(): array
+    {
+        return self::$params;
     }
 
     public function post()
@@ -39,9 +50,8 @@ class BaseValidate
 
     public function goCheck($scene = 'default', $extraData = [])
     {
-        $after = $this->scene($scene, $extraData)->validate();
-        // Laravel验证器会过滤掉不在校验规则中出现的字段，而TP会保留。为了兼容TP，这里返回全部输入。
-        return array_merge(request()->all(), $extraData);
+        $this->scene($scene, $extraData)->validate();
+        return self::getParams();
     }
 
     /**
@@ -54,14 +64,13 @@ class BaseValidate
      */
     public function scene($scene = 'default', $extraData = [])
     {
-        $input = request()->all();
-        $data = array_merge($input, $extraData);
+        // Laravel验证器会过滤掉不在校验规则中出现的字段，而TP会保留。为了兼容TP，这里取全部输入。
+        self::setParams(array_merge(request()->all(), $extraData));
         $instance = new static();
         return Validator::make(
-            $data,
+            self::getParams(),
             $instance->rules($scene),
-            $instance->messages(),
-            $instance->attributes()
+            $instance->messages()
         );
     }
 
