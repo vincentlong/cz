@@ -83,7 +83,7 @@ class UserController extends BaseApiController
      */
     public function setInfo()
     {
-        $params = (new SetUserInfoValidate())->post()->goCheck(null, ['id' => $this->getUserId()]);
+        $params = (new SetUserInfoValidate())->post()->goCheck(null, ['user_id' => $this->getUserId()]);
         $result = UserLogic::setInfo($this->getUserId(), $params);
         if (false === $result) {
             return $this->fail(UserLogic::getError());
