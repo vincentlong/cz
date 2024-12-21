@@ -1,42 +1,19 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
-namespace app\adminapi\lists\finance;
+namespace App\Adminapi\Lists\Finance;
 
-
-use app\adminapi\lists\BaseAdminDataLists;
-use app\common\enum\RefundEnum;
-use app\common\lists\ListsExtendInterface;
-use app\common\lists\ListsSearchInterface;
-use app\common\model\refund\RefundRecord;
-use app\common\service\FileService;
-
+use App\Adminapi\Lists\BaseAdminDataLists;
+use App\Common\Enum\RefundEnum;
+use App\Common\Lists\ListsExtendInterface;
+use App\Common\Lists\ListsSearchInterface;
+use App\Common\Service\FileService;
+use Illuminate\Support\Facades\DB;
 
 /**
  * 退款记录列表
- * Class RefundRecordLists
- * @package app\adminapi\lists\product
  */
 class RefundRecordLists extends BaseAdminDataLists implements ListsSearchInterface, ListsExtendInterface
 {
-
-    /**
-     * @notes 查询条件
-     * @return \string[][]
-     * @author 段誉
-     * @date 2023/3/1 9:51
-     */
     public function setSearch(): array
     {
         return [
@@ -44,100 +21,74 @@ class RefundRecordLists extends BaseAdminDataLists implements ListsSearchInterfa
         ];
     }
 
-
-    /**
-     * @notes 查询条件
-     * @param bool $flag
-     * @return array
-     * @author 段誉
-     * @date 2023/3/1 9:51
-     */
-    public function queryWhere($flag = true)
+    private function createBaseQuery($applyRefundStatusWhere = true)
     {
-        $where = [];
+        $query = DB::table('refund_record as r')
+            ->join('user as u', 'u.id', '=', 'r.user_id')
+            ->applySearchWhere($this->searchWhere);
+
         if (!empty($this->params['user_info'])) {
-            $where[] = ['u.sn|u.nickname|u.mobile|u.account', 'like', '%' . $this->params['user_info'] . '%'];
+            $query->where(function ($q) {
+                $q->where('u.sn', 'like', '%' . $this->params['user_info'] . '%')
+                    ->orWhere('u.nickname', 'like', '%' . $this->params['user_info'] . '%')
+                    ->orWhere('u.mobile', 'like', '%' . $this->params['user_info'] . '%')
+                    ->orWhere('u.account', 'like', '%' . $this->params['user_info'] . '%');
+            });
         }
+
         if (!empty($this->params['start_time'])) {
-            $where[] = ['r.create_time', '>=', strtotime($this->params['start_time'])];
+            $query->where('r.create_time', '>=', strtotime($this->params['start_time']));
         }
+
         if (!empty($this->params['end_time'])) {
-            $where[] = ['r.create_time', '<=', strtotime($this->params['end_time'])];
+            $query->where('r.create_time', '<=', strtotime($this->params['end_time']));
         }
 
-        if ($flag == true) {
-            if (isset($this->params['refund_status']) && $this->params['refund_status'] != '') {
-                $where[] = ['r.refund_status', '=', $this->params['refund_status']];
-            }
+        if ($applyRefundStatusWhere && isset($this->params['refund_status']) && $this->params['refund_status'] !== '') {
+            $query->where('r.refund_status', $this->params['refund_status']);
         }
 
-        return $where;
+        return $query;
     }
 
 
-    /**
-     * @notes 获取列表
-     * @return array
-     * @author 段誉
-     * @date 2023/3/1 9:51
-     */
     public function lists(): array
     {
-        $lists = (new RefundRecord())->alias('r')
-            ->field('r.*,u.nickname,u.avatar')
-            ->join('user u', 'u.id = r.user_id')
-            ->order(['r.id' => 'desc'])
-            ->where($this->searchWhere)
-            ->where($this->queryWhere())
-            ->limit($this->limitOffset, $this->limitLength)
-            ->append(['refund_type_text', 'refund_status_text', 'refund_way_text'])
-            ->select()
-            ->toArray();
+        $lists = $this->createBaseQuery()
+            ->select('r.*', 'u.nickname', 'u.avatar')
+            ->orderBy('r.id', 'desc')
+            ->limit($this->limitLength)
+            ->offset($this->limitOffset)
+            ->get();
 
-        foreach ($lists as &$item) {
-            $item['avatar'] = FileService::getFileUrl($item['avatar']);
-        }
-
-        return $lists;
+        return $lists->map(function ($item) {
+            $item->avatar = FileService::getFileUrl($item->avatar);
+            $item->refund_type_text = RefundEnum::getTypeDesc($item->refund_type);
+            $item->refund_status_text = RefundEnum::getStatusDesc($item->refund_status);
+            $item->refund_way_text = RefundEnum::getWayDesc($item->refund_way);
+            return (array)$item;
+        })->toArray();
     }
 
-
-    /**
-     * @notes 获取数量
-     * @return int
-     * @author 段誉
-     * @date 2023/3/1 9:51
-     */
     public function count(): int
     {
-        return (new RefundRecord())->alias('r')
-            ->join('user u', 'u.id = r.user_id')
-            ->where($this->searchWhere)
-            ->where($this->queryWhere())
-            ->count();
+        return $this->createBaseQuery()->count();
     }
 
 
-    /**
-     * @notes 额外参数
-     * @return mixed|null
-     * @author 段誉
-     * @date 2023/3/1 9:51
-     */
     public function extend()
     {
-        $count = (new RefundRecord())->alias('r')
-            ->join('user u', 'u.id = r.user_id')
-            ->field([
-                'count(r.id) as total',
-                'count(if(r.refund_status='.RefundEnum::REFUND_ING.', true, null)) as ing',
-                'count(if(r.refund_status='.RefundEnum::REFUND_SUCCESS.', true, null)) as success',
-                'count(if(r.refund_status='.RefundEnum::REFUND_ERROR.', true, null)) as error',
-            ])
-            ->where($this->searchWhere)
-            ->where($this->queryWhere(false))
-            ->select()->toArray();
+        $prefix = DB::getTablePrefix();
 
-        return array_shift($count);
+        $counts = $this->createBaseQuery(false)
+            ->selectRaw("
+                 count({$prefix}r.id) as total,
+                sum(case when {$prefix}r.refund_status = ? then 1 else 0 end) as ing,
+                sum(case when {$prefix}r.refund_status = ? then 1 else 0 end) as success,
+                sum(case when {$prefix}r.refund_status = ? then 1 else 0 end) as error
+            ", [RefundEnum::REFUND_ING, RefundEnum::REFUND_SUCCESS, RefundEnum::REFUND_ERROR])
+            ->get();
+
+        return (array)$counts[0];
     }
 }

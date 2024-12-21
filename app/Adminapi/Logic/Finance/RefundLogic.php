@@ -7,7 +7,6 @@ use App\Common\Logic\BaseLogic;
 use App\Common\Model\Refund\RefundLog;
 use App\Common\Model\Refund\RefundRecord;
 
-
 /**
  * 退款
  */
@@ -19,7 +18,7 @@ class RefundLogic extends BaseLogic
      */
     public static function stat()
     {
-        $records = RefundRecord::select()->toArray();
+        $records = RefundRecord::get()->toArray();
 
         $total = 0;
         $ing = 0;
@@ -49,18 +48,15 @@ class RefundLogic extends BaseLogic
         ];
     }
 
-
     /**
      * @notes 退款日志
      */
     public static function refundLog($recordId)
     {
-        return (new RefundLog())
-            ->order(['id' => 'desc'])
+        return RefundLog::query()
             ->where('record_id', $recordId)
-            ->hidden(['refund_msg'])
-            ->append(['handler', 'refund_status_text'])
-            ->select()
+            ->orderBy('id', 'desc')
+            ->get()
             ->toArray();
     }
 

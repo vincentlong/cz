@@ -3,7 +3,7 @@
 namespace App\Adminapi\Logic\Recharge;
 
 use App\Common\Enum\RefundEnum;
-use App\Common\Enum\user\AccountLogEnum;
+use App\Common\Enum\User\AccountLogEnum;
 use App\Common\Enum\YesNoEnum;
 use App\Common\Logic\AccountLogLogic;
 use App\Common\Logic\BaseLogic;
@@ -71,10 +71,10 @@ class RechargeLogic extends BaseLogic
             ]);
 
             // 更新用户余额及累计充值金额
-            User::where('id', $order->user_id)
-                ->decrement('total_recharge_amount', $order->order_amount)
-                ->decrement('user_money', $order->order_amount)
-                ->update();
+            User::query()->where('id', $order->user_id)
+                ->decrement('total_recharge_amount', $order->order_amount);
+            User::query()->where('id', $order->user_id)
+                ->decrement('user_money', $order->order_amount);
 
             // 记录日志
             AccountLogLogic::add(

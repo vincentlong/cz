@@ -45,12 +45,8 @@ class RechargeController extends BaseAdminController
         return $this->dataLists(new RechargeLists());
     }
 
-
     /**
      * @notes 退款
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2023/2/28 17:29
      */
     public function refund()
     {
