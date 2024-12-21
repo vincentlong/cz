@@ -8,7 +8,7 @@ use App\Common\Model\Pay\PayWay;
 use App\Common\Model\Recharge\RechargeOrder;
 use App\Common\Model\User\User;
 use App\Common\Service\Pay\AliPayService;
-use App\Common\Service\Pay\WeChatPayService;
+use App\Common\Service\Pay\WechatPayService;
 use Throwable;
 
 /**
@@ -153,7 +153,7 @@ class PaymentLogic extends BaseLogic
         }
 
         $payService = match ($payWay) {
-            PayEnum::WECHAT_PAY => new WeChatPayService($terminal, $order->user_id),
+            PayEnum::WECHAT_PAY => new WechatPayService($terminal, $order->user_id),
             PayEnum::ALI_PAY => new AliPayService($terminal),
             default => throw new \Exception('Unsupported payment method'),
         };

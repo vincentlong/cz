@@ -23,7 +23,7 @@ use WpOrg\Requests\Requests;
  * Class WeChatRequestService
  * @package app\common\service\wechat
  */
-class WeChatRequestService extends BaseLogic
+class WechatRequestService extends BaseLogic
 {
 
     /**
@@ -53,7 +53,7 @@ class WeChatRequestService extends BaseLogic
      */
     public static function getUserAuthByCode($code)
     {
-        $config = WeChatConfigService::getOpConfig();
+        $config = WechatConfigService::getOpConfig();
         $url = 'https://api.weixin.qq.com/sns/oauth2/access_token';
         $url .= '?appid=' . $config['app_id'] . '&secret=' . $config['secret'] . '&code=' . $code;
         $url .= '&grant_type=authorization_code';

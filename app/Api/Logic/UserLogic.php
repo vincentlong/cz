@@ -10,7 +10,7 @@ use App\Common\Model\User\User;
 use App\Common\Model\User\UserAuth;
 use App\Common\Service\FileService;
 use App\Common\Service\Sms\SmsDriver;
-use App\Common\Service\Wechat\WeChatMnpService;
+use App\Common\Service\Wechat\WechatMnpService;
 use Illuminate\Support\Facades\Config;
 
 /**
@@ -165,7 +165,7 @@ class UserLogic extends BaseLogic
     public static function getMobileByMnp(array $params): bool
     {
         try {
-            $response = (new WeChatMnpService())->getUserPhoneNumber($params['code']);
+            $response = (new WechatMnpService())->getUserPhoneNumber($params['code']);
             $phoneNumber = $response['phone_info']['purePhoneNumber'] ?? '';
             if (empty($phoneNumber)) {
                 throw new \Exception('获取手机号码失败');

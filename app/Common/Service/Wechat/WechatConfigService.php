@@ -10,7 +10,7 @@ use App\Common\Service\ConfigService;
 /**
  * 微信配置类
  */
-class WeChatConfigService
+class WechatConfigService
 {
     /**
      * @notes 获取小程序配置
@@ -110,6 +110,8 @@ class WeChatConfigService
         if (!empty($apiclientKey) && !file_exists($keyPath)) {
             static::setCert($keyPath, trim($apiclientKey));
         }
+
+        // todo 支付参数未配置时抛出异常
 
         return [
             // 商户号

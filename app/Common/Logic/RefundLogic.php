@@ -8,7 +8,7 @@ use App\Common\Model\Recharge\RechargeOrder;
 use App\Common\Model\Refund\RefundLog;
 use App\Common\Model\Refund\RefundRecord;
 use App\Common\Service\Pay\AliPayService;
-use App\Common\Service\Pay\WeChatPayService;
+use App\Common\Service\Pay\WechatPayService;
 
 /**
  * 订单退款逻辑
@@ -73,7 +73,7 @@ class RefundLogic extends BaseLogic
         // 发起退款。 若发起退款请求返回明确错误，退款日志和记录标记状态为退款失败
         // 退款日志及记录的成功状态目前统一由定时任务查询退款结果为退款成功后才标记成功
         // 也可通过设置退款回调，在退款回调时处理退款记录状态为成功
-        (new WeChatPayService($order['order_terminal']))->refund([
+        (new WechatPayService($order['order_terminal']))->refund([
             'transaction_id' => $order['transaction_id'],
             'refund_sn' => self::$refundLog['sn'],
             'refund_amount' => $refundAmount,// 退款金额

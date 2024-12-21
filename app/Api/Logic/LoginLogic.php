@@ -13,10 +13,10 @@ use App\Common\Model\User\User;
 use App\Common\Model\User\UserAuth;
 use App\Common\Service\ConfigService;
 use App\Common\Service\FileService;
-use App\Common\Service\Wechat\WeChatConfigService;
-use App\Common\Service\Wechat\WeChatMnpService;
-use App\Common\Service\Wechat\WeChatOaService;
-use App\Common\Service\Wechat\WeChatRequestService;
+use App\Common\Service\Wechat\WechatConfigService;
+use App\Common\Service\Wechat\WechatMnpService;
+use App\Common\Service\Wechat\WechatOaService;
+use App\Common\Service\Wechat\WechatRequestService;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
@@ -129,7 +129,7 @@ class LoginLogic extends BaseLogic
      */
     public static function codeUrl(string $url)
     {
-        return (new WeChatOaService())->getCodeUrl($url);
+        return (new WechatOaService())->getCodeUrl($url);
     }
 
 
@@ -146,7 +146,7 @@ class LoginLogic extends BaseLogic
         DB::beginTransaction();
         try {
             //通过code获取微信 openid
-            $response = (new WeChatOaService())->getOaResByCode($params['code']);
+            $response = (new WechatOaService())->getOaResByCode($params['code']);
             $userServer = new WechatUserService($response, UserTerminalEnum::WECHAT_OA);
             $userInfo = $userServer->getResopnseByUserInfo()->authUserLogin()->getUserInfo();
 
@@ -174,7 +174,7 @@ class LoginLogic extends BaseLogic
     {
         try {
             //通过code获取微信 openid
-            $response = (new WeChatMnpService())->getMnpResByCode($params['code']);
+            $response = (new WechatMnpService())->getMnpResByCode($params['code']);
             $userServer = new WechatUserService($response, UserTerminalEnum::WECHAT_MMP);
             $userInfo = $userServer->getResopnseByUserInfo('silent')->getUserInfo();
 
@@ -203,7 +203,7 @@ class LoginLogic extends BaseLogic
         DB::beginTransaction();
         try {
             //通过code获取微信 openid
-            $response = (new WeChatMnpService())->getMnpResByCode($params['code']);
+            $response = (new WechatMnpService())->getMnpResByCode($params['code']);
             $userServer = new WechatUserService($response, UserTerminalEnum::WECHAT_MMP);
             $userInfo = $userServer->getResopnseByUserInfo()->authUserLogin()->getUserInfo();
 
@@ -252,7 +252,7 @@ class LoginLogic extends BaseLogic
     {
         try {
             //通过code获取微信openid
-            $response = (new WeChatMnpService())->getMnpResByCode($params['code']);
+            $response = (new WechatMnpService())->getMnpResByCode($params['code']);
             $response['user_id'] = $params['user_id'];
             $response['terminal'] = UserTerminalEnum::WECHAT_MMP;
 
@@ -277,7 +277,7 @@ class LoginLogic extends BaseLogic
     {
         try {
             //通过code获取微信openid
-            $response = (new WeChatOaService())->getOaResByCode($params['code']);
+            $response = (new WechatOaService())->getOaResByCode($params['code']);
             $response['user_id'] = $params['user_id'];
             $response['terminal'] = UserTerminalEnum::WECHAT_OA;
 
@@ -332,7 +332,7 @@ class LoginLogic extends BaseLogic
     public static function getScanCode($redirectUri)
     {
         try {
-            $config = WeChatConfigService::getOpConfig();
+            $config = WechatConfigService::getOpConfig();
             $appId = $config['app_id'];
             $redirectUri = urlencode($redirectUri);
 
@@ -341,7 +341,7 @@ class LoginLogic extends BaseLogic
             (new WebScanLoginCache())->setScanLoginState($state);
 
             // 扫码地址
-            $url = WeChatRequestService::getScanCodeUrl($appId, $redirectUri, $state);
+            $url = WechatRequestService::getScanCodeUrl($appId, $redirectUri, $state);
             return ['url' => $url];
         } catch (\Exception $e) {
             self::$error = $e->getMessage();
@@ -362,14 +362,14 @@ class LoginLogic extends BaseLogic
         DB::beginTransaction();
         try {
             // 通过code 获取 access_token,openid,unionid等信息
-            $userAuth = WeChatRequestService::getUserAuthByCode($params['code']);
+            $userAuth = WechatRequestService::getUserAuthByCode($params['code']);
 
             if (empty($userAuth['openid']) || empty($userAuth['access_token'])) {
                 throw new \Exception('获取用户授权信息失败');
             }
 
             // 获取微信用户信息
-            $response = WeChatRequestService::getUserInfoByAuth($userAuth['access_token'], $userAuth['openid']);
+            $response = WechatRequestService::getUserInfoByAuth($userAuth['access_token'], $userAuth['openid']);
 
             // 生成用户或更新用户信息
             $userServer = new WechatUserService($response, UserTerminalEnum::PC);

@@ -8,7 +8,7 @@ use EasyWeChat\OfficialAccount\Application;
 /**
  * 公众号相关
  */
-class WeChatOaService
+class WechatOaService
 {
 
     protected $app;
@@ -47,7 +47,7 @@ class WeChatOaService
      */
     protected function getConfig()
     {
-        $config = WeChatConfigService::getOaConfig();
+        $config = WechatConfigService::getOaConfig();
         if (empty($config['app_id']) || empty($config['secret'])) {
             throw new Exception('请先设置公众号配置');
         }

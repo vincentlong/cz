@@ -5,7 +5,7 @@ namespace App\Adminapi\Logic\Channel;
 use App\Common\Enum\OfficialAccountEnum;
 use App\Common\Logic\BaseLogic;
 use App\Common\Service\ConfigService;
-use App\Common\Service\Wechat\WeChatOaService;
+use App\Common\Service\Wechat\WechatOaService;
 
 
 /**
@@ -152,7 +152,7 @@ class OfficialAccountMenuLogic extends BaseLogic
         try {
             self::checkMenu($params);
 
-            $result = (new WeChatOaService())->createMenu($params);
+            $result = (new WechatOaService())->createMenu($params);
             if ($result['errcode'] == 0) {
                 ConfigService::set('oa_setting', 'menu', $params);
                 return true;

@@ -6,7 +6,7 @@ use App\Api\Validate\PayValidate;
 use App\Common\Enum\User\UserTerminalEnum;
 use App\Common\Logic\PaymentLogic;
 use App\Common\Service\Pay\AliPayService;
-use App\Common\Service\Pay\WeChatPayService;
+use App\Common\Service\Pay\WechatPayService;
 
 /**
  * 支付
@@ -70,7 +70,7 @@ class PayController extends BaseApiController
      */
     public function notifyMnp()
     {
-        return (new WeChatPayService(UserTerminalEnum::WECHAT_MMP))->notify();
+        return (new WechatPayService(UserTerminalEnum::WECHAT_MMP))->notify();
     }
 
 
@@ -79,7 +79,7 @@ class PayController extends BaseApiController
      */
     public function notifyOa()
     {
-        return (new WeChatPayService(UserTerminalEnum::WECHAT_OA))->notify();
+        return (new WechatPayService(UserTerminalEnum::WECHAT_OA))->notify();
     }
 
     /**

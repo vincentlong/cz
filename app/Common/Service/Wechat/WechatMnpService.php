@@ -8,7 +8,7 @@ use EasyWeChat\MiniApp\Application;
 /**
  * 微信功能类
  */
-class WeChatMnpService
+class WechatMnpService
 {
 
     protected $app;
@@ -28,7 +28,7 @@ class WeChatMnpService
      */
     protected function getConfig()
     {
-        $config = WeChatConfigService::getMnpConfig();
+        $config = WechatConfigService::getMnpConfig();
         if (empty($config['app_id']) || empty($config['secret'])) {
             throw new \Exception('请先设置小程序配置');
         }

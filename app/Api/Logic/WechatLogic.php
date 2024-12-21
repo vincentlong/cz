@@ -3,7 +3,7 @@
 namespace App\Api\Logic;
 
 use App\Common\Logic\BaseLogic;
-use App\Common\Service\Wechat\WeChatOaService;
+use App\Common\Service\Wechat\WechatOaService;
 use EasyWeChat\Kernel\Exceptions\Exception;
 
 /**
@@ -31,7 +31,7 @@ class WechatLogic extends BaseLogic
     {
         try {
             $url = urldecode($params['url']);
-            return (new WeChatOaService())->getJsConfig($url, [
+            return (new WechatOaService())->getJsConfig($url, [
                 'onMenuShareTimeline',
                 'onMenuShareAppMessage',
                 'onMenuShareQQ',

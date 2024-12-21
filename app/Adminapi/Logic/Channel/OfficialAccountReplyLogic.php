@@ -6,7 +6,7 @@ use App\Common\Enum\OfficialAccountEnum;
 use App\Common\Enum\YesNoEnum;
 use App\Common\Logic\BaseLogic;
 use App\Common\Model\Channel\OfficialAccountReply;
-use App\Common\Service\Wechat\WeChatOaService;
+use App\Common\Service\Wechat\WechatOaService;
 
 /**
  * 微信公众号回复逻辑层
@@ -118,7 +118,7 @@ class OfficialAccountReplyLogic extends BaseLogic
      */
     public static function index()
     {
-        $server = (new WeChatOaService())->getServer();
+        $server = (new WechatOaService())->getServer();
 
         // 事件
         $server->addMessageListener(OfficialAccountEnum::MSG_TYPE_EVENT, function ($message, \Closure $next) {
