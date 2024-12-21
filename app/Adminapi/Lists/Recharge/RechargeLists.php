@@ -1,38 +1,21 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
-namespace app\adminapi\lists\recharge;
+namespace App\Adminapi\Lists\Recharge;
 
-use app\adminapi\lists\BaseAdminDataLists;
-use app\common\enum\PayEnum;
-use app\common\lists\ListsExcelInterface;
-use app\common\lists\ListsSearchInterface;
-use app\common\model\recharge\RechargeOrder;
-use app\common\service\FileService;
+use App\Adminapi\Lists\BaseAdminDataLists;
+use App\Common\Enum\PayEnum;
+use App\Common\Lists\ListsExcelInterface;
+use App\Common\Lists\ListsSearchInterface;
+use App\Common\Service\FileService;
+use Illuminate\Support\Facades\DB;
 
 /**
  * 充值记录列表
- * Class RecharLists
- * @package app\adminapi\lists
  */
 class RechargeLists extends BaseAdminDataLists implements ListsSearchInterface, ListsExcelInterface
 {
     /**
      * @notes 导出字段
-     * @return string[]
-     * @author 段誉
-     * @date 2023/2/24 16:07
      */
     public function setExcelFields(): array
     {
@@ -47,12 +30,8 @@ class RechargeLists extends BaseAdminDataLists implements ListsSearchInterface, 
         ];
     }
 
-
     /**
      * @notes 导出表名
-     * @return string
-     * @author 段誉
-     * @date 2023/2/24 16:07
      */
     public function setFileName(): string
     {
@@ -62,9 +41,6 @@ class RechargeLists extends BaseAdminDataLists implements ListsSearchInterface, 
 
     /**
      * @notes 搜索条件
-     * @return \string[][]
-     * @author 段誉
-     * @date 2023/2/24 16:08
      */
     public function setSearch(): array
     {
@@ -73,73 +49,63 @@ class RechargeLists extends BaseAdminDataLists implements ListsSearchInterface, 
         ];
     }
 
-
-    /**
-     * @notes 搜索条件
-     * @author 段誉
-     * @date 2023/2/24 16:08
-     */
-    public function queryWhere()
+    private function getParamByKey($key)
     {
-        $where = [];
-        // 用户编号
-        if (!empty($this->params['user_info'])) {
-            $where[] = ['u.sn|u.nickname|u.mobile|u.account', 'like', '%' . $this->params['user_info'] . '%'];
-        }
-
-        // 下单时间
-        if (!empty($this->params['start_time']) && !empty($this->params['end_time'])) {
-            $time = [strtotime($this->params['start_time']), strtotime($this->params['end_time'])];
-            $where[] = ['ro.create_time', 'between', $time];
-        }
-
-        return $where;
+        return $this->params[$key] ?? '';
     }
 
-
-    /**
-     * @notes 获取列表
-     * @return array
-     * @author 段誉
-     * @date 2023/2/24 16:13
-     */
-    public function lists(): array
+    private function createBaseQuery()
     {
-        $field = 'ro.id,ro.sn,ro.order_amount,ro.pay_way,ro.pay_time,ro.pay_status,ro.create_time,ro.refund_status';
-        $field .= ',u.avatar,u.nickname,u.account';
-        $lists = RechargeOrder::alias('ro')
-            ->join('user u', 'u.id = ro.user_id')
-            ->field($field)
-            ->where($this->queryWhere())
-            ->where($this->searchWhere)
-            ->order('ro.id', 'desc')
-            ->limit($this->limitOffset, $this->limitLength)
-            ->append(['pay_status_text', 'pay_way_text'])
-            ->select()
-            ->toArray();
+        $query = DB::table('recharge_order as ro')
+            ->join('user as u', 'u.id', '=', 'ro.user_id')
+            ->applySearchWhere($this->searchWhere);
 
-        foreach ($lists as &$item) {
-            $item['avatar'] = FileService::getFileUrl($item['avatar']);
-            $item['pay_time'] = empty($item['pay_time']) ? '' : date('Y-m-d H:i:s', $item['pay_time']);
+        if (!empty($this->getParamByKey('user_info'))) {
+            $query->where(function ($q) {
+                $q->where('u.sn', 'like', '%' . $this->getParamByKey('user_info') . '%')
+                    ->orWhere('u.nickname', 'like', '%' . $this->getParamByKey('user_info') . '%')
+                    ->orWhere('u.mobile', 'like', '%' . $this->getParamByKey('user_info') . '%')
+                    ->orWhere('u.account', 'like', '%' . $this->getParamByKey('user_info') . '%');
+            });
         }
 
-        return $lists;
+        if (!empty($this->getParamByKey('start_time')) && !empty($this->getParamByKey('end_time'))) {
+            $query->whereBetween('ro.create_time', [strtotime($this->getParamByKey('start_time')), strtotime($this->getParamByKey('end_time'))]);
+        }
+
+        return $query;
+    }
+
+    public function lists(): array
+    {
+        $lists = $this->createBaseQuery()
+            ->select(
+                'ro.id', 'ro.sn', 'ro.order_amount', 'ro.pay_way', 'ro.pay_time',
+                'ro.pay_status', 'ro.create_time', 'ro.refund_status',
+                'u.avatar', 'u.nickname', 'u.account'
+            )
+            ->orderBy('ro.id', 'desc')
+            ->limit($this->limitLength)
+            ->offset($this->limitOffset)
+            ->get();
+
+        return $lists->map(function ($item) {
+            $item->avatar = FileService::getFileUrl($item->avatar);
+            $item->pay_time = $item->pay_time ? date('Y-m-d H:i:s', $item->pay_time) : '';
+            $item->create_time = date('Y-m-d H:i:s', $item->create_time);
+            $item->pay_status_text = PayEnum::getPayStatusDesc($item->pay_status);
+            $item->pay_way_text = PayEnum::getPayDesc($item->pay_way);
+            return (array)$item;
+        })->toArray();
     }
 
 
     /**
      * @notes 获取数量
-     * @return int
-     * @author 段誉
-     * @date 2023/2/24 16:13
      */
     public function count(): int
     {
-        return RechargeOrder::alias('ro')
-            ->join('user u', 'u.id = ro.user_id')
-            ->where($this->queryWhere())
-            ->where($this->searchWhere)
-            ->count();
+        return $this->createBaseQuery()->count();
     }
 
 
