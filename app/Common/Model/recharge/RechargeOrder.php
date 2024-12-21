@@ -12,11 +12,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class RechargeOrder extends BaseModel
 {
     use SoftDeletes;
-
     protected $table = 'recharge_order';
-
     protected $appends = ['pay_way_text', 'pay_status_text'];
-
     protected function getDeletedAtColumn()
     {
         return 'delete_time';

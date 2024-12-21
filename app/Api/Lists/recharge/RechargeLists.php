@@ -17,7 +17,7 @@ class RechargeLists extends BaseApiDataLists
     public function lists(): array
     {
         $lists = RechargeOrder::query()
-            ->select('order_amount', 'create_time')
+            ->select('order_amount', 'create_time', 'pay_way', 'pay_status')
             ->where('user_id', $this->userId)
             ->where('pay_status', PayEnum::ISPAID)
             ->orderBy('id', 'desc')

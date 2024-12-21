@@ -14,19 +14,11 @@ class PayConfig extends BaseModel
 
     public $casts = [
         'config' => 'array',
-        'create_time' => 'datetime:Y-m-d H:i:s',
     ];
 
     protected $appends = ['pay_way_name'];
 
-    protected $dateFormat = 'U';
-
     public $timestamps = false;
-
-    protected function serializeDate(\DateTimeInterface $date)
-    {
-        return $date->timezone(Config::get('app.timezone'))->format('Y-m-d H:i:s');
-    }
 
     /**
      * @notes 支付图标获取器 - 路径添加域名

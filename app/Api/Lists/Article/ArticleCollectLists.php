@@ -57,7 +57,6 @@ class ArticleCollectLists extends BaseApiDataLists
     public function count(): int
     {
         return DB::table('article as a')
-            ->from('article as a')
             ->join('article_collect as c', 'c.article_id', '=', 'a.id')
             ->where([
                 'c.user_id' => $this->userId,

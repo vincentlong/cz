@@ -9,6 +9,7 @@ use App\Common\Model\Recharge\RechargeOrder;
 use App\Common\Model\User\User;
 use App\Common\Service\Pay\AliPayService;
 use App\Common\Service\Pay\WechatPayService;
+use Illuminate\Support\Facades\DB;
 use Throwable;
 
 /**
@@ -31,8 +32,7 @@ class PaymentLogic extends BaseLogic
                 throw new \Exception('待支付订单不存在');
             }
 
-            $payWays = PayWay::query()
-                ->from('dev_pay_way as pw')
+            $payWays = DB::table('dev_pay_way as pw')
                 ->join('dev_pay_config as dp', 'pw.pay_config_id', '=', 'dp.id')
                 ->where('pw.scene', $terminal)
                 ->where('pw.status', YesNoEnum::YES)
