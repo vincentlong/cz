@@ -20,7 +20,7 @@ class AppTest extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = '开发测试';
 
     /**
      * Execute the console command.
