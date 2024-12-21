@@ -9,7 +9,6 @@ use EasyWeChat\Kernel\Exceptions\Exception;
 /**
  * 微信
  * Class WechatLogic
- * @package app\api\logic
  */
 class WechatLogic extends BaseLogic
 {
