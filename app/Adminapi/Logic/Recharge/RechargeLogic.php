@@ -79,7 +79,7 @@ class RechargeLogic extends BaseLogic
             // 记录日志
             AccountLogLogic::add(
                 $order->user_id,
-                AccountLogEnum::UM_INC_ADMIN,
+                AccountLogEnum::UM_DEC_RECHARGE_REFUND,
                 AccountLogEnum::DEC,
                 $order->order_amount,
                 $order->sn,
