@@ -9,7 +9,7 @@ class PayWay extends BaseModel
 {
     protected $table = 'dev_pay_way';
 
-    public function getIconAttr($value, $data)
+    public function getIconAttribute($value)
     {
         return FileService::getFileUrl($value);
     }
