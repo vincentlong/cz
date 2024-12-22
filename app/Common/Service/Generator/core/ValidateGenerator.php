@@ -25,12 +25,11 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
             '{MODULE_NAME}',
             '{PACKAGE_NAME}',
             '{PK}',
-            '{RULE}',
             '{NOTES}',
             '{AUTHOR}',
             '{DATE}',
-            '{ADD_PARAMS}',
-            '{EDIT_PARAMS}',
+            '{ADD_RULES}',
+            '{EDIT_RULES}',
             '{FIELD}',
         ];
 
@@ -42,12 +41,11 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
             $this->moduleName,
             $this->getPackageNameContent(),
             $this->getPkContent(),
-            $this->getRuleContent(),
             $this->tableData['class_comment'],
             $this->getAuthorContent(),
             $this->getNoteDateContent(),
-            $this->getAddParamsContent(),
-            $this->getEditParamsContent(),
+            $this->getAddRulesContent(),
+            $this->getEditRulesContent(),
             $this->getFiledContent(),
         ];
 
@@ -59,94 +57,63 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
         $this->setContent($content);
     }
 
-
     /**
-     * @notes 验证规则 TODO
-     * @return mixed|string
-     * @author 段誉
-     * @date 2022/6/22 18:18
+     * @notes 添加场景验证参数
      */
-    public function getRuleContent()
-    {
-        $content = "'" . $this->getPkContent() . "' => 'require'," . PHP_EOL;
-        foreach ($this->tableColumn as $column) {
-            if ($column['is_required'] == 1) {
-                $content .= "'" . $column['column_name'] . "' => 'require'," . PHP_EOL;
-            }
-        }
-        $content = substr($content, 0, -1);
-        return $this->setBlankSpace($content, "        ");
-    }
-
-
-    /**
-     * @notes 添加场景验证参数 TODO
-     * @return string
-     * @author 段誉
-     * @date 2022/12/7 15:26
-     */
-    public function getAddParamsContent()
+    public function getAddRulesContent()
     {
         $content = "";
         foreach ($this->tableColumn as $column) {
             if ($column['is_required'] == 1 && $column['column_name'] != $this->getPkContent()) {
-                $content .= "'" . $column['column_name'] . "',";
+                $content .= "'" . $column['column_name'] . "' => 'required'," . PHP_EOL;
             }
         }
-        $content = substr($content, 0, -1);
 
-        // 若无设置添加场景校验字段时, 排除主键
-        if (!empty($content)) {
-            $content = 'return $this->only([' . $content . ']);';
-        } else {
-            $content = 'return $this->remove(' . "'". $this->getPkContent() . "'" . ', true);';
-        }
-
-        return $this->setBlankSpace($content, "");
+        $content = trim($content);
+        return $this->setBlankSpace($content, "                ");
     }
 
 
     /**
-     * @notes 编辑场景验证参数 TODO
+     * @notes 编辑场景验证参数
      * @return string
      * @author 段誉
      * @date 2022/12/7 15:20
      */
-    public function getEditParamsContent()
+    public function getEditRulesContent()
     {
-        $content = "'" . $this->getPkContent() . "'," ;
+        $content = '';
         foreach ($this->tableColumn as $column) {
             if ($column['is_required'] == 1) {
-                $content .= "'" . $column['column_name'] . "',";
+                $content .= "'" . $column['column_name'] . "' => 'required'," . PHP_EOL;
             }
         }
-        $content = substr($content, 0, -1);
-        if (!empty($content)) {
-            $content = 'return $this->only([' . $content . ']);';
-        }
-        return $this->setBlankSpace($content, "");
+
+        $content = trim($content);
+        return $this->setBlankSpace($content, "                ");
     }
 
 
     /**
-     * @notes 验证字段描述 TODO
+     * @notes 验证字段描述
      * @return string
      * @author 段誉
      * @date 2022/12/9 15:09
      */
     public function getFiledContent()
     {
-        $content = "'" . $this->getPkContent() . "' => '" . $this->getPkContent() . "'," . PHP_EOL;
+        $content = "";
         foreach ($this->tableColumn as $column) {
             if ($column['is_required'] == 1) {
                 $columnComment = $column['column_comment'];
                 if (empty($column['column_comment'])) {
                     $columnComment = $column['column_name'];
                 }
-                $content .= "'" . $column['column_name'] . "' => '" . $columnComment . "'," . PHP_EOL;
+                $content .= "'" . $column['column_name'] . ".required' => '" . $columnComment . "不能为空'," . PHP_EOL;
             }
         }
-        $content = substr($content, 0, -1);
+
+        $content = trim($content);
         return $this->setBlankSpace($content, "        ");
     }
 

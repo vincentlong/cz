@@ -96,9 +96,9 @@ abstract class BaseGenerator
     public function __construct()
     {
         $this->basePath = app_path('/');
-        $this->rootPath = storage_path('/'); // todo
+        $this->rootPath = storage_path('/');
         $this->templateDir = $this->basePath . 'Common/Service/Generator/stub/';
-        $this->generatorDir = $this->rootPath . 'generate/'; // todo
+        $this->generatorDir = $this->rootPath . 'generate/';
         $this->checkDir($this->generatorDir);
     }
 
