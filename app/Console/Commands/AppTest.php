@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Common\Service\ConfigService;
-use App\Common\Service\Storage\Driver as StorageDriver;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class AppTest extends Command
 {
@@ -27,8 +27,12 @@ class AppTest extends Command
      */
     public function handle()
     {
-        $res = storage_path();
-        dd($res);
+        $tableName = 'la_admin';
+//        $res = DB::select("SHOW FULL COLUMNS FROM `{$tableName}`");
+//        dd($res);
+//        dd($res[0]->Comment);
+        $res = Schema::getColumns('admin');
+        dd($res[12]['comment']);
     }
 
 }
