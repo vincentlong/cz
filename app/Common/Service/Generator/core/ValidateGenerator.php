@@ -187,7 +187,7 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getRuntimeGenerateDir()
     {
-        $dir = $this->generatorDir . 'php/App/' . $this->moduleName . '/Validate/';
+        $dir = $this->generatorDir . 'php/app/' . $this->moduleName . '/Validate/';
         $this->checkDir($dir);
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';

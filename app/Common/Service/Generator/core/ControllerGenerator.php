@@ -168,7 +168,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getRuntimeGenerateDir()
     {
-        $dir = $this->generatorDir . 'php/App/' . $this->moduleName . '/Controller/';
+        $dir = $this->generatorDir . 'php/app/' . $this->moduleName . '/Controller/';
         $this->checkDir($dir);
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';

@@ -212,7 +212,7 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getRuntimeGenerateDir()
     {
-        $dir = $this->generatorDir . 'php/App/' . $this->moduleName . '/Logic/';
+        $dir = $this->generatorDir . 'php/app/' . $this->moduleName . '/Logic/';
         $this->checkDir($dir);
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';

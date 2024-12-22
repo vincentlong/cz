@@ -105,7 +105,7 @@ class RouteGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getRuntimeGenerateDir()
     {
-        $dir = $this->generatorDir . 'php/App/' . $this->moduleName . '/Route/';
+        $dir = $this->generatorDir . 'php/app/' . $this->moduleName . '/Route/';
         $this->checkDir($dir);
         if (!empty($this->classDir)) {
             $dir .= Str::snake($this->classDir) . '/';

@@ -227,7 +227,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getRuntimeGenerateDir()
     {
-        $dir = $this->generatorDir . 'php/App/Common/Model/';
+        $dir = $this->generatorDir . 'php/app/Common/Model/';
         $this->checkDir($dir);
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';
