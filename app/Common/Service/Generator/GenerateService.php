@@ -1,39 +1,23 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
-namespace app\common\service\generator;
+namespace App\Common\Service\Generator;
 
-
-use app\common\service\generator\core\ControllerGenerator;
-use app\common\service\generator\core\ListsGenerator;
-use app\common\service\generator\core\LogicGenerator;
-use app\common\service\generator\core\ModelGenerator;
-use app\common\service\generator\core\SqlGenerator;
-use app\common\service\generator\core\ValidateGenerator;
-use app\common\service\generator\core\VueApiGenerator;
-use app\common\service\generator\core\VueEditGenerator;
-use app\common\service\generator\core\VueIndexGenerator;
-
+use App\Common\Service\Generator\Core\BaseGenerator;
+use App\Common\Service\Generator\Core\ControllerGenerator;
+use App\Common\Service\Generator\Core\ListsGenerator;
+use App\Common\Service\Generator\Core\LogicGenerator;
+use App\Common\Service\Generator\Core\ModelGenerator;
+use App\Common\Service\Generator\Core\SqlGenerator;
+use App\Common\Service\Generator\Core\ValidateGenerator;
+use App\Common\Service\Generator\Core\VueApiGenerator;
+use App\Common\Service\Generator\Core\VueEditGenerator;
+use App\Common\Service\Generator\Core\VueIndexGenerator;
 
 /**
  * 生成器
- * Class GenerateService
- * @package app\common\service\generator
  */
 class GenerateService
 {
-
     // 标记
     protected $flag;
 
@@ -51,8 +35,8 @@ class GenerateService
 
     public function __construct()
     {
-        $this->generatePath = root_path() . 'runtime/generate/';
-        $this->runtimePath = root_path() . 'runtime/';
+        $this->generatePath = storage_path() . 'generate/'; // todo
+        $this->runtimePath = storage_path(); // todo
     }
 
 
@@ -137,15 +121,19 @@ class GenerateService
     public function generate(array $tableData)
     {
         foreach ($this->getGeneratorClass() as $item) {
+            /**
+             * @var BaseGenerator $generator
+             */
             $generator = app()->make($item);
             $generator->initGenerateData($tableData);
             $generator->generate();
+
             // 是否为压缩包下载
             if ($generator->isGenerateTypeZip()) {
                 $this->setGenerateFlag($this->flag, true);
             }
             // 是否构建菜单
-            if ($item == 'app\common\service\generator\core\SqlGenerator') {
+            if ($generator instanceof SqlGenerator) {
                 $generator->isBuildMenu() && $generator->buildMenuHandle();
             }
         }
@@ -163,6 +151,9 @@ class GenerateService
     {
         $data = [];
         foreach ($this->getGeneratorClass() as $item) {
+            /**
+             * @var BaseGenerator $generator
+             */
             $generator = app()->make($item);
             $generator->initGenerateData($tableData);
             $data[] = $generator->fileInfo();
@@ -224,7 +215,8 @@ class GenerateService
     {
         $vars = ['file' => $this->zipTempName];
         cache('curd_file_name' . $this->zipTempName, $this->zipTempName, 3600);
-        return (string)url("Adminapi/tools.generator/download", $vars, false, true);
+        // todo
+        return (string)url("adminapi/tools.generator/download", $vars);
     }
 
 }

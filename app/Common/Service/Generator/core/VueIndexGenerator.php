@@ -1,33 +1,16 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
 declare(strict_types=1);
 
-namespace app\common\service\generator\core;
+namespace App\Common\Service\Generator\Core;
 
-
-
-use app\common\enum\GeneratorEnum;
+use App\Common\Enum\GeneratorEnum;
 
 /**
  * vue-index生成器
- * Class VueIndexGenerator
- * @package app\common\service\generator\core
  */
 class VueIndexGenerator extends BaseGenerator implements GenerateInterface
 {
-
     /**
      * @notes 替换变量
      * @return mixed|void
@@ -66,13 +49,13 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             $this->getLowerCamelName()
         ];
 
-        $templatePath = $this->getTemplatePath('vue/index');
+        $templatePath = $this->getTemplatePathOrigin('vue/index');
 
         if ($this->isTreeCrud()) {
             // 插入树表相关
             array_push($needReplace, '{TREE_ID}', '{TREE_PID}');
             array_push($waitReplace, $this->treeConfig['tree_id'], $this->treeConfig['tree_pid']);
-            $templatePath = $this->getTemplatePath('vue/index-tree');
+            $templatePath = $this->getTemplatePathOrigin('vue/index-tree');
         }
 
         // 替换内容
@@ -112,7 +95,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
                 $searchStubType = 'select';
             }
 
-            $templatePath = $this->getTemplatePath('vue/search_item/' . $searchStubType);
+            $templatePath = $this->getTemplatePathOrigin('vue/search_item/' . $searchStubType);
             if (!file_exists($templatePath)) {
                 continue;
             }
@@ -153,15 +136,15 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
                 $column['dict_type'],
             ];
 
-            $templatePath = $this->getTemplatePath('vue/table_item/default');
+            $templatePath = $this->getTemplatePathOrigin('vue/table_item/default');
             if ($column['view_type'] == 'imageSelect') {
-                $templatePath = $this->getTemplatePath('vue/table_item/image');
+                $templatePath = $this->getTemplatePathOrigin('vue/table_item/image');
             }
             if (in_array($column['view_type'], ['select', 'radio', 'checkbox'])) {
-                $templatePath = $this->getTemplatePath('vue/table_item/options');
+                $templatePath = $this->getTemplatePathOrigin('vue/table_item/options');
             }
             if ($column['column_type'] == 'int' && $column['view_type'] == 'datetime') {
-                $templatePath = $this->getTemplatePath('vue/table_item/datetime');
+                $templatePath = $this->getTemplatePathOrigin('vue/table_item/datetime');
             }
             if (!file_exists($templatePath)) {
                 continue;

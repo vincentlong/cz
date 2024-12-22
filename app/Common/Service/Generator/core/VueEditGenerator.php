@@ -1,32 +1,16 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
 declare(strict_types=1);
 
-namespace app\common\service\generator\core;
+namespace App\Common\Service\Generator\Core;
 
-
-use app\common\enum\GeneratorEnum;
+use App\Common\Enum\GeneratorEnum;
 
 /**
  * vue-edit生成器
- * Class VueEditGenerator
- * @package app\common\service\generator\core
  */
 class VueEditGenerator extends BaseGenerator implements GenerateInterface
 {
-
     /**
      * @notes 替换变量
      * @return mixed|void
@@ -75,7 +59,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $this->getTreeListsContent(),
         ];
 
-        $templatePath = $this->getTemplatePath('vue/edit');
+        $templatePath = $this->getTemplatePathOrigin('vue/edit');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
@@ -145,7 +129,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
     {
         $content = "";
         if ($this->isTreeCrud()) {
-            $content = file_get_contents($this->getTemplatePath('vue/other_item/editTreeConst'));
+            $content = file_get_contents($this->getTemplatePathOrigin('vue/other_item/editTreeConst'));
         }
         return $content;
     }
@@ -175,7 +159,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $this->getUpperCamelName(),
         ];
 
-        $templatePath =  $this->getTemplatePath('vue/other_item/editTreeLists');
+        $templatePath =  $this->getTemplatePathOrigin('vue/other_item/editTreeLists');
         if (file_exists($templatePath)) {
             $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
         }
@@ -242,7 +226,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 array_push($waitReplace, $this->treeConfig['tree_id'], $this->treeConfig['tree_name']);
             }
 
-            $templatePath = $this->getTemplatePath('vue/form_item/' . $viewType);
+            $templatePath = $this->getTemplatePathOrigin('vue/form_item/' . $viewType);
             if (!file_exists($templatePath)) {
                 continue;
             }
@@ -322,7 +306,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 $this->getUpperCamelName(),
                 $column['dict_type'],
             ];
-            $templatePath = $this->getTemplatePath('vue/other_item/dictDataApi');
+            $templatePath = $this->getTemplatePathOrigin('vue/other_item/dictDataApi');
             if (!file_exists($templatePath)) {
                 continue;
             }
@@ -400,7 +384,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 $column['column_name'],
                 $validateMsg,
             ];
-            $templatePath = $this->getTemplatePath('vue/other_item/formValidate');
+            $templatePath = $this->getTemplatePathOrigin('vue/other_item/formValidate');
             if (!file_exists($templatePath)) {
                 continue;
             }

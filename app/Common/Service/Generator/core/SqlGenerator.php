@@ -1,30 +1,15 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
 declare(strict_types=1);
 
-namespace app\common\service\generator\core;
+namespace App\Common\Service\Generator\Core;
 
-
-use app\common\enum\GeneratorEnum;
-use think\facade\Db;
-use think\helper\Str;
+use App\Common\Enum\GeneratorEnum;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * sql文件生成器
- * Class SqlGenerator
- * @package app\common\service\generator\core
  */
 class SqlGenerator extends BaseGenerator implements GenerateInterface
 {
@@ -125,7 +110,7 @@ class SqlGenerator extends BaseGenerator implements GenerateInterface
         //执行sql
         foreach ($sqls as $sql) {
             if (!empty(trim($sql))) {
-                Db::execute($sql . ';');
+                DB::statement($sql . ';');
             }
         }
         return true;
