@@ -27,15 +27,8 @@ class AppTest extends Command
      */
     public function handle()
     {
-
-        $config = [
-            'default' => ConfigService::get('storage', 'default', 'local'),
-            'engine' => ConfigService::get('storage') ?? ['local' => []],
-        ];
-
-        // 2、执行文件上传
-        $driver = new StorageDriver($config);
-        $driver->delete('/uploads/images/20241113/2024111317322465cca0840.png');
+        $res = get_no_prefix_table_name('la_like_admin_user');
+        dd($res);
     }
 
 }
