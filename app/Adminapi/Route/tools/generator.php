@@ -9,7 +9,7 @@ Route::controller(GeneratorController::class)->group(function () {
     Route::post('/tools.generator/selectTable', 'selectTable');
     Route::post('/tools.generator/generate', 'generate');
     Route::get('/tools.generator/download', 'download');
-    Route::get('/tools.generator/preview', 'preview');
+    Route::post('/tools.generator/preview', 'preview');
     Route::post('/tools.generator/syncColumn', 'syncColumn');
     Route::post('/tools.generator/edit', 'edit');
     Route::get('/tools.generator/detail', 'detail');

@@ -8,7 +8,9 @@ use App\Common\Model\Tools\GenerateColumn;
 use App\Common\Model\Tools\GenerateTable;
 use App\Common\Service\Generator\GenerateService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 /**
  * 生成器逻辑
@@ -43,7 +45,9 @@ class GeneratorLogic extends BaseLogic
                 // 添加主表基础信息
                 $generateTable = self::initTable($item, $adminId);
                 // 获取数据表字段信息
+               Log::debug('item', $item);
                 $column = self::getTableColumn($item['name']);
+                Log::debug('column', compact('column'));
                 // 添加表字段信息
                 self::initTableColumn($column, $generateTable['id']);
             }
@@ -221,6 +225,8 @@ class GeneratorLogic extends BaseLogic
      */
     public static function getTableColumn($tableName)
     {
+        $prefix = DB::getTablePrefix();
+        $tableName = Str::replaceFirst($prefix, '', $tableName);
         return Schema::getColumns($tableName);
     }
 
@@ -261,11 +267,10 @@ class GeneratorLogic extends BaseLogic
      */
     public static function initTableColumn(array $columns, int $tableId): void
     {
-        $defaultColumns = ['id', 'create_time', 'update_time', 'delete_time'];
-
         $insertColumns = collect($columns)
-            ->map(function ($column) use ($tableId, $defaultColumns) {
-                $isRequired = !$column['nullable'] && !$column['autoincrement']
+            ->map(function ($column) use ($tableId) {
+                $defaultColumns = ['id', 'create_time', 'update_time', 'delete_time'];
+                $isRequired = !$column['nullable'] && !$column['auto_increment']
                     && !in_array($column['name'], $defaultColumns);
                 return [
                     'table_id' => $tableId,
@@ -273,16 +278,17 @@ class GeneratorLogic extends BaseLogic
                     'column_comment' => $column['comment'] ?? '', // Handle potential null comment
                     'column_type' => self::getDbFieldType($column['type']),
                     'is_required' => $isRequired ? 1 : 0,
-                    'is_pk' => $column['autoincrement'] ? 1 : 0,
+                    'is_pk' => $column['auto_increment'] ? 1 : 0,
                     'is_insert' => !in_array($column['name'], $defaultColumns) ? 1 : 0,
                     'is_update' => !in_array($column['name'], $defaultColumns) ? 1 : 0,
                     'is_lists' => !in_array($column['name'], $defaultColumns) ? 1 : 0,
                     'is_query' => !in_array($column['name'], $defaultColumns) ? 1 : 0,
+                    'create_time' => time(),
                 ];
             })
             ->toArray();
-
-        GenerateColumn::query()->insert($insertColumns);
+        Log::debug('insertColumns', $insertColumns);
+        GenerateColumn::insert($insertColumns);
     }
 
 
