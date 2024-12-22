@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Common\Service\Generator\Core;
 
+use Illuminate\Support\Str;
+
 /**
  * 模型生成器
  */
@@ -153,7 +155,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
 
 
     /**
-     * @notes 关联模型 TODO
+     * @notes 关联模型
      * @return string
      * @author 段誉
      * @date 2022/12/14 14:46
@@ -181,7 +183,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
             ];
 
             $waitReplace = [
-                $config['name'],
+                Str::camel($config['name']),
                 $this->getAuthorContent(),
                 $this->getNoteDateContent(),
                 $config['model'],
