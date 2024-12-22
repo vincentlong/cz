@@ -7,6 +7,7 @@ use App\Common\Service\Generator\Core\ControllerGenerator;
 use App\Common\Service\Generator\Core\ListsGenerator;
 use App\Common\Service\Generator\Core\LogicGenerator;
 use App\Common\Service\Generator\Core\ModelGenerator;
+use App\Common\Service\Generator\Core\RouteGenerator;
 use App\Common\Service\Generator\Core\SqlGenerator;
 use App\Common\Service\Generator\Core\ValidateGenerator;
 use App\Common\Service\Generator\Core\VueApiGenerator;
@@ -104,6 +105,7 @@ class GenerateService
             ModelGenerator::class,
             ValidateGenerator::class,
             LogicGenerator::class,
+            RouteGenerator::class,
             VueApiGenerator::class,
             VueIndexGenerator::class,
             VueEditGenerator::class,
