@@ -45,19 +45,17 @@ class {UPPER_CAMEL_NAME}Lists extends {EXTENDS_LISTS} implements ListsSearchInte
     /**
      * @notes 获取{NOTES}列表
      * @return array
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
      * @author {AUTHOR}
      * @date {DATE}
      */
     public function lists(): array
     {
-        return {UPPER_CAMEL_NAME}::where($this->searchWhere)
-            ->field([{FIELD_DATA}])
-            ->limit($this->limitOffset, $this->limitLength)
-            ->order(['{PK}' => 'desc'])
-            ->select()
+        return {UPPER_CAMEL_NAME}::applySearchWhere($this->searchWhere)
+            ->select([{FIELD_DATA}])
+            ->limit($this->limitLength)
+            ->offset($this->limitOffset)
+            ->orderBy('{PK}', 'desc')
+            ->get()
             ->toArray();
     }
 
@@ -70,7 +68,7 @@ class {UPPER_CAMEL_NAME}Lists extends {EXTENDS_LISTS} implements ListsSearchInte
      */
     public function count(): int
     {
-        return {UPPER_CAMEL_NAME}::where($this->searchWhere)->count();
+        return {UPPER_CAMEL_NAME}::applySearchWhere($this->searchWhere)->count();
     }
 
 }

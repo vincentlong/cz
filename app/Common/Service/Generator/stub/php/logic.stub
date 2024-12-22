@@ -17,7 +17,7 @@
 
 {USE}
 use App\Common\Logic\BaseLogic;
-use think\facade\Db;
+use Illuminate\Support\Facades\DB;
 
 
 /**
@@ -38,16 +38,16 @@ class {UPPER_CAMEL_NAME}Logic extends BaseLogic
      */
     public static function add(array $params): bool
     {
-        Db::startTrans();
+        DB::beginTransaction();
         try {
             {UPPER_CAMEL_NAME}::create([
 {CREATE_DATA}
             ]);
 
-            Db::commit();
+            DB::commit();
             return true;
         } catch (\Exception $e) {
-            Db::rollback();
+            DB::rollBack();
             self::setError($e->getMessage());
             return false;
         }
@@ -63,16 +63,16 @@ class {UPPER_CAMEL_NAME}Logic extends BaseLogic
      */
     public static function edit(array $params): bool
     {
-        Db::startTrans();
+        DB::beginTransaction();
         try {
             {UPPER_CAMEL_NAME}::where('{PK}', $params['{PK}'])->update([
 {UPDATE_DATA}
             ]);
 
-            Db::commit();
+            DB::commit();
             return true;
         } catch (\Exception $e) {
-            Db::rollback();
+            DB::rollBack();
             self::setError($e->getMessage());
             return false;
         }
@@ -101,6 +101,6 @@ class {UPPER_CAMEL_NAME}Logic extends BaseLogic
      */
     public static function detail($params): array
     {
-        return {UPPER_CAMEL_NAME}::findOrEmpty($params['{PK}'])->toArray();
+        return {UPPER_CAMEL_NAME}::findOrFail($params['{PK}'])->toArray();
     }
 }

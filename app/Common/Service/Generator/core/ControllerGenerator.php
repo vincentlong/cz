@@ -87,11 +87,11 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
         if (!empty($this->classDir)) {
             $tpl .= "use App\\" . $this->moduleName . "\\Lists\\" . $this->classDir . "\\" . $this->getUpperCamelName() . "Lists;" . PHP_EOL .
                 "use App\\" . $this->moduleName . "\\Logic\\" . $this->classDir . "\\" . $this->getUpperCamelName() . "Logic;" . PHP_EOL .
-                "use App\\" . $this->moduleName . "\\validate\\" . $this->classDir . "\\" . $this->getUpperCamelName() . "Validate;";
+                "use App\\" . $this->moduleName . "\\Validate\\" . $this->classDir . "\\" . $this->getUpperCamelName() . "Validate;";
         } else {
             $tpl .= "use App\\" . $this->moduleName . "\\Lists\\" . $this->getUpperCamelName() . "Lists;" . PHP_EOL .
                 "use App\\" . $this->moduleName . "\\Logic\\" . $this->getUpperCamelName() . "Logic;" . PHP_EOL .
-                "use App\\" . $this->moduleName . "\\validate\\" . $this->getUpperCamelName() . "Validate;";
+                "use App\\" . $this->moduleName . "\\Validate\\" . $this->getUpperCamelName() . "Validate;";
         }
 
         return $tpl;
