@@ -37,8 +37,8 @@ class GenerateService
 
     public function __construct()
     {
-        $this->generatePath = storage_path('/') . 'generate/'; // todo
-        $this->runtimePath = storage_path('/'); // todo
+        $this->generatePath = storage_path('/') . 'generate/';
+        $this->runtimePath = storage_path('/');
     }
 
 
