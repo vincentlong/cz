@@ -10,4 +10,5 @@ use App\Common\Model\BaseModel;
 class DecoratePage extends BaseModel
 {
     protected $table = 'decorate_page';
+
 }
