@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Route;
  * @date {DATE}
  */
 Route::controller({UPPER_CAMEL_NAME}Controller::class)->group(function () {
-    Route::get('/{ROUTE_DIR}/lists', 'lists');
-    Route::post('/{ROUTE_DIR}/add', 'add');
-    Route::post('/{ROUTE_DIR}/edit', 'edit');
-    Route::post('/{ROUTE_DIR}/delete', 'delete');
-    Route::get('/{ROUTE_DIR}/detail', 'detail');
+    Route::get('/{ROUTE}/lists', 'lists');
+    Route::post('/{ROUTE}/add', 'add');
+    Route::post('/{ROUTE}/edit', 'edit');
+    Route::post('/{ROUTE}/delete', 'delete');
+    Route::get('/{ROUTE}/detail', 'detail');
 });

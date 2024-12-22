@@ -29,7 +29,7 @@ class RouteGenerator extends BaseGenerator implements GenerateInterface
             '{NOTES}',
             '{AUTHOR}',
             '{DATE}',
-            '{ROUTE_DIR}',
+            '{ROUTE}',
         ];
 
         // 等待替换的内容
@@ -41,7 +41,7 @@ class RouteGenerator extends BaseGenerator implements GenerateInterface
             $this->tableData['class_comment'],
             $this->getAuthorContent(),
             $this->getNoteDateContent(),
-            $this->getRouteDir(),
+            $this->getRouteContent(),
         ];
 
         $templatePath = $this->getTemplatePath('php/Route');
@@ -132,14 +132,13 @@ class RouteGenerator extends BaseGenerator implements GenerateInterface
      * @return string
      * @date 2022/6/22 18:15
      */
-    public function getRouteDir()
+    public function getRouteContent()
     {
-        $dir = $this->getLowerTableName();
+        $content = $this->getTableName();
         if (!empty($this->classDir)) {
-            // todo test
-            $dir = Str::snake($this->classDir) . '.' . $dir;
+            $content = Str::snake($this->classDir) . '.' . $this->getTableName();
         }
-        return $dir;
+        return Str::lower($content);
     }
 
     /**
