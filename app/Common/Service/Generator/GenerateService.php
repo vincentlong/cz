@@ -13,6 +13,7 @@ use App\Common\Service\Generator\Core\ValidateGenerator;
 use App\Common\Service\Generator\Core\VueApiGenerator;
 use App\Common\Service\Generator\Core\VueEditGenerator;
 use App\Common\Service\Generator\Core\VueIndexGenerator;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * 生成器
@@ -58,25 +59,20 @@ class GenerateService
      * @notes 设置生成状态
      * @param $name
      * @param false $status
-     * @author 段誉
-     * @date 2022/6/23 18:53
      */
     public function setGenerateFlag($name, $status = false)
     {
         $this->flag = $name;
-        cache($name, (int)$status, 3600);
+        Cache::set($name, (int)$status, 3600);
     }
 
 
     /**
      * @notes 获取生成状态标记
-     * @return mixed|object|\think\App
-     * @author 段誉
-     * @date 2022/6/23 18:53
      */
     public function getGenerateFlag()
     {
-        return cache($this->flag);
+        return Cache::get($this->flag);
     }
 
 
@@ -87,7 +83,7 @@ class GenerateService
      */
     public function delGenerateFlag()
     {
-        cache($this->flag, null);
+        Cache::delete($this->flag);
     }
 
 
@@ -216,8 +212,7 @@ class GenerateService
     public function getDownloadUrl()
     {
         $vars = ['file' => $this->zipTempName];
-        cache('curd_file_name' . $this->zipTempName, $this->zipTempName, 3600);
-        // todo
+        Cache::set('curd_file_name' . $this->zipTempName, $this->zipTempName, 3600);
         return url("adminapi/tools.generator/download", $vars);
     }
 

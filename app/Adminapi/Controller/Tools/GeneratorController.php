@@ -63,10 +63,9 @@ class GeneratorController extends BaseAdminController
     /**
      * @notes 下载文件
      */
-    public function download()
+    public function download(string $file)
     {
-        $params = (new GenerateTableValidate())->goCheck('download');
-        $result = GeneratorLogic::download($params['file']);
+        $result = GeneratorLogic::download($file);
         if (false === $result) {
             return $this->fail(GeneratorLogic::getError() ?: '下载失败');
         }

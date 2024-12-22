@@ -7,7 +7,9 @@ use App\Common\Logic\BaseLogic;
 use App\Common\Model\Tools\GenerateColumn;
 use App\Common\Model\Tools\GenerateTable;
 use App\Common\Service\Generator\GenerateService;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
@@ -295,7 +297,7 @@ class GeneratorLogic extends BaseLogic
      */
     public static function download(string $fileName)
     {
-        $cacheFileName = cache('curd_file_name' . $fileName);
+        $cacheFileName = Cache::get('curd_file_name' . $fileName);
         if (empty($cacheFileName)) {
             self::$error = '请重新生成代码';
             return false;
@@ -307,7 +309,7 @@ class GeneratorLogic extends BaseLogic
             return false;
         }
 
-        cache('curd_file_name' . $fileName, null);
+        Cache::delete('curd_file_name' . $fileName);
         return $path;
     }
 
