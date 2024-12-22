@@ -407,7 +407,7 @@ class GeneratorLogic extends BaseLogic
         if (empty($module)) {
             return [];
         }
-        $modulePath = base_path() . $module . '/Model/';
+        $modulePath = app_path('/') . $module . '/Model/';
         if (!is_dir($modulePath)) {
             return [];
         }
