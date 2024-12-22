@@ -27,7 +27,7 @@ class AppTest extends Command
      */
     public function handle()
     {
-        $res = get_no_prefix_table_name('la_like_admin_user');
+        $res = storage_path();
         dd($res);
     }
 

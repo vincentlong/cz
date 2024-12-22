@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Common\Service\Generator\Core;
@@ -94,9 +95,9 @@ abstract class BaseGenerator
     public function __construct()
     {
         $this->basePath = base_path();
-        $this->rootPath = root_path(); // todo
+        $this->rootPath = storage_path(); // todo
         $this->templateDir = $this->basePath . 'Common/Service/Generator/stub/';
-        $this->generatorDir = $this->rootPath . 'runtime/generate/'; // todo
+        $this->generatorDir = $this->rootPath . 'generate/'; // todo
         $this->checkDir($this->generatorDir);
     }
 
