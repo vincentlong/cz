@@ -3,7 +3,6 @@
 namespace App\Adminapi\Controller\Decorate;
 
 use App\Adminapi\Controller\BaseAdminController;
-use App\Adminapi\Logic\Decorate\DecoratePageLogic;
 use App\Adminapi\Logic\Decorate\DecorateTabbarLogic;
 
 /**

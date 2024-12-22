@@ -5,7 +5,6 @@ namespace App\Common\Model\Pay;
 use App\Common\Enum\PayEnum;
 use App\Common\Model\BaseModel;
 use App\Common\Service\FileService;
-use Illuminate\Support\Facades\Config;
 
 
 class PayConfig extends BaseModel

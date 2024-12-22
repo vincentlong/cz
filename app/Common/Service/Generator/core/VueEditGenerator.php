@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Common\Service\Generator\Core;
 
-use App\Common\Enum\GeneratorEnum;
-
 /**
  * vue-edit生成器
  */
@@ -110,7 +108,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 continue;
             }
             $content .= '//@ts-ignore' . PHP_EOL;
-            $content .= 'data.' . $column['column_name'] . ' && ' .'(formData.' . $column['column_name'] . ' = String(data.' . $column['column_name'] . ').split(","))' . PHP_EOL;
+            $content .= 'data.' . $column['column_name'] . ' && ' . '(formData.' . $column['column_name'] . ' = String(data.' . $column['column_name'] . ').split(","))' . PHP_EOL;
         }
         if (!empty($content)) {
             $content = substr($content, 0, -1);
@@ -159,7 +157,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $this->getUpperCamelName(),
         ];
 
-        $templatePath =  $this->getTemplatePathOrigin('vue/other_item/editTreeLists');
+        $templatePath = $this->getTemplatePathOrigin('vue/other_item/editTreeLists');
         if (file_exists($templatePath)) {
             $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
         }
@@ -185,7 +183,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 continue;
             }
             $content .= '//@ts-ignore' . PHP_EOL;
-            $content .= 'formData.' . $column['column_name'] . ' = timeFormat(formData.' . $column['column_name'] . ','."'yyyy-mm-dd hh:MM:ss'".') ' . PHP_EOL;
+            $content .= 'formData.' . $column['column_name'] . ' = timeFormat(formData.' . $column['column_name'] . ',' . "'yyyy-mm-dd hh:MM:ss'" . ') ' . PHP_EOL;
         }
         if (!empty($content)) {
             $content = substr($content, 0, -1);
@@ -407,7 +405,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
     {
         $content = "";
         if ($this->isTreeCrud()) {
-            $content = "api". $this->getUpperCamelName(). 'Lists,';
+            $content = "api" . $this->getUpperCamelName() . 'Lists,';
         }
 
         if (empty($content)) {

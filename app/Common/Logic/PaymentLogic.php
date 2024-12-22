@@ -4,7 +4,6 @@ namespace App\Common\Logic;
 
 use App\Common\Enum\PayEnum;
 use App\Common\Enum\YesNoEnum;
-use App\Common\Model\Pay\PayWay;
 use App\Common\Model\Recharge\RechargeOrder;
 use App\Common\Model\User\User;
 use App\Common\Service\Pay\AliPayService;

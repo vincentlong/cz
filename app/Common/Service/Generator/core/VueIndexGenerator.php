@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Common\Service\Generator\Core;
 
-use App\Common\Enum\GeneratorEnum;
-
 /**
  * vue-index生成器
  */
@@ -204,7 +202,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             if (in_array($column['dict_type'], $isExist)) {
                 continue;
             }
-            $content .= $column['dict_type'] .",";
+            $content .= $column['dict_type'] . ",";
             $isExist[] = $column['dict_type'];
         }
         if (!empty($content)) {

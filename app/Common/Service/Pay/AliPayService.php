@@ -13,8 +13,8 @@
 // +----------------------------------------------------------------------
 namespace app\common\service\pay;
 
-use Alipay\EasySDK\Kernel\Factory;
 use Alipay\EasySDK\Kernel\Config;
+use Alipay\EasySDK\Kernel\Factory;
 use app\common\enum\PayEnum;
 use app\common\enum\user\UserTerminalEnum;
 use app\common\logic\PayNotifyLogic;
@@ -87,7 +87,7 @@ class AliPayService extends BasePayService
             //支付宝公钥
             $options->alipayPublicKey = $config['config']['ali_public_key'] ?? '';
         }
-        
+
         //证书模式
         if ($config['config']['mode'] == 'certificate') {
             //判断是否已经存在证书文件夹，不存在则新建
@@ -248,7 +248,7 @@ class AliPayService extends BasePayService
     public function wapPay($attach, $order)
     {
         $domain = request()->domain();
-        $url = $domain . '/mobile' . $order['redirect_url'] .'?id=' . $order['id'] . '&from='. $attach . '&checkPay=true';;
+        $url = $domain . '/mobile' . $order['redirect_url'] . '?id=' . $order['id'] . '&from=' . $attach . '&checkPay=true';;
         $result = $this->pay->wap()->optional('passback_params', $attach)->pay(
             '订单:' . $order['sn'],
             $order['sn'],

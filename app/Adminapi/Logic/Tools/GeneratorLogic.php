@@ -9,7 +9,6 @@ use App\Common\Model\Tools\GenerateTable;
 use App\Common\Service\Generator\GenerateService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 

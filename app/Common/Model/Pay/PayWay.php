@@ -4,7 +4,6 @@ namespace App\Common\Model\Pay;
 
 use App\Common\Model\BaseModel;
 use App\Common\Service\FileService;
-use Illuminate\Support\Facades\Config;
 
 class PayWay extends BaseModel
 {

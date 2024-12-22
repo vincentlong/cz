@@ -5,7 +5,6 @@ namespace App\Adminapi\Lists\Finance;
 use App\Adminapi\Lists\BaseAdminDataLists;
 use App\Common\Enum\User\AccountLogEnum;
 use App\Common\Lists\ListsSearchInterface;
-use App\Common\Model\User\UserAccountLog;
 use App\Common\Service\FileService;
 use Illuminate\Support\Facades\DB;
 
