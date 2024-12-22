@@ -35,6 +35,11 @@ class BaseModel extends Model
         return $date->timezone(Config::get('app.timezone'))->format('Y-m-d H:i:s');
     }
 
+    protected function getDeletedAtColumn()
+    {
+        return 'delete_time';
+    }
+
     /**
      * @notes 公共处理图片,补全路径
      * @param $value

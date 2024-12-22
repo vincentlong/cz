@@ -98,7 +98,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
 
 
     /**
-     * @notes 引用内容 TODO
+     * @notes 引用内容
      * @return string
      * @author 段誉
      * @date 2022/12/12 17:32
@@ -107,14 +107,14 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
     {
         $tpl = "";
         if ($this->deleteConfig['type']) {
-            $tpl = "use think\\Model\\concern\\SoftDelete;";
+            $tpl = "use Illuminate\\Database\\Eloquent\\SoftDeletes;";
         }
         return $tpl;
     }
 
 
     /**
-     * @notes 软删除引用 TODO
+     * @notes 软删除引用
      * @return string
      * @author 段誉
      * @date 2022/12/12 17:34
@@ -123,14 +123,14 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
     {
         $tpl = "";
         if ($this->deleteConfig['type']) {
-            $tpl = "use SoftDelete;";
+            $tpl = "use SoftDeletes;";
         }
         return $tpl;
     }
 
 
     /**
-     * @notes 软删除时间字段定义 TODO
+     * @notes 软删除时间字段定义
      * @return string
      * @author 段誉
      * @date 2022/12/12 17:38
@@ -140,7 +140,13 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
         $tpl = "";
         if ($this->deleteConfig['type']) {
             $deleteTime = $this->deleteConfig['name'];
-            $tpl = 'protected $deleteTime = ' . "'". $deleteTime ."';";
+            $tpl = "protected function getDeletedAtColumn()" . PHP_EOL .
+                $this->setBlankSpace(
+                    "{" . PHP_EOL .
+                    "    return '{$deleteTime}';" . PHP_EOL .
+                    "}", '    '
+                );
+
         }
         return $tpl;
     }

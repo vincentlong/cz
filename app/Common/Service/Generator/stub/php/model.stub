@@ -27,7 +27,9 @@ use App\Common\Model\BaseModel;
 class {UPPER_CAMEL_NAME} extends BaseModel
 {
     {DELETE_USE}
+
     protected $name = '{TABLE_NAME}';
+
     {DELETE_TIME}
 
     {RELATION_MODEL}
