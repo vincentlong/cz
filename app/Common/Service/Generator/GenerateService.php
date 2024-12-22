@@ -213,7 +213,7 @@ class GenerateService
     {
         $vars = ['file' => $this->zipTempName];
         Cache::set('curd_file_name' . $this->zipTempName, $this->zipTempName, 3600);
-        return url("adminapi/tools.generator/download", $vars);
+        return url()->query("adminapi/tools.generator/download", $vars);
     }
 
 }
