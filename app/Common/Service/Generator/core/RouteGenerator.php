@@ -90,7 +90,7 @@ class RouteGenerator extends BaseGenerator implements GenerateInterface
     {
         $dir = $this->basePath . $this->moduleName . '/Route/';
         if (!empty($this->classDir)) {
-            $dir .= $this->classDir . '/';
+            $dir .= Str::snake($this->classDir) . '/';
             $this->checkDir($dir);
         }
         return $dir;
@@ -108,7 +108,7 @@ class RouteGenerator extends BaseGenerator implements GenerateInterface
         $dir = $this->generatorDir . 'php/App/' . $this->moduleName . '/Route/';
         $this->checkDir($dir);
         if (!empty($this->classDir)) {
-            $dir .= $this->classDir . '/';
+            $dir .= Str::snake($this->classDir) . '/';
             $this->checkDir($dir);
         }
         return $dir;
