@@ -8,7 +8,6 @@ use App\Common\Model\Tools\GenerateColumn;
 use App\Common\Model\Tools\GenerateTable;
 use App\Common\Service\Generator\GenerateService;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
@@ -69,8 +68,7 @@ class GeneratorLogic extends BaseLogic
             // 格式化配置
             $options = self::formatConfigByTableData($params);
             // 更新主表-数据表信息
-            GenerateTable::update([
-                'id' => $params['id'],
+            GenerateTable::where('id', $params['id'])->update([
                 'table_name' => $params['table_name'],
                 'table_comment' => $params['table_comment'],
                 'template_type' => $params['template_type'],
@@ -88,8 +86,7 @@ class GeneratorLogic extends BaseLogic
 
             // 更新从表-数据表字段信息
             foreach ($params['table_column'] as $item) {
-                GenerateColumn::update([
-                    'id' => $item['id'],
+                GenerateColumn::where('id', $item['id'])->update([
                     'column_comment' => $item['column_comment'] ?? '',
                     'is_required' => $item['is_required'] ?? 0,
                     'is_insert' => $item['is_insert'] ?? 0,
