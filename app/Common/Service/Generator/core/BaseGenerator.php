@@ -274,7 +274,7 @@ abstract class BaseGenerator
      */
     public function setModuleName(string $moduleName): void
     {
-        $this->moduleName = strtolower($moduleName);
+        $this->moduleName = Str::studly($moduleName);
     }
 
 
@@ -286,7 +286,7 @@ abstract class BaseGenerator
      */
     public function setClassDir(string $classDir): void
     {
-        $this->classDir = $classDir;
+        $this->classDir = Str::studly($classDir);
     }
 
 
@@ -304,16 +304,19 @@ abstract class BaseGenerator
 
     /**
      * @notes 获取模板路径
-     * @param string $templateName
-     * @return string
-     * @author 段誉
-     * @date 2022/6/22 18:09
      */
     public function getTemplatePath(string $templateName): string
     {
-        return $this->templateDir . $templateName . '.stub';
+        return $this->templateDir . strtolower($templateName) . '.stub';
     }
 
+    /**
+     * @notes 获取模板路径
+     */
+    public function getTemplatePathOrigin(string $templateName): string
+    {
+        return $this->templateDir . $templateName . '.stub';
+    }
 
     /**
      * @notes 小驼峰命名

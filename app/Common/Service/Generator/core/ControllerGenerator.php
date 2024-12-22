@@ -1,26 +1,11 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
 declare(strict_types=1);
 
-namespace app\common\service\generator\core;
-
+namespace App\Common\Service\Generator\Core;
 
 /**
  * 控制器生成器
- * Class ControllerGenerator
- * @package app\common\service\generator\core
  */
 class ControllerGenerator extends BaseGenerator implements GenerateInterface
 {
@@ -61,7 +46,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
             $this->getNoteDateContent(),
         ];
 
-        $templatePath = $this->getTemplatePath('php/controller');
+        $templatePath = $this->getTemplatePath('php/Controller');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
@@ -79,9 +64,9 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
     public function getNameSpaceContent()
     {
         if (!empty($this->classDir)) {
-            return "namespace app\\" . $this->moduleName . "\\controller\\" . $this->classDir . ';';
+            return "namespace App\\" . $this->moduleName . "\\Controller\\" . $this->classDir . ';';
         }
-        return "namespace app\\" . $this->moduleName . "\\controller;";
+        return "namespace App\\" . $this->moduleName . "\\Controller;";
     }
 
 
@@ -93,20 +78,20 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getUseContent()
     {
-        if ($this->moduleName == 'adminapi') {
-            $tpl = "use app\\" . $this->moduleName . "\\controller\\BaseAdminController;" . PHP_EOL;
+        if ($this->moduleName == 'Adminapi') {
+            $tpl = "use App\\" . $this->moduleName . "\\Controller\\BaseAdminController;" . PHP_EOL;
         } else {
-            $tpl = "use app\\common\\controller\\BaseLikeAdminController;" . PHP_EOL;
+            $tpl = "use App\\Common\\Controller\\BaseLikeAdminController;" . PHP_EOL;
         }
 
         if (!empty($this->classDir)) {
-            $tpl .= "use app\\" . $this->moduleName . "\\lists\\" . $this->classDir . "\\" . $this->getUpperCamelName() . "Lists;" . PHP_EOL .
-                "use app\\" . $this->moduleName . "\\logic\\" . $this->classDir . "\\" . $this->getUpperCamelName() . "Logic;" . PHP_EOL .
-                "use app\\" . $this->moduleName . "\\validate\\" . $this->classDir . "\\" . $this->getUpperCamelName() . "Validate;";
+            $tpl .= "use App\\" . $this->moduleName . "\\Lists\\" . $this->classDir . "\\" . $this->getUpperCamelName() . "Lists;" . PHP_EOL .
+                "use App\\" . $this->moduleName . "\\Logic\\" . $this->classDir . "\\" . $this->getUpperCamelName() . "Logic;" . PHP_EOL .
+                "use App\\" . $this->moduleName . "\\validate\\" . $this->classDir . "\\" . $this->getUpperCamelName() . "Validate;";
         } else {
-            $tpl .= "use app\\" . $this->moduleName . "\\lists\\" . $this->getUpperCamelName() . "Lists;" . PHP_EOL .
-                "use app\\" . $this->moduleName . "\\logic\\" . $this->getUpperCamelName() . "Logic;" . PHP_EOL .
-                "use app\\" . $this->moduleName . "\\validate\\" . $this->getUpperCamelName() . "Validate;";
+            $tpl .= "use App\\" . $this->moduleName . "\\Lists\\" . $this->getUpperCamelName() . "Lists;" . PHP_EOL .
+                "use App\\" . $this->moduleName . "\\Logic\\" . $this->getUpperCamelName() . "Logic;" . PHP_EOL .
+                "use App\\" . $this->moduleName . "\\validate\\" . $this->getUpperCamelName() . "Validate;";
         }
 
         return $tpl;
@@ -151,7 +136,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
     public function getExtendsControllerContent()
     {
         $tpl = 'BaseAdminController';
-        if ($this->moduleName != 'adminapi') {
+        if ($this->moduleName != 'Adminapi') {
             $tpl = 'BaseLikeAdminController';
         }
         return $tpl;
@@ -166,7 +151,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getModuleGenerateDir()
     {
-        $dir = $this->basePath . $this->moduleName . '/controller/';
+        $dir = $this->basePath . $this->moduleName . '/Controller/';
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';
             $this->checkDir($dir);
@@ -183,7 +168,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getRuntimeGenerateDir()
     {
-        $dir = $this->generatorDir . 'php/app/' . $this->moduleName . '/controller/';
+        $dir = $this->generatorDir . 'php/App/' . $this->moduleName . '/Controller/';
         $this->checkDir($dir);
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';

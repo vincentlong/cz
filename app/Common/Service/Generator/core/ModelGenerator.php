@@ -1,26 +1,11 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
 declare(strict_types=1);
 
-namespace app\common\service\generator\core;
-
+namespace App\Common\Service\Generator\Core;
 
 /**
  * 模型生成器
- * Class ModelGenerator
- * @package app\common\service\generator\core
  */
 class ModelGenerator extends BaseGenerator implements GenerateInterface
 {
@@ -59,7 +44,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
             $this->getRelationModel(),
         ];
 
-        $templatePath = $this->getTemplatePath('php/model');
+        $templatePath = $this->getTemplatePath('php/Model');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
@@ -77,9 +62,9 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
     public function getNameSpaceContent()
     {
         if (!empty($this->classDir)) {
-            return "namespace app\\common\\model\\" . $this->classDir . ';';
+            return "namespace App\\Common\\Model\\" . $this->classDir . ';';
         }
-        return "namespace app\\common\\model;";
+        return "namespace App\\Common\\Model;";
     }
 
 
@@ -113,7 +98,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
 
 
     /**
-     * @notes 引用内容
+     * @notes 引用内容 TODO
      * @return string
      * @author 段誉
      * @date 2022/12/12 17:32
@@ -122,14 +107,14 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
     {
         $tpl = "";
         if ($this->deleteConfig['type']) {
-            $tpl = "use think\\model\\concern\\SoftDelete;";
+            $tpl = "use think\\Model\\concern\\SoftDelete;";
         }
         return $tpl;
     }
 
 
     /**
-     * @notes 软删除引用
+     * @notes 软删除引用 TODO
      * @return string
      * @author 段誉
      * @date 2022/12/12 17:34
@@ -145,7 +130,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
 
 
     /**
-     * @notes 软删除时间字段定义
+     * @notes 软删除时间字段定义 TODO
      * @return string
      * @author 段誉
      * @date 2022/12/12 17:38
@@ -162,7 +147,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
 
 
     /**
-     * @notes 关联模型
+     * @notes 关联模型 TODO
      * @return string
      * @author 段誉
      * @date 2022/12/14 14:46
@@ -198,7 +183,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
                 $config['local_key'],
             ];
 
-            $templatePath = $this->getTemplatePath('php/model/' . $config['type']);
+            $templatePath = $this->getTemplatePath('php/Model/' . $config['type']);
             if (!file_exists($templatePath)) {
                 continue;
             }
@@ -217,7 +202,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getModuleGenerateDir()
     {
-        $dir = $this->basePath . 'common/model/';
+        $dir = $this->basePath . 'Common/Model/';
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';
             $this->checkDir($dir);
@@ -234,7 +219,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getRuntimeGenerateDir()
     {
-        $dir = $this->generatorDir . 'php/app/common/model/';
+        $dir = $this->generatorDir . 'php/App/Common/Model/';
         $this->checkDir($dir);
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';

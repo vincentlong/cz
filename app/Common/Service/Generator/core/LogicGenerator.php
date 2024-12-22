@@ -1,26 +1,11 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
 declare(strict_types=1);
 
-namespace app\common\service\generator\core;
-
+namespace App\Common\Service\Generator\Core;
 
 /**
  * 逻辑生成器
- * Class LogicGenerator
- * @package app\common\service\generator\core
  */
 class LogicGenerator extends BaseGenerator implements GenerateInterface
 {
@@ -65,7 +50,7 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
             $this->getNoteDateContent(),
         ];
 
-        $templatePath = $this->getTemplatePath('php/logic');
+        $templatePath = $this->getTemplatePath('php/Logic');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
@@ -151,9 +136,9 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
     public function getNameSpaceContent()
     {
         if (!empty($this->classDir)) {
-            return "namespace app\\" . $this->moduleName . "\\logic\\" . $this->classDir . ';';
+            return "namespace App\\" . $this->moduleName . "\\Logic\\" . $this->classDir . ';';
         }
-        return "namespace app\\" . $this->moduleName . "\\logic;";
+        return "namespace App\\" . $this->moduleName . "\\Logic;";
     }
 
 
@@ -165,9 +150,9 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getUseContent()
     {
-        $tpl = "use app\\common\\model\\" . $this->getUpperCamelName() . ';';
+        $tpl = "use App\\Common\\Model\\" . $this->getUpperCamelName() . ';';
         if (!empty($this->classDir)) {
-            $tpl = "use app\\common\\model\\" . $this->classDir . "\\" . $this->getUpperCamelName() . ';';
+            $tpl = "use App\\Common\\Model\\" . $this->classDir . "\\" . $this->getUpperCamelName() . ';';
         }
         return $tpl;
     }
@@ -210,7 +195,7 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getModuleGenerateDir()
     {
-        $dir = $this->basePath . $this->moduleName . '/logic/';
+        $dir = $this->basePath . $this->moduleName . '/Logic/';
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';
             $this->checkDir($dir);
@@ -227,7 +212,7 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getRuntimeGenerateDir()
     {
-        $dir = $this->generatorDir . 'php/app/' . $this->moduleName . '/logic/';
+        $dir = $this->generatorDir . 'php/App/' . $this->moduleName . '/Logic/';
         $this->checkDir($dir);
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';
@@ -263,6 +248,5 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
             'content' => $this->content
         ];
     }
-
 
 }

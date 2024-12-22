@@ -1,31 +1,14 @@
 <?php
-// +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
-// +----------------------------------------------------------------------
-// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
-// +----------------------------------------------------------------------
-// | author: likeadminTeam
-// +----------------------------------------------------------------------
 
 declare(strict_types=1);
 
-namespace app\common\service\generator\core;
-
+namespace App\Common\Service\Generator\Core;
 
 /**
  * 验证器生成器
- * Class ValidateGenerator
- * @package app\common\service\generator\core
  */
 class ValidateGenerator extends BaseGenerator implements GenerateInterface
 {
-
-
     /**
      * @notes 替换变量
      * @return mixed|void
@@ -68,7 +51,7 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
             $this->getFiledContent(),
         ];
 
-        $templatePath = $this->getTemplatePath('php/validate');
+        $templatePath = $this->getTemplatePath('php/Validate');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
@@ -78,7 +61,7 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
 
 
     /**
-     * @notes 验证规则
+     * @notes 验证规则 TODO
      * @return mixed|string
      * @author 段誉
      * @date 2022/6/22 18:18
@@ -97,7 +80,7 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
 
 
     /**
-     * @notes 添加场景验证参数
+     * @notes 添加场景验证参数 TODO
      * @return string
      * @author 段誉
      * @date 2022/12/7 15:26
@@ -124,7 +107,7 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
 
 
     /**
-     * @notes 编辑场景验证参数
+     * @notes 编辑场景验证参数 TODO
      * @return string
      * @author 段誉
      * @date 2022/12/7 15:20
@@ -146,7 +129,7 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
 
 
     /**
-     * @notes 验证字段描述
+     * @notes 验证字段描述 TODO
      * @return string
      * @author 段誉
      * @date 2022/12/9 15:09
@@ -177,9 +160,9 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
     public function getNameSpaceContent()
     {
         if (!empty($this->classDir)) {
-            return "namespace app\\" . $this->moduleName . "\\validate\\" . $this->classDir . ';';
+            return "namespace App\\" . $this->moduleName . "\\Validate\\" . $this->classDir . ';';
         }
-        return "namespace app\\" . $this->moduleName . "\\validate;";
+        return "namespace App\\" . $this->moduleName . "\\Validate;";
     }
 
 
@@ -220,7 +203,7 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getModuleGenerateDir()
     {
-        $dir = $this->basePath . $this->moduleName . '/validate/';
+        $dir = $this->basePath . $this->moduleName . '/Validate/';
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';
             $this->checkDir($dir);
@@ -237,7 +220,7 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getRuntimeGenerateDir()
     {
-        $dir = $this->generatorDir . 'php/app/' . $this->moduleName . '/validate/';
+        $dir = $this->generatorDir . 'php/App/' . $this->moduleName . '/Validate/';
         $this->checkDir($dir);
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';
