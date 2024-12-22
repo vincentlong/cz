@@ -70,7 +70,7 @@ class GeneratorController extends BaseAdminController
         if (false === $result) {
             return $this->fail(GeneratorLogic::getError() ?: '下载失败');
         }
-        return download($result, 'likeadmin-curd.zip');
+        return response()->download($result, 'likeadmin-curd.zip');
     }
 
 
