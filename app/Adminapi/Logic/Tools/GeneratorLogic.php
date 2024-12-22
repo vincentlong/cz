@@ -45,9 +45,7 @@ class GeneratorLogic extends BaseLogic
                 // 添加主表基础信息
                 $generateTable = self::initTable($item, $adminId);
                 // 获取数据表字段信息
-               Log::debug('item', $item);
                 $column = self::getTableColumn($item['name']);
-                Log::debug('column', compact('column'));
                 // 添加表字段信息
                 self::initTableColumn($column, $generateTable['id']);
             }
@@ -287,7 +285,6 @@ class GeneratorLogic extends BaseLogic
                 ];
             })
             ->toArray();
-        Log::debug('insertColumns', $insertColumns);
         GenerateColumn::insert($insertColumns);
     }
 
