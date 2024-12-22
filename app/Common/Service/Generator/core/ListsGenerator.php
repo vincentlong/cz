@@ -131,7 +131,7 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getPackageNameContent()
     {
-        return !empty($this->classDir) ? $this->classDir : '';
+        return !empty($this->classDir) ? '\\' . $this->classDir : '';
     }
 
 
