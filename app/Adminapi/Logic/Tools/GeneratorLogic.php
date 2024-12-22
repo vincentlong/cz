@@ -20,7 +20,7 @@ class GeneratorLogic extends BaseLogic
      */
     public static function getTableDetail(array $params): array
     {
-        $detail = GenerateTable::with('table_column')
+        $detail = GenerateTable::with('tableColumn')
             ->findOrFail($params['id'])
             ->toArray();
 
@@ -162,7 +162,7 @@ class GeneratorLogic extends BaseLogic
         try {
             // 获取数据表信息
             $ids = is_array($params['id']) ? $params['id'] : [$params['id']];
-            $tables = GenerateTable::with(['table_column'])
+            $tables = GenerateTable::with(['tableColumn'])
                 ->whereIn('id', $ids)
                 ->get()->toArray();
 
@@ -204,7 +204,7 @@ class GeneratorLogic extends BaseLogic
         try {
             // 获取数据表信息
             $ids = is_array($params['id']) ? $params['id'] : [$params['id']];
-            $table = GenerateTable::with(['table_column'])
+            $table = GenerateTable::with(['tableColumn'])
                 ->whereIn('id', $ids)
                 ->findOrFail()->toArray();
 

@@ -3,7 +3,7 @@
 namespace App\Adminapi\Lists\Tools;
 
 use App\Adminapi\Lists\BaseAdminDataLists;
-use App\Adminapi\Lists\ListsSearchInterface;
+use App\Common\Lists\ListsSearchInterface;
 use App\Common\Model\Tools\GenerateTable;
 
 /**

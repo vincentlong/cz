@@ -22,7 +22,9 @@ class DataTableLists extends BaseAdminDataLists
         if (!empty($this->params['comment'])) {
             $sql .= "AND comment LIKE '%" . $this->params['comment'] . "%'";
         }
-        return DB::select($sql);
+        $results = DB::select($sql);
+        $array = json_decode(json_encode($results), true);
+        return $array;
     }
 
 
