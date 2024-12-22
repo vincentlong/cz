@@ -208,9 +208,9 @@ class GeneratorLogic extends BaseLogic
             $ids = is_array($params['id']) ? $params['id'] : [$params['id']];
             $table = GenerateTable::with(['tableColumn'])
                 ->whereIn('id', $ids)
-                ->findOrFail()->toArray();
+                ->firstOrFail()->toArray();
 
-            return app()->make(GenerateService::class)->preview($table);
+            return (new GenerateService())->preview($table);
         } catch (\Exception $e) {
             self::$error = $e->getMessage();
             return false;

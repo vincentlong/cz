@@ -1,7 +1,7 @@
 
     /**
      * @notes 关联{RELATION_NAME}
-     * @return \think\model\relation\HasMany
+     * @return \think\Model\relation\HasMany
      * @author {AUTHOR}
      * @date {DATE}
      */

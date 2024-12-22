@@ -15,13 +15,13 @@
 {NAMESPACE}
 
 
-use app\common\validate\BaseValidate;
+use App\Common\Validate\BaseValidate;
 
 
 /**
  * {CLASS_COMMENT}
  * Class {UPPER_CAMEL_NAME}Validate
- * @package app\{MODULE_NAME}\validate{PACKAGE_NAME}
+ * @package App\{MODULE_NAME}\Validate{PACKAGE_NAME}
  */
 class {UPPER_CAMEL_NAME}Validate extends BaseValidate
 {

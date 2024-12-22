@@ -216,7 +216,7 @@ class GenerateService
         $vars = ['file' => $this->zipTempName];
         cache('curd_file_name' . $this->zipTempName, $this->zipTempName, 3600);
         // todo
-        return (string)url("adminapi/tools.generator/download", $vars);
+        return url("adminapi/tools.generator/download", $vars);
     }
 
 }

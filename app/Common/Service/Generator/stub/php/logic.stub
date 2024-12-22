@@ -16,14 +16,14 @@
 
 
 {USE}
-use app\common\logic\BaseLogic;
+use App\Common\Logic\BaseLogic;
 use think\facade\Db;
 
 
 /**
  * {CLASS_COMMENT}
  * Class {UPPER_CAMEL_NAME}Logic
- * @package app\{MODULE_NAME}\logic{PACKAGE_NAME}
+ * @package App\{MODULE_NAME}\Logic{PACKAGE_NAME}
  */
 class {UPPER_CAMEL_NAME}Logic extends BaseLogic
 {

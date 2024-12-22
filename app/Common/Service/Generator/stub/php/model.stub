@@ -15,14 +15,14 @@
 {NAMESPACE}
 
 
-use app\common\model\BaseModel;
+use App\Common\Model\BaseModel;
 {USE}
 
 
 /**
  * {CLASS_COMMENT}
  * Class {UPPER_CAMEL_NAME}
- * @package app\common\model{PACKAGE_NAME}
+ * @package App\Common\Model{PACKAGE_NAME}
  */
 class {UPPER_CAMEL_NAME} extends BaseModel
 {

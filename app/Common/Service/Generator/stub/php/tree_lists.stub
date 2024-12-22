@@ -16,13 +16,13 @@
 
 
 {USE}
-use app\common\lists\ListsSearchInterface;
+use App\Common\Lists\ListsSearchInterface;
 
 
 /**
  * {CLASS_COMMENT}
  * Class {UPPER_CAMEL_NAME}Lists
- * @package app\{MODULE_NAME}\lists{PACKAGE_NAME}
+ * @package App\{MODULE_NAME}\Lists{PACKAGE_NAME}
  */
 class {UPPER_CAMEL_NAME}Lists extends {EXTENDS_LISTS} implements ListsSearchInterface
 {
