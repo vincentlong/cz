@@ -1,7 +1,7 @@
 <?php
 // error_reporting(0);
 include "model.php";
-include "YxEnv.php";
+include "FreddyEnv.php";
 
 define('install', true);
 define('INSTALL_ROOT', __DIR__);
