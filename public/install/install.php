@@ -13,7 +13,7 @@ $installDir = "install";
 $modelInstall = new installModel();
 
 // Env设置
-$yxEnv = new YxEnv();
+$freddyEnv = new FreddyEnv();
 
 // 检查是否有安装过
 $envFilePath = $modelInstall->getAppRoot() . '/.env';
@@ -22,10 +22,10 @@ if ($modelInstall->appIsInstalled() && in_array($step, [1, 2, 3, 4])) {
 }
 
 // 加载Example文件
-$yxEnv->load($modelInstall->getAppRoot() . '/.env.example');
+$freddyEnv->load($modelInstall->getAppRoot() . '/.env.example');
 
 //尝试生成.env
-$yxEnv->makeEnv($modelInstall->getAppRoot() . '/.env');
+$freddyEnv->makeEnv($modelInstall->getAppRoot() . '/.env');
 
 $post = [
     'host' => $_POST['host'] ?? '127.0.0.1',
@@ -76,7 +76,7 @@ if ($step == 4) {
 
         // 写配置文件
         if ($canNext) {
-            $yxEnv->putEnv($envFilePath, $post);
+            $freddyEnv->putEnv($envFilePath, $post);
             $modelInstall->mkLockFile();
         }
 

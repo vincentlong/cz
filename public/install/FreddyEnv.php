@@ -1,6 +1,6 @@
 <?php
 
-class YxEnv
+class FreddyEnv
 {
     protected $filePath = '';
 
@@ -20,7 +20,7 @@ class YxEnv
         if (!file_exists($file)) {
             try {
                 touch($file);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 return;
             }
         }
