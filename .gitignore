@@ -21,3 +21,6 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
+/public/mobile
+/public/pc
+/public/admin
