@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.9",
         "phpoffice/phpspreadsheet": "^3.3",
         "qcloud/cos-sdk-v5": "^2.6",
+        "qiniu/php-sdk": "^7.14",
         "tencentcloud/sms": "^3.0",
         "w7corp/easywechat": "^6.15"
     },
