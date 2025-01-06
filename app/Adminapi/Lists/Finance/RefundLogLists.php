@@ -1,15 +1,13 @@
 <?php
 // +----------------------------------------------------------------------
-// | likeadmin快速开发前后端分离管理后台（PHP版）
+// | likeadmin_laravel快速开发前后端分离管理后台
 // +----------------------------------------------------------------------
 // | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 开源版本可自由商用，可去除界面版权logo
-// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
-// | github下载：https://github.com/likeshop-github/likeadmin
-// | 访问官网：https://www.likeadmin.cn
-// | likeadmin团队 版权所有 拥有最终解释权
+// | likeadmin项目：https://gitee.com/likeshop_gitee/likeadmin
+// | likeadmin_laravel项目：https://github.com/1nFrastr/likeadmin_laravel
+// | 独立开发者博客：https://www.sodair.top
 // +----------------------------------------------------------------------
-// | author: likeadminTeam
+// | author: 1nFrastr x likeadminTeam
 // +----------------------------------------------------------------------
 
 namespace app\adminapi\lists\finance;
