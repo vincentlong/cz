@@ -17,13 +17,17 @@
 - 小程序：Vue3 + TypeScript + Uniapp + TailwindCSS
 - PC端：Vue3 + Nuxt
 
-### 设计目标
+## 设计目标
 
 1. 完全兼容likeadmin_php数据库表结构、API接口路由等
 
 2. 无需改动任何一行前端代码/任何一个表结构，即可无缝迁移到Laravel
 
-### 优先级排期
+## 部署教程
+
+详细部署安装教程：[点这里~](/doc/deploy.md)
+
+## 优先级排期
 
 - [x] 代码结构迁移：遵循 PSR-4
 - [x] 核心迁移：路由、中间件、响应封装器
@@ -77,22 +81,13 @@
 | 营销应用 | ✔ |                |    |                |      |
 | 财务管理 | ✔ |                |    |                |      |
 
-### 宝塔部署指南
 
-伪静态规则
-    
- ```
-# 静态文件路由
-location ~ ^/(admin|mobile|pc)/ {
-    try_files $uri $uri/ /$1/index.html;
-}
+### 联系方式
 
-# Laravel接口
-location / {
-    try_files $uri $uri/ /index.php?$query_string;
-}
-```
-
-移除PHP禁用函数symlink。然后执行命令：`php artisan storage:link`
-
-该命令创建了一个软链接到由public/storage指向storage/app/public目录，使后者目录下的文件可以通过HTTP访问。
+<table>
+<tr>
+    <td>
+        <img src="./doc/image/wechat-contact-crop.jpg" alt="qrcode"/>
+    </td>
+</tr>
+</table>
