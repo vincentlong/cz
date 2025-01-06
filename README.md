@@ -83,16 +83,14 @@
 伪静态规则
     
  ```
+# 静态文件路由
+location ~ ^/(admin|mobile|pc)/ {
+    try_files $uri $uri/ /$1/index.html;
+}
+
+# Laravel接口
 location / {
-  try_files $uri $uri/ /index.php?$query_string;
-}
-
-location /mobile {
-  try_files $uri $uri/ /mobile/index.html;
-}
-
-location /pc {
-  try_files $uri $uri/ /pc/index.html;
+ try_files $uri $uri/ /index.php?$query_string;
 }
 ```
 
