@@ -89,7 +89,7 @@ location ~ ^/(admin|mobile|pc)/ {
 
 # Laravel接口
 location / {
- try_files $uri $uri/ /index.php?$query_string;
+    try_files $uri $uri/ /index.php?$query_string;
 }
 ```
 
