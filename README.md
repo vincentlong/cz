@@ -23,9 +23,15 @@
 
 2. 无需改动任何一行前端代码/任何一个表结构，即可无缝迁移到Laravel
 
-## 部署教程
+## 部署运行
 
-详细部署安装教程：[点这里~](/doc/deploy.md)
+[管理后台演示入口](https://lara-s.sodair.top/admin/)
+
+[PC端前台演示入口](https://lara-s.sodair.top/pc/)
+
+[移动端H5演示入口](https://lara-s.sodair.top/mobile/)
+
+部署教程：[点这里~](/doc/deploy.md)
 
 ## 优先级排期
 
