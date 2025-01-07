@@ -27,6 +27,8 @@
 
 [管理后台演示入口](https://lara-s.sodair.top/admin/)
 
+> 演示账号密码为：demo / 123456
+
 [PC端前台演示入口](https://lara-s.sodair.top/pc/)
 
 [移动端H5演示入口](https://lara-s.sodair.top/mobile/)
