@@ -92,10 +92,12 @@
 
 ### 联系方式
 
+QQ交流群：1021148123
+
 <table>
 <tr>
-    <td>
-        <img src="./doc/image/wechat-contact-crop.jpg" alt="qrcode"/>
+    <td align="center">
+        <img src="./doc/image/qq-group-crop.jpg" alt="qrcode" width="200"/>
     </td>
 </tr>
 </table>
