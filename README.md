@@ -25,15 +25,15 @@
 
 ## 部署运行
 
-[管理后台演示入口](https://lara-s.sodair.top/admin/)
+[管理后台演示入口](/admin/)
 
 > 演示账号密码为：demo / 123456
 
-[PC端前台演示入口](https://lara-s.sodair.top/pc/)
+[PC端前台演示入口](/pc/)
 
-[移动端H5演示入口](https://lara-s.sodair.top/mobile/)
+[移动端H5演示入口](/mobile/)
 
-**详细部署教程👉**[点这里](/doc/deploy.md)
+**详细部署教程(/doc/deploy.md)
 
 ## 优先级排期
 
@@ -88,16 +88,3 @@
 | 通用数据 | ✔ |                |    |                |      |
 | 营销应用 | ✔ |                |    |                |      |
 | 财务管理 | ✔ |                |    |                |      |
-
-
-### 联系方式
-
-QQ交流群：1021148123
-
-<table>
-<tr>
-    <td align="center">
-        <img src="./doc/image/qq-group-crop.jpg" alt="qrcode" width="200"/>
-    </td>
-</tr>
-</table>
